@@ -39,8 +39,8 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.switch1 = this.add.rectangle(32,576,32,32, 0xFFFF0000).setOrigin(0);
-        this.switch2 = this.add.rectangle(576,32,32,32, 0xFFFF0000).setOrigin(0);
+        this.switch1 = this.add.rectangle(32,576,32,32, 0xFF0000).setOrigin(0);
+        this.switch2 = this.add.rectangle(576,32,32,32, 0xFF0000).setOrigin(0);
         this.player1 = this.physics.add.sprite(64, game.config.height/2,'p1').setOrigin(0);
         this.player2 = this.physics.add.sprite(576, game.config.height/2,'p2').setOrigin(0);
         this.orangeBox = this.physics.add.sprite(96, game.config.height/2,'obox').setOrigin(0);
@@ -68,10 +68,12 @@ class Play extends Phaser.Scene {
         this.switch2.body.immovable = true;
         this.switch2.body.allowGravity = false;
        this.checkSwitch =  this.physics.add.collider(this.switch1,this.orangeBox, ()=>{
+        this.switch1.fillColor = 0x00FF00;
         this.press1 = true
     });
        this.checkSwitch.overlapOnly = true;
        this.checkSwitch2 =  this.physics.add.collider(this.switch2,this.blueBox, ()=>{
+           this.switch2.fillColor = 0x00FF00;
         this.press2 = true
     });
        this.checkSwitch2.overlapOnly = true;

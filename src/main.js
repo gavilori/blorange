@@ -25,7 +25,7 @@ let config = {
             }
         }
     },
-    scene: [Play]
+    scene: [Move,Push,Switch,Play]
 };
 
 let game = new Phaser.Game(config);

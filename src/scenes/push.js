@@ -1,6 +1,6 @@
-class Play extends Phaser.Scene {
+class Push extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("pushScene");
     }
 
     preload() {
@@ -30,7 +30,7 @@ class Play extends Phaser.Scene {
          keyShift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
         this.textConfig = {
             fontFamily: "Verdana",
-            fontSize: '40px',
+            fontSize: '20px',
             color: '#dedede',
             align: 'center',
             padding: {
@@ -39,8 +39,9 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.switch1 = this.add.rectangle(32,576,32,32, 0xFF0000).setOrigin(0);
-        this.switch2 = this.add.rectangle(576,32,32,32, 0xFF0000).setOrigin(0);
+        this.add.text(game.config.width/2, game.config.height/2, "Orange pushes orange box", this.textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2-50, "Blue pushes blue box", this.textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2-200, "PRESS SPACE NEXT SCENE", this.textConfig).setOrigin(0.5);
         this.player1 = new Player(this, 64, game.config.height/2,'p1', 0, true).setOrigin(0);
         this.player2 = new Player(this, 576, game.config.height/2,'p2', 0, false).setOrigin(0);
         this.orangeBox = this.physics.add.sprite(96, game.config.height/2,'obox').setOrigin(0);
@@ -56,27 +57,12 @@ class Play extends Phaser.Scene {
 
         this.player2.alpha=(0.5);
         this.player1.alpha=(1);
-        this.middle = this.add.rectangle(game.config.width/2,320,32,640, 0x9966ff);
+
         
-        this.physics.add.existing(this.middle);
-        this.physics.add.existing(this.switch1);
-        this.physics.add.existing(this.switch2);
-        this.middle.body.immovable = true;
-        this.middle.body.allowGravity = false;
-        this.switch1.body.immovable = true;
-        this.switch1.body.allowGravity = false;
-        this.switch2.body.immovable = true;
-        this.switch2.body.allowGravity = false;
-       this.checkSwitch =  this.physics.add.collider(this.switch1,this.orangeBox, ()=>{
-        this.switch1.fillColor = 0x00FF00;
-        this.press1 = true
-    });
-       this.checkSwitch.overlapOnly = true;
-       this.checkSwitch2 =  this.physics.add.collider(this.switch2,this.blueBox, ()=>{
-           this.switch2.fillColor = 0x00FF00;
-        this.press2 = true
-    });
-       this.checkSwitch2.overlapOnly = true;
+
+
+
+
         
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
@@ -84,16 +70,8 @@ class Play extends Phaser.Scene {
 
     update() {
         console.log("THIS PLAYER IN CONTROL: "+this.screen);
-        if(this.press1&&this.press2){
-            this.player2.body.setVelocityX(0);
-            this.player1.body.setVelocityY(0);
-            this.player1.body.setVelocityX(0);
-            this.player2.body.setVelocityY(0);
-            if(!this.end.isPlaying){
-            this.end.play();
-            }
-            this.add.text(game.config.width/2, game.config.height/2, "END OF DEMO", this.textConfig).setOrigin(0);
-
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.scene.start('switchScene');    
         }
         if(!this.press1||!this.press2){
         if(Phaser.Input.Keyboard.JustDown(keyShift)){

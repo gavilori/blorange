@@ -85,6 +85,10 @@ class Play extends Phaser.Scene {
     update() {
         console.log("THIS PLAYER IN CONTROL: "+this.screen);
         if(this.press1&&this.press2){
+            this.player2.body.setVelocityX(0);
+            this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityX(0);
+            this.player2.body.setVelocityY(0);
             if(!this.end.isPlaying){
             this.end.play();
             }

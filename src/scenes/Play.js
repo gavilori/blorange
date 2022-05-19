@@ -4,13 +4,13 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('grid', './assets/bg.png');
-        this.load.image('bbox', './assets/box_2.png');
-        this.load.image('obox', './assets/box_1.png');
-        this.load.image('p1', './assets/player_1.png');
-        this.load.image('p2', './assets/player_2.png');
-        this.load.audio('switch', './assets/switch.wav');
-        this.load.audio('win', './assets/victory.wav');
+        this.load.image('grid', './assets/art/bg.png');
+        this.load.image('bbox', './assets/art/box_2.png');
+        this.load.image('obox', './assets/art/box_1.png');
+        this.load.image('p1', './assets/art/player_1.png');
+        this.load.image('p2', './assets/art/player_2.png');
+        this.load.audio('switch', './assets/audio/switch.wav');
+        this.load.audio('win', './assets/audio/victory.wav');
 
     }
 
@@ -41,8 +41,8 @@ class Play extends Phaser.Scene {
         }
         this.switch1 = this.add.rectangle(32,576,32,32, 0xFF0000).setOrigin(0);
         this.switch2 = this.add.rectangle(576,32,32,32, 0xFF0000).setOrigin(0);
-        this.player1 = this.physics.add.sprite(64, game.config.height/2,'p1').setOrigin(0);
-        this.player2 = this.physics.add.sprite(576, game.config.height/2,'p2').setOrigin(0);
+        this.player1 = new Player(this, 64, game.config.height/2,'p1', 0, true).setOrigin(0);
+        this.player2 = new Player(this, 576, game.config.height/2,'p2', 0, false).setOrigin(0);
         this.orangeBox = this.physics.add.sprite(96, game.config.height/2,'obox').setOrigin(0);
         this.orangeBox.body.allowGravity = false;
         this.blueBox = this.physics.add.sprite(544, game.config.height/2+30,'bbox').setOrigin(0);

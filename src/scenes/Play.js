@@ -9,6 +9,8 @@ class Play extends Phaser.Scene {
         this.load.image('obox', './assets/box_1.png');
         this.load.image('p1', './assets/player_1.png');
         this.load.image('p2', './assets/player_2.png');
+        this.load.audio('switch', './assets/switch.wav');
+        this.load.audio('win', './assets/victory.wav');
 
     }
 
@@ -74,17 +76,22 @@ class Play extends Phaser.Scene {
     });
        this.checkSwitch2.overlapOnly = true;
         
-        
+       this.switch = this.sound.add('switch');
+       this.end = this.sound.add('win');
     }
 
     update() {
         console.log("THIS PLAYER IN CONTROL: "+this.screen);
         if(this.press1&&this.press2){
+            if(!this.end.isPlaying){
+            this.end.play();
+            }
             this.add.text(game.config.width/2, game.config.height/2, "END OF DEMO", this.textConfig).setOrigin(0);
 
         }
         if(!this.press1||!this.press2){
         if(Phaser.Input.Keyboard.JustDown(keyShift)){
+            this.switch.play();
             console.log("IN THE SWITCH");
         switch(this.screen){
             case 1:
@@ -140,7 +147,7 @@ class Play extends Phaser.Scene {
         this.blueBox.body.setVelocityY(0);
 
 
-
+        
     }
 }
 }

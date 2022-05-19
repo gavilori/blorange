@@ -2,12 +2,18 @@
 
 // global variables
 let keySPACE;
+let keyLEFT;
+let keyRIGHT;
+let keyUP;
+let keyDOWN;
+let keyShift;
+let MOVE_SPEED 
 
 // main game object
 let config = {
     type: Phaser.WEBGL,
-    width: 840,
-    height: 525,
+    width: 640,
+    height: 640,
     autoCenter: true,
     physics: {
         default: 'arcade',

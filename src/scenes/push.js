@@ -48,7 +48,7 @@ class Push extends Phaser.Scene {
         this.orangeBox.body.allowGravity = false;
         this.blueBox = this.physics.add.sprite(544, game.config.height/2+30,'bbox').setOrigin(0);
         this.blueBox.body.allowGravity = false;
-        this.player1.body.immovable=true;
+        //this.player1.body.immovable=true;
         this.physics.add.collider(this.player1, this.orangeBox);
         this.physics.add.collider(this.player2, this.blueBox);
         this.players = this.add.group();

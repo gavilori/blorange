@@ -15,7 +15,10 @@ class Switch extends Phaser.Scene {
     }
 
     create() {
-        
+        this.cursorPos = 1;
+        this.cursorPosx = game.config.width/2;
+        this.cursorPosy = game.config.height/2-200;
+        this.menu = false;
         this.press1 = false;
         this.press2 = false;
         this.screen = 1;
@@ -29,6 +32,8 @@ class Switch extends Phaser.Scene {
          keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
          keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
          keyShift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.textConfig = {
             fontFamily: "Verdana",
             fontSize: '20px',
@@ -48,7 +53,6 @@ class Switch extends Phaser.Scene {
         this.orangeBox.body.allowGravity = false;
         this.blueBox = this.physics.add.sprite(544, game.config.height/2+30,'bbox').setOrigin(0);
         this.blueBox.body.allowGravity = false;
-        this.player1.body.immovable=true;
         this.physics.add.collider(this.player1, this.orangeBox);
         this.physics.add.collider(this.player2, this.blueBox);
         this.players = this.add.group();
@@ -87,6 +91,69 @@ class Switch extends Phaser.Scene {
 
     update() {
         console.log("THIS PLAYER IN CONTROL: "+this.screen);
+        if(Phaser.Input.Keyboard.JustDown(keyESC)){
+            
+            switch (this.menu) {
+                case false:
+                    this.createMenu();
+                    this.menu = true
+                    break;
+                case true:
+                    this.deleteMenu();
+                    this.menu = false;
+                    break;
+                default:
+                    break;
+            }   
+        }
+
+       
+
+        if(this.menu){
+            this.player2.body.setVelocityX(0);
+            this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityX(0);
+            this.player2.body.setVelocityY(0);
+            if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+            this.cursorPos--;
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<2){
+            this.cursorPos++;
+        }
+        switch(this.cursorPos){
+            case 1:
+                this.cursorPosy = game.config.height/2-200;
+                this.cursor.y = this.cursorPosy;
+                break;
+            case 2:
+                this.cursorPosy = game.config.height/2-100;
+                this.cursor.y = this.cursorPosy;
+                break;
+            // case 3:
+            //     this.cursorPosy = game.config.height/2;
+            //     this.cursor.y = this.cursorPosy;
+            //     break;
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            switch (this.cursorPos) {
+                case 1:
+                    this.scene.start(this);
+                    break;
+                case 2:
+                    this.scene.start('menuScene');
+                    break;
+                case 3:
+                    this.scene.start('moveScene');
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+
+    }
+    if(!this.menu){
         if(this.press1&&this.press2){
             this.player2.body.setVelocityX(0);
             this.player1.body.setVelocityY(0);
@@ -96,7 +163,9 @@ class Switch extends Phaser.Scene {
             this.end.play();
             }
             this.add.text(game.config.width/2, game.config.height/2+100, "END OF DEMO", this.textConfig).setOrigin(0.5);
-
+            this.time.delayedCall(2000, () => {
+                this.scene.start("menuScene");
+                }, null, this);
         }
         if(!this.press1||!this.press2){
         this.press1 = false;
@@ -119,6 +188,7 @@ class Switch extends Phaser.Scene {
                 break;
 
         }
+    
 
     }
 
@@ -163,4 +233,19 @@ class Switch extends Phaser.Scene {
         
     }
 }
+    }
+    createMenu(){
+
+        this.test = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0);
+        this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Restart", this.textConfig).setOrigin(0.5);
+        this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Menu", this.textConfig).setOrigin(0.5);
+        this.cursor = this.add.rectangle(this.cursorPosx, this.cursorPosy, 10, 10, 0xFF000).setOrigin(0);
+    }
+    
+    deleteMenu(){
+        this.test.alpha = 0;
+        this.restart.alpha = 0;
+        this.level.alpha = 0;
+        this.cursor.alpha = 0;
+    }
 }

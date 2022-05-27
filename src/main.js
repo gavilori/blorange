@@ -7,7 +7,10 @@ let keyRIGHT;
 let keyUP;
 let keyDOWN;
 let keyShift;
-let MOVE_SPEED 
+let keyESC;
+let keyENTER;
+let MOVE_SPEED;
+
 
 // main game object
 let config = {
@@ -25,7 +28,7 @@ let config = {
             }
         }
     },
-    scene: [Move,Push,Switch]
+    scene: [Menu,Move,Push,Switch]
 };
 
 let game = new Phaser.Game(config);

@@ -16,7 +16,7 @@ class Switch extends Phaser.Scene {
 
     create() {
         this.cursorPos = 1;
-        this.cursorPosx = game.config.width/2;
+        this.cursorPosx = game.config.width/2-150;
         this.cursorPosy = game.config.height/2-200;
         this.menu = false;
         this.press1 = false;
@@ -239,7 +239,7 @@ class Switch extends Phaser.Scene {
         this.test = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0);
         this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Restart", this.textConfig).setOrigin(0.5);
         this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Menu", this.textConfig).setOrigin(0.5);
-        this.cursor = this.add.rectangle(this.cursorPosx, this.cursorPosy, 10, 10, 0xFF000).setOrigin(0);
+        this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0.5);
     }
     
     deleteMenu(){

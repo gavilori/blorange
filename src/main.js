@@ -10,6 +10,10 @@ let keyShift;
 let keyESC;
 let keyENTER;
 let MOVE_SPEED;
+let level1 = "open";
+let level2 = "lock";
+let level3 = "lock";
+let level4 = "lock";
 
 
 // main game object
@@ -21,14 +25,14 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: {
                 x: 0,
                 y: 0
             }
         }
     },
-    scene: [Menu,Move,Push,Switch]
+    scene: [Menu,Move,Push,Switch,Level,Level1]
 };
 
 let game = new Phaser.Game(config);

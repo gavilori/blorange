@@ -1,11 +1,10 @@
-class Menu extends Phaser.Scene {
+class Level extends Phaser.Scene {
     constructor() {
-        super("menuScene");
+        super("levelScene");
     }
 
     preload() {
         this.load.image('grid', './assets/art/bg.png');
-        this.load.image('grid2', './assets/art/bg2.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
         this.load.image('p1', './assets/art/player_1.png');
@@ -19,7 +18,7 @@ class Menu extends Phaser.Scene {
     create() {
         this.cursorPos = 1;
         this.cursorPosx = game.config.width/2-150;
-        this.cursorPosy = game.config.height/2-200;
+        this.cursorPosy = 200;
         
         this.menu = false;
        
@@ -46,50 +45,55 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+       
+       
+        let levels = [];
+        levels[1] = level1;
+        levels[2] = level2;
+        levels[3] = level3;
+        levels[4] = level4;
+        let count  = 1;
+        this.selects = [];
+        for(let i=96;i<+608;i+=128){
+            this.add.text(i, 150, "level "+count, this.textConfig).setOrigin(0.5);
+            this.selects[count]=new Select(this, i, 160,64, 64, 0xFF0000,levels[count]).setOrigin(0);
+            this.add.text(i, 220, levels[count], this.textConfig).setOrigin(0);
+            count++;
+        }
         this.createMenu();
+        this.deleteMenu();
 
   
     }
 
     update() {
-        console.log("CURSOR POS"+this.cursorPos);
-        if(Phaser.Input.Keyboard.JustDown(keyESC)){
-            
-            switch (this.menu) {
-                case false:
-                    this.createMenu();
-                    this.menu = true
-                    break;
-                case true:
-                    this.deleteMenu();
-                    this.menu = false;
-                    break;
-                default:
-                    break;
-            }   
-        }
+        
 
 
 
         
-            if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+            if(Phaser.Input.Keyboard.JustDown(keyLEFT)&&this.cursorPos>1){
             this.cursorPos--;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+        if(Phaser.Input.Keyboard.JustDown(keyRIGHT)&&this.cursorPos<4){
             this.cursorPos++;
         }
         switch(this.cursorPos){
             case 1:
-                this.cursorPosy = game.config.height/2-200;
-                this.cursor.y = this.cursorPosy;
+                this.cursorPosx = this.selects[1].x;
+                this.cursor.x = this.cursorPosx;
                 break;
             case 2:
-                this.cursorPosy = game.config.height/2-100;
-                this.cursor.y = this.cursorPosy;
+                this.cursorPosx = this.selects[2].x;
+                this.cursor.x = this.cursorPosx;
                 break;
             case 3:
-                this.cursorPosy = game.config.height/2;
-                this.cursor.y = this.cursorPosy;
+                this.cursorPosx = this.selects[3].x;
+                this.cursor.x = this.cursorPosx;
+                break;
+            case 4:
+                this.cursorPosx = this.selects[4].x;
+                this.cursor.x = this.cursorPosx;
                 break;
 
         }
@@ -98,10 +102,10 @@ class Menu extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             switch (this.cursorPos) {
                 case 1:
-                    this.scene.start('moveScene');
+                    this.scene.start('level1Scene');
                     break;
                 case 2:
-                    this.scene.start('levelScene');
+                    this.scene.start('switchScene');
                     break;
                 case 3:
                     this.scene.start('moveScene');
@@ -126,8 +130,14 @@ createMenu(){
     this.test = this.add.rectangle(32, 32, 576, 576, 0x088F8F).setOrigin(0);
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Tutorial", this.textConfig).setOrigin(0.5);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Level select", this.textConfig).setOrigin(0.5);
-    this.credits = this.add.text(game.config.width/2, game.config.height/2, "Credits", this.textConfig).setOrigin(0.5);
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0.5);
+}
+
+deleteMenu(){
+    this.test.alpha = 0;
+    this.restart.alpha = 0;
+    this.level.alpha = 0;
+    
 }
 
 }

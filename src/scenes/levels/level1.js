@@ -56,8 +56,8 @@ class Level1 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 288, game.config.height-20,'p1', 0, true).setOrigin(0);
-        this.player2 = new Player(this, 288, game.config.height-20,'p2', 0, false).setOrigin(0);
+        this.player1 = new Player(this, 288, game.config.height-20,'p1', 0, true).setOrigin(0).setSize(25,25);;
+        this.player2 = new Player(this, 288, game.config.height-20,'p2', 0, false).setOrigin(0).setSize(25,25);;
 
 
         this.players = this.add.group();
@@ -71,8 +71,167 @@ class Level1 extends Phaser.Scene {
         this.physics.add.collider(this.players,this.boxC,);
         this.physics.add.collider(this.boxB,this.boxC,);
         this.physics.add.collider(this.boxO,this.boxC,);
-        this.physics.add.collider(this.player2,this.boxB);
-        this.physics.add.collider(this.player1,this.boxO);
+        this.physics.add.collider(this.player2,this.boxB,(player,box)=>{
+            let check = false;
+            if(player.body.touching.up){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].y==box.y-32&&this.boxesB[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==box.y-32&&this.boxesC[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.y-=32;
+                }
+            }else if(player.body.touching.down){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].y==box.y+32&&this.boxesB[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==box.y+32&&this.boxesC[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.y+=32;
+                }
+            }else if(player.body.touching.left){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==box.x-32&&this.boxesC[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.x-=32;
+                }
+            }else if(player.body.touching.right){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==box.x+32&&this.boxesB[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==box.x+32&&this.boxesC[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.x+=32;
+                }
+            }
+
+
+        });
+
+
+        this.physics.add.collider(this.player1,this.boxO,(playerTwo,boxTwo)=>{
+            let check = false;
+            if(playerTwo.body.touching.up){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==boxTwo.y-32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==boxTwo.y-32&&this.boxesC[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.y-=32;
+                }
+            }else if(playerTwo.body.touching.down){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==boxTwo.y+32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==boxTwo.y+32&&this.boxesC[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.y+=32;
+                }
+            }else if(playerTwo.body.touching.left){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==boxTwo.x-32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==boxTwo.x-32&&this.boxesC[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.x-=32;
+                }
+            }else if(playerTwo.body.touching.right){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==boxTwo.x+32&&this.boxesC[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.x+=32;
+                }
+            }
+        
+        
+        });
+
+
+
         
 
         let skip = [
@@ -126,40 +285,43 @@ class Level1 extends Phaser.Scene {
 
        this.boxesB = [];
        this.boxesO = [];
+       this.boxesC = [];
        this.switches = [];
 
 
-        for(let i = 0;i<=20;i++){ //column
-            for(let j = 0;j<=20;j++){ // row
-                console.log(i+","+j);
-                console.log(!skip[i][j]);
-                if(!skip[i][j]){
-                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
-                const_box.body.immovable = true;
-                this.boxC.add(const_box);
-                }else if(skip[i][j]=="blue"){
-                    this.boxesB.push( this.physics.add.sprite(i*32, j*32,'bbox').setOrigin(0)); 
-                    this.boxesB[this.boxesB.length-1].allowGravity=false;
-                    this.boxesB[this.boxesB.length-1].setSize(25,25);
-                    this.boxesB[this.boxesB.length-1].setDisplaySize(32,32);
-                    this.boxesB[this.boxesB.length-1].alpha = 0;
-                    this.boxB.add(this.boxesB[this.boxesB.length-1]);  
-                }else if(skip[i][j]=="switch"){
-                    let switchy = this.add.rectangle(i*32,j*32,32,32,0xFF0000).setOrigin(0)
-                    this.switches.push(switchy);
-                    this.physics.add.existing(switchy);
-                }
-                if(skip2[i][j]=="orange"){
-                    this.boxesO.push( this.physics.add.sprite(i*32, j*32,'obox').setOrigin(0)); 
-                    this.boxesO[this.boxesO.length-1].allowGravity=false;
-                    this.boxesO[this.boxesO.length-1].setSize(25,25);
-                    this.boxesO[this.boxesO.length-1].setDisplaySize(32,32);
-                    this.boxesO[this.boxesO.length-1].alpha = 1;
-                    this.boxO.add(this.boxesO[this.boxesO.length-1]);  
-                }
-                
+       for(let i = 0;i<=20;i++){ //column
+        for(let j = 0;j<=20;j++){ // row
+
+            if(!skip[i][j]){
+            let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
+            const_box.body.immovable = true;
+            this.boxC.add(const_box);
+            this.boxesC.push(const_box);
+            }else if(skip[i][j]=="blue"){
+                this.boxesB.push( this.physics.add.sprite(i*32, j*32,'bbox').setOrigin(0)); 
+                this.boxesB[this.boxesB.length-1].allowGravity=false;
+                this.boxesB[this.boxesB.length-1].setSize(25,25);
+                this.boxesB[this.boxesB.length-1].setDisplaySize(32,32);
+                this.boxesB[this.boxesB.length-1].alpha = 0;
+                this.boxesB[this.boxesB.length-1].body.immovable = true;
+                this.boxB.add(this.boxesB[this.boxesB.length-1]);  
+            }else if(skip[i][j]=="switch"){
+                let switchy = this.add.rectangle(i*32,j*32,32,32,0xFF0000).setOrigin(0)
+                this.switches.push(switchy);
+                this.physics.add.existing(switchy);
             }
+            if(skip2[i][j]=="orange"){
+                this.boxesO.push( this.physics.add.sprite(i*32, j*32,'obox').setOrigin(0)); 
+                this.boxesO[this.boxesO.length-1].allowGravity=false;
+                this.boxesO[this.boxesO.length-1].setSize(25,25);
+                this.boxesO[this.boxesO.length-1].setDisplaySize(32,32);
+                this.boxesO[this.boxesO.length-1].alpha = 1;
+                this.boxesO[this.boxesO.length-1].body.immovable = true ;
+                this.boxO.add(this.boxesO[this.boxesO.length-1]);  
+            }
+            
         }
+    }
         
 
         for(let i  =0; i<this.boxesO.length;i++){

@@ -56,8 +56,9 @@ class Level2 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 288, game.config.height-20,'p1', 0, true).setOrigin(0);
-        this.player2 = new Player(this, 288, game.config.height-20,'p2', 0, false).setOrigin(0);
+        this.player1 = new Player(this, 288, game.config.height-20,'p1', 0, true).setOrigin(0).setSize(25,25);
+        this.player2 = new Player(this, 320, 384,'p2', 0, false).setOrigin(0).setSize(25,25);
+        
 
 
         this.players = this.add.group();
@@ -71,78 +72,235 @@ class Level2 extends Phaser.Scene {
         this.physics.add.collider(this.players,this.boxC,);
         this.physics.add.collider(this.boxB,this.boxC,);
         this.physics.add.collider(this.boxO,this.boxC,);
-        this.physics.add.collider(this.player2,this.boxB);
-        this.physics.add.collider(this.player1,this.boxO);
+        this.physics.add.collider(this.player2,this.boxB,(player,box)=>{
+            let check = false;
+            if(player.body.touching.up){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].y==box.y-32&&this.boxesB[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==box.y-32&&this.boxesC[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.y-=32;
+                }
+            }else if(player.body.touching.down){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].y==box.y+32&&this.boxesB[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==box.y+32&&this.boxesC[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.y+=32;
+                }
+            }else if(player.body.touching.left){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==box.x-32&&this.boxesC[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.x-=32;
+                }
+            }else if(player.body.touching.right){
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==box.x+32&&this.boxesB[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==box.x+32&&this.boxesC[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                box.x+=32;
+                }
+            }
+
+
+        });
+        this.physics.add.collider(this.player1,this.boxO,(playerTwo,boxTwo)=>{
+            let check = false;
+            if(playerTwo.body.touching.up){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==boxTwo.y-32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==boxTwo.y-32&&this.boxesC[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.y-=32;
+                }
+            }else if(playerTwo.body.touching.down){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==boxTwo.y+32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==boxTwo.y+32&&this.boxesC[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.y+=32;
+                }
+            }else if(playerTwo.body.touching.left){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==boxTwo.x-32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==boxTwo.x-32&&this.boxesC[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.x-=32;
+                }
+            }else if(playerTwo.body.touching.right){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==boxTwo.x+32&&this.boxesC[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.x+=32;
+                }
+            }
+        
+        
+        });
         
 
         let skip = [
-            [ false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true],
-            [ false, false, false, "switch", false, false, false, false, false, false, false, "switch", false, false, false, false, false, false, true, true],
-            [ false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true],
-            [ false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false],
-            [ true, true, true, "blue", true, true, true, "blue", true, true, true, "blue", true, true, true, true, "blue", true, true, true],
-            [ true, true, true, "blue", true, true, true, "blue", true, true, true, "blue", true, true, true, true, "blue", true, true, true],
-            [ false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false, false, false],
-            [ false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false, false, true],
-            [ false, false, false, false, false, false, false, "switch", false, false, false, false, false, false, false, false, "switch", false, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true]
+            
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
+            [ true, true, true, true, true, false, true, "blue", true, true, true, true, true, true, true, false, true, true, true, true],
+            [ true, true, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, true],
+            [ true, true, true, true, false, true, true, false, "blue", true, "blue", true, true, false, true, false, true, true, true, true],
+            [ true, true, true, true, false, true, false, true, "blue", "blue", true, "blue", true, false, true, false, true, true, true, true],
+            [ true, true, true, true, false, true, true, true, true, "blue", true, "blue", true, false, true, false, true, true, true, true],
+            [ true, true, true, true, false, true, false, true, "blue", "blue", true, "blue", true, false, true, false, true, true, true, true],
+            [ true, true, true, true, false, true, true, false, "blue", true, "blue", true, true, false, true, false, true, true, true, true],
+            [ true, true, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, true],
+            [ true, true, true, true, true, false, true, "blue", true, true, true, true, true, true, true, false, true, true, true, true],
+            [ true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
 
 
         let skip2 = [
-            [ false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true],
-            [ false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, true],
-            [ false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true],
-            [ false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false],
-            [ true, true, true, "orange", true, true, true, "orange", true, true, true, "orange", true, true, true, true, "orange", true, true, true],
-            [ true, true, true, "orange", true, true, true, "orange", true, true, true, "orange", true, true, true, true, "orange", true, true, true],
-            [ false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false, false, false],
-            [ false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false, false, true],
-            [ false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true],
-            [ false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true]
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, "orange", true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
 
        this.boxesB = [];
        this.boxesO = [];
+       this.boxesC = [];
        this.switches = [];
 
 
         for(let i = 0;i<=20;i++){ //column
             for(let j = 0;j<=20;j++){ // row
-                console.log(i+","+j);
-                console.log(!skip[i][j]);
+
                 if(!skip[i][j]){
-                // let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
-                // const_box.body.immovable = true;
-                // this.boxC.add(const_box);
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                this.boxesC.push(const_box);
                 }else if(skip[i][j]=="blue"){
                     this.boxesB.push( this.physics.add.sprite(i*32, j*32,'bbox').setOrigin(0)); 
                     this.boxesB[this.boxesB.length-1].allowGravity=false;
                     this.boxesB[this.boxesB.length-1].setSize(25,25);
                     this.boxesB[this.boxesB.length-1].setDisplaySize(32,32);
                     this.boxesB[this.boxesB.length-1].alpha = 0;
+                    this.boxesB[this.boxesB.length-1].body.immovable = true;
                     this.boxB.add(this.boxesB[this.boxesB.length-1]);  
                 }else if(skip[i][j]=="switch"){
                     let switchy = this.add.rectangle(i*32,j*32,32,32,0xFF0000).setOrigin(0)
@@ -155,6 +313,7 @@ class Level2 extends Phaser.Scene {
                     this.boxesO[this.boxesO.length-1].setSize(25,25);
                     this.boxesO[this.boxesO.length-1].setDisplaySize(32,32);
                     this.boxesO[this.boxesO.length-1].alpha = 1;
+                    this.boxesO[this.boxesO.length-1].body.immovable = true ;
                     this.boxO.add(this.boxesO[this.boxesO.length-1]);  
                 }
                 
@@ -173,6 +332,11 @@ class Level2 extends Phaser.Scene {
         }
         for(let i  =0; i<this.boxesB.length;i++){
             this.boxesB[i].setDepth(1);
+            this.physics.add.collider(this.boxesB[i],this.player2,()=>{
+                if(this.player2.body.isTouching.Up){
+                    this.boxesB[i].y-=32;
+                }
+            });
             for(let j =0; j<this.boxesB.length;j++){
                 if(this.boxesB[i]==this.boxesB[j]){
                     continue;
@@ -181,33 +345,7 @@ class Level2 extends Phaser.Scene {
             }
         }
 
-        // for(let i  =0; i<this.switches.length;i++){
-        //     this.physics.add.existing(this.switches[i]);
-        // }
 
-
-        this.switches[0].alpha = 0;
-        this.switches[1].alpha = 0;
-        this.collide1 = this.physics.add.collider(this.boxesO,this.switches[2],()=>{
-            this.switch1 = true;
-            this.switches[2].fillColor = 0x7CFC00;
-        });
-        this.collide1.overlapOnly = true;
-        this.collide2 = this.physics.add.collider(this.boxesO,this.switches[3],()=>{
-            this.switch2 = true;
-            this.switches[3].fillColor = 0x7CFC00;
-        });
-        this.collide2.overlapOnly = true;
-        this.collide3 = this.physics.add.collider(this.boxesB,this.switches[0],()=>{
-            this.switch3 = true;
-            this.switches[0].fillColor = 0x7CFC00;
-        });
-       this.collide3.overlapOnly = true;
-        this.collide4 = this.physics.add.collider(this.boxesB,this.switches[1],()=>{
-            this.switch4 = true;
-            this.switches[1].fillColor = 0x7CFC00;
-        });
-        this.collide4.overlapOnly = true;
 
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
@@ -322,10 +460,7 @@ class Level2 extends Phaser.Scene {
                     for(let i = 0;i<this.boxesO.length;i++){
                         this.boxesO[i].alpha = 0;  
                     }
-                    this.switches[2].alpha = 0;
-                    this.switches[3].alpha = 0;
-                    this.switches[0].alpha = 1;
-                    this.switches[1].alpha = 1;
+                    
                     break;
                 case 2:
                     this.screen = 1;
@@ -340,10 +475,7 @@ class Level2 extends Phaser.Scene {
                     for(let i = 0;i<this.boxesO.length;i++){
                         this.boxesO[i].alpha = 1;  
                     }
-                    this.switches[2].alpha = 1;
-                    this.switches[3].alpha = 1;
-                    this.switches[0].alpha = 0;
-                    this.switches[1].alpha = 0;
+                    
                     break;
                 }
             }

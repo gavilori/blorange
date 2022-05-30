@@ -105,7 +105,7 @@ class Level extends Phaser.Scene {
                     this.scene.start('level1Scene');
                     break;
                 case 2:
-                    this.scene.start('switchScene');
+                    this.scene.start('level2Scene');
                     break;
                 case 3:
                     this.scene.start('moveScene');

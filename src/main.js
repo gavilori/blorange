@@ -11,9 +11,9 @@ let keyESC;
 let keyENTER;
 let MOVE_SPEED;
 let level1 = "open";
-let level2 = "lock";
-let level3 = "lock";
-let level4 = "lock";
+let level2 = "open";
+let level3 = "open";
+let level4 = "open";
 
 
 // main game object
@@ -32,7 +32,7 @@ let config = {
             }
         }
     },
-    scene: [Menu,Move,Push,Switch,Level,Level1]
+    scene: [Menu,Move,Push,Switch,Level,Level1,Level2]
 };
 
 let game = new Phaser.Game(config);

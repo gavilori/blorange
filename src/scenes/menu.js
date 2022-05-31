@@ -12,6 +12,7 @@ class Menu extends Phaser.Scene {
         this.load.image('p2', './assets/art/player_2.png');
         this.load.audio('switch', './assets/audio/switch.wav');
         this.load.audio('win', './assets/audio/victory.wav');
+        this.load.audio('switch', './assets/audio/switch_press.wav');
         this.load.image('cursor', './assets/art/Cursor.png');
 
     }

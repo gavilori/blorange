@@ -11,11 +11,14 @@ class Level2 extends Phaser.Scene {
         this.load.image('p2', './assets/art/player_2.png');
         this.load.image('const', './assets/art/constant.png');
         this.load.audio('switch', './assets/audio/switch.wav');
+        this.load.audio('press', './assets/audio/switch_press.wav');
         this.load.audio('win', './assets/audio/victory.wav');
 
     }
 
     create() {
+        this.boxState;
+        this.soundPress = this.sound.add('press');
         this.switch1 = false;
         this.switch2 = false;
         this.switch3 = false;
@@ -56,8 +59,9 @@ class Level2 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 288, game.config.height-20,'p1', 0, true).setOrigin(0).setSize(25,25);
+        this.player1 = new Player(this, 288, game.config.height-30,'p1', 0, true).setOrigin(0).setSize(25,25);
         this.player2 = new Player(this, 320, 384,'p2', 0, false).setOrigin(0).setSize(25,25);
+        //this.player1.body.immovable = true;
         
 
 
@@ -67,11 +71,12 @@ class Level2 extends Phaser.Scene {
         this.boxO = this.add.group();
         this.boxB = this.add.group();
         this.boxC = this.add.group();
+        this.switchesB = this.add.group();
         this.player2.alpha=(0);
         this.player1.alpha=(1);
-        this.physics.add.collider(this.players,this.boxC,);
-        this.physics.add.collider(this.boxB,this.boxC,);
-        this.physics.add.collider(this.boxO,this.boxC,);
+        this.physics.add.collider(this.players,this.boxC);
+        this.physics.add.collider(this.boxB,this.boxC);
+        this.physics.add.collider(this.boxO,this.boxC);
         this.physics.add.collider(this.player2,this.boxB,(player,box)=>{
             let check = false;
             if(player.body.touching.up){
@@ -150,114 +155,43 @@ class Level2 extends Phaser.Scene {
 
 
         });
-        this.physics.add.collider(this.player1,this.boxO,(playerTwo,boxTwo)=>{
-            let check = false;
-            if(playerTwo.body.touching.up){
-                for(let i  =0; i<this.boxesO.length;i++){
-                
-                    if(this.boxesO[i].y==boxTwo.y-32&&this.boxesO[i].x==boxTwo.x){
-                        check = true;
-                        break;
-                    }
-                }
-                for(let i  =0; i<this.boxesC.length;i++){
-                
-                    if(this.boxesC[i].y==boxTwo.y-32&&this.boxesC[i].x==boxTwo.x){
-                        check = true;
-                        break;
-                    }
-                }
-                if(!check){
-                boxTwo.y-=32;
-                }
-            }else if(playerTwo.body.touching.down){
-                for(let i  =0; i<this.boxesO.length;i++){
-                
-                    if(this.boxesO[i].y==boxTwo.y+32&&this.boxesO[i].x==boxTwo.x){
-                        check = true;
-                        break;
-                    }
-                }
-                for(let i  =0; i<this.boxesC.length;i++){
-                
-                    if(this.boxesC[i].y==boxTwo.y+32&&this.boxesC[i].x==boxTwo.x){
-                        check = true;
-                        break;
-                    }
-                }
-                if(!check){
-                boxTwo.y+=32;
-                }
-            }else if(playerTwo.body.touching.left){
-                for(let i  =0; i<this.boxesO.length;i++){
-                
-                    if(this.boxesO[i].x==boxTwo.x-32&&this.boxesO[i].y==boxTwo.y){
-                        check = true;
-                        break;
-                    }
-                }
-                for(let i  =0; i<this.boxesC.length;i++){
-                
-                    if(this.boxesC[i].x==boxTwo.x-32&&this.boxesC[i].y==boxTwo.y){
-                        check = true;
-                        break;
-                    }
-                }
-                if(!check){
-                boxTwo.x-=32;
-                }
-            }else if(playerTwo.body.touching.right){
-                for(let i  =0; i<this.boxesO.length;i++){
-                
-                    if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
-                        check = true;
-                        break;
-                    }
-                }
-                for(let i  =0; i<this.boxesC.length;i++){
-                
-                    if(this.boxesC[i].x==boxTwo.x+32&&this.boxesC[i].y==boxTwo.y){
-                        check = true;
-                        break;
-                    }
-                }
-                if(!check){
-                boxTwo.x+=32;
-                }
-            }
-        
-        
+        this.physics.add.collider(this.player1,this.boxO,(player1,box)=>{
+            box.body.setVelocityX(0);
+            box.body.setVelocityY(0);
+            player1.body.setVelocityX(0);
+            player1.body.setVelocityY(0);
         });
+
+   
         
 
         let skip = [
             
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
-            [ true, true, true, true, true, false, true, "blue", true, true, true, true, true, true, true, false, true, true, true, true],
-            [ true, true, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, true],
-            [ true, true, true, true, false, true, true, false, "blue", true, "blue", true, true, false, true, false, true, true, true, true],
-            [ true, true, true, true, false, true, false, true, "blue", "blue", true, "blue", true, false, true, false, true, true, true, true],
-            [ true, true, true, true, false, true, true, true, true, "blue", true, "blue", true, false, true, false, true, true, true, true],
-            [ true, true, true, true, false, true, false, true, "blue", "blue", true, "blue", true, false, true, false, true, true, true, true],
-            [ true, true, true, true, false, true, true, false, "blue", true, "blue", true, true, false, true, false, true, true, true, true],
-            [ true, true, true, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, true, true],
-            [ true, true, true, true, true, false, true, "blue", true, true, true, true, true, true, true, false, true, true, true, true],
-            [ true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true],
+            [ true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true],
+            [ true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, false, true, false, true],
+            [ true, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false, true],
+            [ true, true, false, true, true, false, true, "blue", true, true, true, true, true, true, "switch", false, true, true, false, true],
+            [ true, true, false, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, false, true],
+            [ true, true, false, true, false, true, true, false, "blue", true, "blue", true, true, false, true, false, true, true, false, true],
+            [ true, true, false, true, false, true, false, true, "blue", "blue", true, "blue", true, false, true, false, true, true, false, true],
+            [ true, true, false, true, false, true, true, true, true, "blue", true, "blue", true, false, true, false, false, false, false, true],
+            [ true, true, false, true, false, true, false, true, "blue", "blue", true, "blue", true, false, true, false, true, "switch", false, true],
+            [ true, true, false, true, false, true, true, false, "blue", true, "blue", true, true, false, true, false, true, true, false, true],
+            [ true, true, false, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, false, true],
+            [ true, true, false, true, true, false, true, "blue", true, true, true, true, true, true, "switch", false, true, true, false, true],
+            [ true, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false, true],
+            [ true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true],
+            [ true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true],
+            [ true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
 
 
         let skip2 = [
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
@@ -277,20 +211,46 @@ class Level2 extends Phaser.Scene {
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+        ];
+
+        this.press = [
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
 
        this.boxesB = [];
        this.boxesO = [];
        this.boxesC = [];
-       this.switches = [];
+       this.switchArrB = []
+       
 
 
         for(let i = 0;i<=20;i++){ //column
             for(let j = 0;j<=20;j++){ // row
 
                 if(!skip[i][j]){
-                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
                 const_box.body.immovable = true;
                 this.boxC.add(const_box);
                 this.boxesC.push(const_box);
@@ -304,8 +264,32 @@ class Level2 extends Phaser.Scene {
                     this.boxB.add(this.boxesB[this.boxesB.length-1]);  
                 }else if(skip[i][j]=="switch"){
                     let switchy = this.add.rectangle(i*32,j*32,32,32,0xFF0000).setOrigin(0)
-                    this.switches.push(switchy);
+                    this.switchArrB.push(switchy);
                     this.physics.add.existing(switchy);
+                    this.switchesB.add(switchy);
+                    switchy.alpha = 0;
+                    if(i==11&&j==17){
+                        switchy.alpha = 1;
+                    }
+                    this.physics.add.collider(this.boxB,switchy,(box,switch1)=>{
+                        switch1.fillColor = 0x00FF00;
+                        console.log("i"+i+": j:"+j);
+                        if(this.press[i][j] ==true){
+                        this.soundPress.play();
+                        }
+                        this.press[i][j] = false;
+            
+                    });
+                    this.collide = this.physics.add.collider(this.boxO,switchy,(box,switch1)=>{
+                        switch1.fillColor = 0x00FF00;
+                        console.log(i+":"+j);
+                        if(this.press[i][j] ==true){
+                        this.soundPress.play();
+                        }
+                        this.press[i][j] = false;
+            
+                    });
+                    this.collide.overlapOnly = true;
                 }
                 if(skip2[i][j]=="orange"){
                     this.boxesO.push( this.physics.add.sprite(i*32, j*32,'obox').setOrigin(0)); 
@@ -313,7 +297,7 @@ class Level2 extends Phaser.Scene {
                     this.boxesO[this.boxesO.length-1].setSize(25,25);
                     this.boxesO[this.boxesO.length-1].setDisplaySize(32,32);
                     this.boxesO[this.boxesO.length-1].alpha = 1;
-                    this.boxesO[this.boxesO.length-1].body.immovable = true ;
+                   // this.boxesO[this.boxesO.length-1].body.immovable = true ;
                     this.boxO.add(this.boxesO[this.boxesO.length-1]);  
                 }
                 
@@ -425,26 +409,109 @@ class Level2 extends Phaser.Scene {
     }
         
         if(!this.menu){
-            if(this.switch1&&this.switch2&&this.switch2&&this.switch3&&this.switch4){
+
+            console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
+            console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);
+            if(this.boxesO[0].x>this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
+                this.boxState = "right";
+            }else if(this.boxesO[0].x<this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
+                this.boxState = "left";
+            }else if((-1*(this.boxesO[0].x)+(this.player1.x)>=-16&&-1*(this.boxesO[0].x)+(this.player1.x)<=16)&&this.boxesO[0].y<this.player1.y){
+                this.boxState = "up";
+            }else if(this.boxesO[0].x>this.player1.x&&this.boxesO[0].y<this.player1.y){
+                this.boxState = "upright";
+            }else if(this.boxesO[0].x<this.player1.x&&this.boxesO[0].y<this.player1.y){
+                this.boxState = "upleft";
+            }else if((-1*(this.boxesO[0].x)+(this.player1.x)>=-16&&-1*(this.boxesO[0].x)+(this.player1.x)<=16)&&this.boxesO[0].y>this.player1.y){
+                this.boxState = "down";
+            }else if(this.boxesO[0].x<this.player1.x&&this.boxesO[0].y>this.player1.y){
+                this.boxState = "downleft";
+            }
+            else if(this.boxesO[0].x>this.player1.x&&this.boxesO[0].y>this.player1.y){
+                this.boxState = "downright";
+            }
+
+
+
+
+
+
+            console.log(this.boxState);
+            if(keySPACE.isDown){
+            switch (this.boxState) {
+                case "right":
+                    this.boxesO[0].setVelocityX(-50);
+                    //this.boxesO.setVelocityY();
+                    break;
+                
+                case "left":
+                    this.boxesO[0].setVelocityX(+50);
+                    //this.boxesO.setVelocityY();
+                    
+                    break;
+
+                case "up":
+                    //this.boxesO.setVelocityX(+50);
+                    this.boxesO[0].setVelocityY(+50);
+                    
+                    break;
+
+                case "down":
+                    //this.boxesO.setVelocityX(+50);
+                    this.boxesO[0].setVelocityY(-50);
+                    
+                    break;
+                
+                case "upright":
+                    this.boxesO[0].setVelocityX(-50);
+                    this.boxesO[0].setVelocityY(+50);
+                    
+                    break;
+                
+                case "upleft":
+                    this.boxesO[0].setVelocityX(+50);
+                    this.boxesO[0].setVelocityY(+50);
+                    
+                    break;
+
+                case "downleft":
+                    this.boxesO[0].setVelocityX(+50);
+                    this.boxesO[0].setVelocityY(-50);
+                    
+                    break;
+
+                case "downright":
+                    this.boxesO[0].setVelocityX(-50);
+                    this.boxesO[0].setVelocityY(-50);
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+        }else{
+            this.boxesO[0].body.setVelocityX(0);
+        this.boxesO[0].body.setVelocityY(0);
+        }
+
+            if(!this.press[6][14]&&!this.press[14][14]&&!this.press[11][17]){
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "LEVEL CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){
                     this.end.play();
                     }
                 this.time.delayedCall(2000, () => {
-                    level1 = "clear";
+                    level2 = "clear";
                     if(level2!="clear"){
-                    level2 = "open";
+                    level3 = "open";
                     }
                     this.scene.start("levelScene");
                     }, null, this);
 
             }
-            console.log("1:"+this.switch1+"2:"+this.switch2+"3:"+this.switch3+"4:"+this.switch4);
-            if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-                this.scene.start('pushScene');    
-            }
-        if(!this.press1||!this.press2){
+           
+         
+        
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){
@@ -460,7 +527,10 @@ class Level2 extends Phaser.Scene {
                     for(let i = 0;i<this.boxesO.length;i++){
                         this.boxesO[i].alpha = 0;  
                     }
-                    
+                    for(let i = 0;i<this.switchArrB.length;i++){
+                        this.switchArrB[i].alpha = 1;  
+                    }
+                    this.switchArrB[this.switchArrB.length-2].alpha = 0;
                     break;
                 case 2:
                     this.screen = 1;
@@ -475,11 +545,15 @@ class Level2 extends Phaser.Scene {
                     for(let i = 0;i<this.boxesO.length;i++){
                         this.boxesO[i].alpha = 1;  
                     }
+                    for(let i = 0;i<this.switchArrB.length;i++){
+                        this.switchArrB[i].alpha = 0;  
+                    }
+                    this.switchArrB[this.switchArrB.length-2].alpha = 1;
                     
                     break;
                 }
             }
-        }
+        
 
         if(keyDOWN.isDown&&this.screen == 1){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
@@ -512,17 +586,12 @@ class Level2 extends Phaser.Scene {
         }else{
             this.player2.body.setVelocityX(0);
         }
+
+        
    
 
 
-        // for(let i = 0;i<this.boxesB.length;i++){
-        //     this.boxesB[i].body.setVelocityX(0);
-        //     this.boxesB[i].body.setVelocityY(0);
-        // }
-        // for(let i = 0;i<this.boxesO.length;i++){
-        //     this.boxesO[i].body.setVelocityX(0);
-        //     this.boxesO[i].body.setVelocityY(0);
-        // }
+        
     }
 }
 

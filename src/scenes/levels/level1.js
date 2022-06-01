@@ -402,8 +402,6 @@ class Level1 extends Phaser.Scene {
             this.tooltip = false;
             this.deleteTooltip();
             }
-            
-
         }
 
        

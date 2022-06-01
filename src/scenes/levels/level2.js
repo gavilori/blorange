@@ -27,6 +27,7 @@ class Level2 extends Phaser.Scene {
         this.cursorPosx = game.config.width/2-150;
         this.cursorPosy = game.config.height/2-200;
         this.menu = false;
+        this.tooltip = true;
         this.press1 = false;
         this.press2 = false;
         this.screen = 1;
@@ -302,7 +303,34 @@ class Level2 extends Phaser.Scene {
                 }
                 
             }
+
+            
         }
+
+        for(let i = -1;i<0;i++){ //column
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                this.boxesC.push(const_box);
+            }
+        }
+
+       
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite(640, j*32,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                this.boxesC.push(const_box);
+            }
+
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite(j*32, -32,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                this.boxesC.push(const_box);
+            }
+        
         
 
         for(let i  =0; i<this.boxesO.length;i++){
@@ -333,6 +361,7 @@ class Level2 extends Phaser.Scene {
 
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
+       this.createTooltip();
     }
 
     update() {
@@ -353,7 +382,15 @@ class Level2 extends Phaser.Scene {
             }   
         }
 
-       
+        if(this.tooltip){
+            if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.menu = false;
+            this.tooltip = false;
+            this.deleteTooltip();
+            }
+            
+
+        }
 
         if(this.menu){
             for(let i = 0;i<this.boxesB.length;i++){
@@ -408,7 +445,7 @@ class Level2 extends Phaser.Scene {
 
     }
         
-        if(!this.menu){
+        if(!this.menu&&!this.tooltip){
 
             console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
             console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);
@@ -437,7 +474,7 @@ class Level2 extends Phaser.Scene {
 
 
             console.log(this.boxState);
-            if(keySPACE.isDown){
+            if(keySPACE.isDown&&this.screen == 1){
             switch (this.boxState) {
                 case "right":
                     this.boxesO[0].setVelocityX(-50);
@@ -615,5 +652,24 @@ deleteMenu(){
     this.level.alpha = 0;
     this.menuText.alpha = 0;
     this.cursor.alpha = 0;
+}
+
+
+createTooltip(){
+    this.help = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-350, "Push & Pull", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-100, "press SPACE with ORANGE to pull the box towards you", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2, "use BLUE to push the boxes", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
+
+}
+
+deleteTooltip(){
+    
+    this.help.destroy();
+    this.name.destroy();
+    this.helpText1.destroy();
+    this.helpText2.destroy();
+    this.helpText3.destroy();
 }
 }

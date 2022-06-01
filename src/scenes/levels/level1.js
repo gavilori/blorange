@@ -24,6 +24,7 @@ class Level1 extends Phaser.Scene {
         this.cursorPosx = game.config.width/2-150;
         this.cursorPosy = game.config.height/2-200;
         this.menu = false;
+        this.tooltip = true;
         this.press1 = false;
         this.press2 = false;
         this.screen = 1;
@@ -56,8 +57,8 @@ class Level1 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 288, game.config.height-20,'p1', 0, true).setOrigin(0).setSize(25,25);;
-        this.player2 = new Player(this, 288, game.config.height-20,'p2', 0, false).setOrigin(0).setSize(25,25);;
+        this.player1 = new Player(this, 288, game.config.height-80,'p1', 0, true).setOrigin(0).setSize(25,25);;
+        this.player2 = new Player(this, 288, game.config.height-80,'p2', 0, false).setOrigin(0).setSize(25,25);;
 
 
         this.players = this.add.group();
@@ -373,6 +374,8 @@ class Level1 extends Phaser.Scene {
 
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
+
+       this.createTooltip();
     }
 
     update() {
@@ -391,6 +394,16 @@ class Level1 extends Phaser.Scene {
                 default:
                     break;
             }   
+        }
+
+        if(this.tooltip){
+            if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.menu = false;
+            this.tooltip = false;
+            this.deleteTooltip();
+            }
+            
+
         }
 
        
@@ -464,10 +477,7 @@ class Level1 extends Phaser.Scene {
                     }, null, this);
 
             }
-            console.log("1:"+this.switch1+"2:"+this.switch2+"3:"+this.switch3+"4:"+this.switch4);
-            if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-                this.scene.start('pushScene');    
-            }
+           
         if(!this.press1||!this.press2){
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
@@ -576,5 +586,25 @@ deleteMenu(){
     this.level.alpha = 0;
     this.menuText.alpha = 0;
     this.cursor.alpha = 0;
+}
+
+createTooltip(){
+    this.help = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-350, "Fill In The Blanks", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-200, "Press shift two SWITCH between characters", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "use BLUE to push the Blue boxes", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText3 = this.add.text(game.config.width/2, game.config.height/2, "push the boxes onto all the SWITCHES to win", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText4 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
+
+}
+
+deleteTooltip(){
+    
+    this.help.destroy();
+    this.name.destroy();
+    this.helpText1.destroy();
+    this.helpText2.destroy();
+    this.helpText3.destroy();
+    this.helpText4.destroy();
 }
 }

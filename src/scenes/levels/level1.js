@@ -16,6 +16,7 @@ class Level1 extends Phaser.Scene {
     }
 
     create() {
+        this.soundPress = this.sound.add('press');
         this.switch1 = false;
         this.switch2 = false;
         this.switch3 = false;
@@ -32,6 +33,7 @@ class Level1 extends Phaser.Scene {
         this.grid_blue.alpha = 0;
         this.grid_orange = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid').setOrigin(0);
         this.grid_orange.alpha = 1
+        this.grid = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid3').setOrigin(0);
 
 
          // define keys
@@ -44,6 +46,7 @@ class Level1 extends Phaser.Scene {
          keyShift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
          keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
          keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+         keyTAB =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
          
         this.textConfig = {
             fontFamily: "Verdana",
@@ -352,25 +355,39 @@ class Level1 extends Phaser.Scene {
         this.switches[0].alpha = 0;
         this.switches[1].alpha = 0;
         this.collide1 = this.physics.add.collider(this.boxesO,this.switches[2],()=>{
+            if(this.switch1 ==false){
+                this.soundPress.play();
+                }
             this.switch1 = true;
             this.switches[2].fillColor = 0x7CFC00;
         });
         this.collide1.overlapOnly = true;
         this.collide2 = this.physics.add.collider(this.boxesO,this.switches[3],()=>{
+            if(this.switch2 ==false){
+                this.soundPress.play();
+                }
             this.switch2 = true;
             this.switches[3].fillColor = 0x7CFC00;
         });
         this.collide2.overlapOnly = true;
         this.collide3 = this.physics.add.collider(this.boxesB,this.switches[0],()=>{
+            if(this.switch3 ==false){
+                this.soundPress.play();
+                }
             this.switch3 = true;
             this.switches[0].fillColor = 0x7CFC00;
         });
        this.collide3.overlapOnly = true;
         this.collide4 = this.physics.add.collider(this.boxesB,this.switches[1],()=>{
+            if(this.switch4 ==false){
+                    this.soundPress.play();
+                    }
             this.switch4 = true;
             this.switches[1].fillColor = 0x7CFC00;
         });
         this.collide4.overlapOnly = true;
+
+       
 
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
@@ -379,8 +396,10 @@ class Level1 extends Phaser.Scene {
     }
 
     update() {
+        this.grid_orange.tilePositionX+=5;
+        this.grid_blue.tilePositionX+=5;
  
-        if(Phaser.Input.Keyboard.JustDown(keyESC)){
+        if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             
             switch (this.menu) {
                 case false:
@@ -459,7 +478,7 @@ class Level1 extends Phaser.Scene {
 
     }
         
-        if(!this.menu){
+        if(!this.menu&&!this.tooltip){
             if(this.switch1&&this.switch2&&this.switch2&&this.switch3&&this.switch4){
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "LEVEL CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
@@ -477,6 +496,20 @@ class Level1 extends Phaser.Scene {
             }
            
         if(!this.press1||!this.press2){
+            if(Phaser.Input.Keyboard.JustDown(keyTAB)){
+                switch (this.grid.alpha) {
+                    case 1:
+                        this.grid.alpha = 0;
+                        break;
+
+                    case 0:
+                        this.grid.alpha = 1;
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){

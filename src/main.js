@@ -9,11 +9,12 @@ let keyDOWN;
 let keyShift;
 let keyESC;
 let keyENTER;
+let keyTAB;
 let MOVE_SPEED;
-let level1 = "open";
-let level2 = "open";
+let level1 = "clear";
+let level2 = "clear";
 let level3 = "open";
-let level4 = "open";
+let level4 = "lock";
 
 
 // main game object

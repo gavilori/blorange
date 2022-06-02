@@ -12,6 +12,9 @@ class Level extends Phaser.Scene {
         this.load.audio('switch', './assets/audio/switch.wav');
         this.load.audio('win', './assets/audio/victory.wav');
         this.load.image('cursor', './assets/art/Cursor.png');
+        this.load.image('clear', './assets/art/level_clear.png');
+        this.load.image('open', './assets/art/level_unclear.png');
+        this.load.image('lock', './assets/art/level_locked.png');
 
     }
 
@@ -54,12 +57,19 @@ class Level extends Phaser.Scene {
         levels[4] = level4;
         let count  = 1;
         this.selects = [];
-        for(let i=96;i<+608;i+=128){
+        for(let i=96;i<608;i+=128){
             this.add.text(i, 150, "level "+count, this.textConfig).setOrigin(0.5);
-            this.selects[count]=new Select(this, i, 160,64, 64, 0xFF0000,levels[count]).setOrigin(0);
+            if(levels[count]=="clear"){
+                this.selects[count]=this.add.sprite(i,160,'clear').setOrigin(0);
+            }else if(levels[count]=="open"){
+                this.selects[count]=this.add.sprite(i,160,'open').setOrigin(0);
+            }else if(levels[count]=="lock"){
+                this.selects[count]=this.add.sprite(i,160,'lock').setOrigin(0);
+            }
             this.add.text(i, 220, levels[count], this.textConfig).setOrigin(0);
             count++;
         }
+
         this.createMenu();
         this.deleteMenu();
 

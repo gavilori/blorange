@@ -6,6 +6,7 @@ class Menu extends Phaser.Scene {
     preload() {
         this.load.image('grid', './assets/art/bg.png');
         this.load.image('grid2', './assets/art/bg2.png');
+        this.load.image('grid3', './assets/art/grid.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
         this.load.image('p1', './assets/art/player_1.png');
@@ -14,6 +15,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('win', './assets/audio/victory.wav');
         this.load.audio('switch', './assets/audio/switch_press.wav');
         this.load.image('cursor', './assets/art/Cursor.png');
+        this.load.audio('press', './assets/audio/switch_press.wav');
 
     }
 

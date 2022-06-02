@@ -35,6 +35,8 @@ class Level2 extends Phaser.Scene {
         this.grid_blue.alpha = 0;
         this.grid_orange = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid').setOrigin(0);
         this.grid_orange.alpha = 1
+        this.grid = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid3').setOrigin(0);
+
 
 
          // define keys
@@ -47,6 +49,7 @@ class Level2 extends Phaser.Scene {
          keyShift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
          keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
          keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+         keyTAB =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
          
         this.textConfig = {
             fontFamily: "Verdana",
@@ -365,8 +368,10 @@ class Level2 extends Phaser.Scene {
     }
 
     update() {
+        this.grid_orange.tilePositionX+=5;
+        this.grid_blue.tilePositionX+=5;
  
-        if(Phaser.Input.Keyboard.JustDown(keyESC)){
+        if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             
             switch (this.menu) {
                 case false:
@@ -446,6 +451,20 @@ class Level2 extends Phaser.Scene {
     }
         
         if(!this.menu&&!this.tooltip){
+            if(Phaser.Input.Keyboard.JustDown(keyTAB)){
+                switch (this.grid.alpha) {
+                    case 1:
+                        this.grid.alpha = 0;
+                        break;
+
+                    case 0:
+                        this.grid.alpha = 1;
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
 
             console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
             console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);

@@ -567,7 +567,7 @@ class Level2 extends Phaser.Scene {
                     }
                 this.time.delayedCall(2000, () => {
                     level2 = "clear";
-                    if(level2!="clear"){
+                    if(level3!="clear"){
                     level3 = "open";
                     }
                     this.scene.start("levelScene");

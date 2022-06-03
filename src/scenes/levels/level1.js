@@ -456,8 +456,9 @@ class Level1 extends Phaser.Scene {
 
         //toggle the menu
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
-            
+            this.select.play();
             switch (this.menu) {
+                
                 case false:
                     this.createMenu();
                     this.menu = true

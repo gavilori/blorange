@@ -82,7 +82,7 @@ class Menu extends Phaser.Scene {
                 this.move.play();
             this.cursorPos--;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<2){
             this.move.play();
             this.cursorPos++;
         }
@@ -107,14 +107,12 @@ class Menu extends Phaser.Scene {
             this.select.play();
             switch (this.cursorPos) {
                 case 1:
-                    this.scene.start('moveScene');
+                    this.scene.start('levelScene');
                     break;
                 case 2:
                     this.scene.start('levelScene');
                     break;
-                case 3:
-                    this.scene.start('moveScene');
-                    break;
+
             
                 default:
                     break;
@@ -133,9 +131,8 @@ class Menu extends Phaser.Scene {
 createMenu(){
 
     this.test = this.add.rectangle(32, 32, 576, 576, 0x088F8F).setOrigin(0);
-    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Tutorial", this.textConfig).setOrigin(0.5);
-    this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Level select", this.textConfig).setOrigin(0.5);
-    this.credits = this.add.text(game.config.width/2, game.config.height/2, "Credits", this.textConfig).setOrigin(0.5);
+    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Level Select", this.textConfig).setOrigin(0.5);
+    this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Credits", this.textConfig).setOrigin(0.5);
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
 }
 

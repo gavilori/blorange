@@ -364,7 +364,7 @@ class Level2 extends Phaser.Scene {
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
-            
+            this.select.play();
             switch (this.menu) {
                 case false:
                     this.createMenu();

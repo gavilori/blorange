@@ -506,8 +506,8 @@ class Level3 extends Phaser.Scene {
     }
 
     update() {
-        this.grid_orange.tilePositionX+=5;
-        this.grid_blue.tilePositionX+=5;
+        this.grid_orange.tilePositionX+=SCROLL_SPEED;
+        this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             

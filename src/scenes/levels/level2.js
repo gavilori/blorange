@@ -685,9 +685,10 @@ deleteMenu(){
 
 createTooltip(){
     this.help = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-350, "Push & Pull", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-250, "Push & Pull", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-100, "press SPACE with ORANGE to pull the box towards you", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText2 = this.add.text(game.config.width/2, game.config.height/2, "use BLUE to push the boxes", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
 
 }
@@ -699,5 +700,6 @@ deleteTooltip(){
     this.helpText1.destroy();
     this.helpText2.destroy();
     this.helpText3.destroy();
+    this.helpText4.destroy();
 }
 }

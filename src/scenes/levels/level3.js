@@ -773,9 +773,13 @@ deleteMenu(){
 
 createTooltip(){
     this.help = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-350, "Push & Pull", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-100, "press SPACE with ORANGE to pull the box towards you", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2, "use BLUE to push the boxes", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-250, "Slip & Slide", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-200, "Boxes are consistent between both scenes.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "Characters can only push their own color boxes.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText5 = this.add.text(game.config.width/2, game.config.height/2+10, "Orange Player", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2+40, "Slide in a direction with arrow keys", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText7 = this.add.text(game.config.width/2, game.config.height/2+60, "stops when hitting a solid object.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
 
 }
@@ -787,14 +791,12 @@ deleteTooltip(){
     this.helpText1.destroy();
     this.helpText2.destroy();
     this.helpText3.destroy();
-}
-
-fixPos(player,box){
-    let x1 = player.x;
-    let x2 = box.x;
-    let rem = x2 - x1;
-    this.player1.x = x2;
-    this.player1.x -=rem;
+    this.helpText4.destroy();
+    this.helpText5.destroy();
+    this.helpText6.destroy();
+    this.helpText7.destroy();
 
 }
+
+
 }

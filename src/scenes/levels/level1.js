@@ -446,8 +446,8 @@ class Level1 extends Phaser.Scene {
 
     update() {
         //scroll the bg
-        this.grid_orange.tilePositionX+=5;
-        this.grid_blue.tilePositionX+=5;
+        this.grid_orange.tilePositionX+=SCROLL_SPEED;
+        this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
 
 

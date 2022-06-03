@@ -415,7 +415,7 @@ class Level3 extends Phaser.Scene {
             
                     });
                 }else if(skip[i][j]=="spike"){
-                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0);
+                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0).setSize(25,25);
                     this.spikes.add(spiky)
                 }
                 if(skip2[i][j]=="orange"){

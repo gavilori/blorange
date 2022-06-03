@@ -11,6 +11,7 @@ let keyESC;
 let keyENTER;
 let keyTAB;
 let MOVE_SPEED;
+let SCROLL_SPEED = 2;
 let level1 = "clear";
 let level2 = "clear";
 let level3 = "open";

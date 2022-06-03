@@ -7,6 +7,7 @@ class Menu extends Phaser.Scene {
         this.load.image('grid', './assets/art/bg.png');
         this.load.image('grid2', './assets/art/bg2.png');
         this.load.image('grid3', './assets/art/grid.png');
+        this.load.image('bg3', './assets/art/bg3.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
         this.load.image('gray', './assets/art/gray_box.png');
@@ -32,16 +33,18 @@ class Menu extends Phaser.Scene {
         this.load.audio('scroll', './assets/audio/move.wav');
         this.load.audio('lock', './assets/audio/locked.wav');
         this.load.audio('select', './assets/audio/select.wav');
+        this.load.audio('level_bgm','./assets/audio/final-game-play.mp3')
     }
 
     create() {
+        bgm = this.sound.add('level_bgm');
         this.cursorPos = 1;
         this.cursorPosx = game.config.width-200;
         this.cursorPosy = game.config.height/2-300;
         
         this.menu = false;
        
-        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'grid').setOrigin(0);
+        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3').setOrigin(0);
 
          // define keys
          this.MOVE_SPEED = 100;
@@ -72,6 +75,7 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
+        this.grid.tilePositionX +=2;
         console.log("CURSOR POS"+this.cursorPos);
         
 

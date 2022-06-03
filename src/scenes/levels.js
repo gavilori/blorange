@@ -15,7 +15,7 @@ class Level extends Phaser.Scene {
         this.menu = false;
        
         //create bg
-        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'grid').setOrigin(0);
+        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3').setOrigin(0);
 
          // define keys
          this.MOVE_SPEED = 100;
@@ -93,6 +93,7 @@ class Level extends Phaser.Scene {
     }
 
     update() {
+        this.grid.tilePositionX +=2;
 
 
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){

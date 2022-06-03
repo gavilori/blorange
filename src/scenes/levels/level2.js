@@ -24,7 +24,7 @@ class Level2 extends Phaser.Scene {
         this.grid_blue.alpha = 0;
         this.grid_orange = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid').setOrigin(0);
         this.grid_orange.alpha = 1
-        this.grid = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid3').setOrigin(0);
+        this.grid = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid3').setOrigin(0).setAlpha(0);
 
 
 
@@ -355,6 +355,12 @@ class Level2 extends Phaser.Scene {
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');
+       if(!bgm.isPlaying){
+        
+        bgm.setLoop(true);
+        bgm.play();
+       }
+      
        this.createTooltip();
 
     }
@@ -430,12 +436,17 @@ class Level2 extends Phaser.Scene {
             this.select.play();
             switch (this.cursorPos) {
                 case 1:
+                    
                     this.scene.start(this);
                     break;
                 case 2:
+                    bgm.setLoop(false);
+            bgm.stop();
                     this.scene.start('levelScene');
                     break;
                 case 3:
+                    bgm.setLoop(false);
+            bgm.stop();
                     this.scene.start('menuScene');
                     break;
             
@@ -547,6 +558,8 @@ class Level2 extends Phaser.Scene {
         }
 
             if(!this.press[6][14]&&!this.press[14][14]&&!this.press[11][17]){
+                bgm.setLoop(false);
+            bgm.stop();
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "LEVEL CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){

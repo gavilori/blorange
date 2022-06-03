@@ -52,7 +52,7 @@ class Level3 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 32, game.config.height-64,'p1', 0, true).setOrigin(0).setSize(25,25);
+        this.player1 = new Player(this, 32, game.config.height-64,'p1', 0, true).setOrigin(0).setSize(30,30);
         this.player2 = new Player(this, 32, game.config.height-64,'p2', 0, false).setOrigin(0).setSize(25,25);
         //this.player1.body.immovable = true;
         
@@ -64,6 +64,7 @@ class Level3 extends Phaser.Scene {
         this.boxO = this.add.group();
         this.boxB = this.add.group();
         this.boxC = this.add.group();
+        this.spikes = this.add.group();
         this.switchesB = this.add.group();
         this.switchesO = this.add.group();
         this.player2.alpha=(0);
@@ -77,6 +78,13 @@ class Level3 extends Phaser.Scene {
                 for(let i  =0; i<this.boxesB.length;i++){
                 
                     if(this.boxesB[i].y==box.y-32&&this.boxesB[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==box.y-32&&this.boxesO[i].x==box.x){
                         check = true;
                         break;
                     }
@@ -99,6 +107,13 @@ class Level3 extends Phaser.Scene {
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==box.y+32&&this.boxesO[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].y==box.y+32&&this.boxesC[i].x==box.x){
@@ -113,6 +128,13 @@ class Level3 extends Phaser.Scene {
                 for(let i  =0; i<this.boxesB.length;i++){
                 
                     if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==box.x-32&&this.boxesO[i].y==box.y){
                         check = true;
                         break;
                     }
@@ -135,6 +157,13 @@ class Level3 extends Phaser.Scene {
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==box.x+32&&this.boxesO[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].x==box.x+32&&this.boxesC[i].y==box.y){
@@ -149,7 +178,124 @@ class Level3 extends Phaser.Scene {
 
 
         });
+        this.physics.add.collider(this.player1,this.boxO,(playerTwo,boxTwo)=>{
+            let check = false;
+            playerTwo.body.setVelocityX(0);
+            playerTwo.body.setVelocityY(0);
+            if(playerTwo.body.touching.up){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==boxTwo.y-32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].y==boxTwo.y-32&&this.boxesB[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==boxTwo.y-32&&this.boxesC[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.y-=32;
+                }
+            }else if(playerTwo.body.touching.down){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==boxTwo.y+32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].y==boxTwo.y+32&&this.boxesB[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].y==boxTwo.y+32&&this.boxesC[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                boxTwo.y+=32;
+                }
+            }else if(playerTwo.body.touching.left){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==boxTwo.x-32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x-32&&this.boxesB[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==boxTwo.x-32&&this.boxesC[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                    playerTwo.x = boxTwo.x;
+                boxTwo.x-=32;
+                }
+            }else if(playerTwo.body.touching.right){
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x+32&&this.boxesB[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
+                
+                    if(this.boxesC[i].x==boxTwo.x+32&&this.boxesC[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                if(!check){
+                    this.fixPos(playerTwo,boxTwo);
+                boxTwo.x+=32;
+                
+                }
+            }
+        
+        
+        });
         this.physics.add.collider(this.player1,this.boxB    );
+        this.physics.add.collider(this.player2,this.boxO    );
+        this.spikeCollide = this.physics.add.collider(this.players,this.spikes,()=>{
+            this.scene.start(this);
+        });
+
+        this.spikeCollide.overlapOnly = true;
 
    
         
@@ -234,20 +380,21 @@ class Level3 extends Phaser.Scene {
        this.switchArrB = []
        this.switchArrO = []
        
+       
 
 
         for(let i = 0;i<=20;i++){ //column
             for(let j = 0;j<=20;j++){ // row
 
                 if(!skip[i][j]){
-                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(32,32);
                 const_box.body.immovable = true;
                 this.boxC.add(const_box);
                 this.boxesC.push(const_box);
                 }else if(skip[i][j]=="blue"){
                     this.boxesB.push( this.physics.add.sprite(i*32, j*32,'gray').setOrigin(0)); 
                     this.boxesB[this.boxesB.length-1].allowGravity=false;
-                    this.boxesB[this.boxesB.length-1].setSize(25,25);
+                    this.boxesB[this.boxesB.length-1].setSize(32,32);
                     this.boxesB[this.boxesB.length-1].setDisplaySize(32,32);
                    
                     this.boxesB[this.boxesB.length-1].body.immovable = true;
@@ -268,15 +415,16 @@ class Level3 extends Phaser.Scene {
             
                     });
                 }else if(skip[i][j]=="spike"){
-                    this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0)
+                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0);
+                    this.spikes.add(spiky)
                 }
                 if(skip2[i][j]=="orange"){
                     this.boxesO.push( this.physics.add.sprite(i*32, j*32,'obox').setOrigin(0)); 
                     this.boxesO[this.boxesO.length-1].allowGravity=false;
-                    this.boxesO[this.boxesO.length-1].setSize(25,25);
+                    this.boxesO[this.boxesO.length-1].setSize(32,32);
                     this.boxesO[this.boxesO.length-1].setDisplaySize(32,32);
                     this.boxesO[this.boxesO.length-1].alpha = 1;
-                   // this.boxesO[this.boxesO.length-1].body.immovable = true ;
+                   this.boxesO[this.boxesO.length-1].body.immovable = true ;
                     this.boxO.add(this.boxesO[this.boxesO.length-1]);  
                 }else if(skip2[i][j]=="switch"){
                     let switchy = this.add.rectangle(i*32,j*32,32,32,0xFF0000).setOrigin(0)
@@ -539,16 +687,16 @@ class Level3 extends Phaser.Scene {
         this.boxesO[0].body.setVelocityY(0);
         }
 
-            if(!this.press[6][14]&&!this.press[14][14]&&!this.press[11][17]){
+            if(!this.press[2][11]&&!this.press[12][4]&&!this.press[15][18]&&!this.press[18][11]&&!this.press[12][4]){
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "LEVEL CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){
                     this.end.play();
                     }
                 this.time.delayedCall(2000, () => {
-                    level2 = "clear";
+                    level3 = "clear";
                     if(level2!="clear"){
-                    level3 = "open";
+                    level4 = "open";
                     }
                     this.scene.start("levelScene");
                     }, null, this);
@@ -557,7 +705,7 @@ class Level3 extends Phaser.Scene {
            
          
         
-            if(Phaser.Input.Keyboard.JustDown(keyShift)){
+            if(Phaser.Input.Keyboard.JustDown(keyShift)&&!this.moving){
                 this.switch.play();
                 switch(this.screen){
                 case 1:
@@ -572,7 +720,7 @@ class Level3 extends Phaser.Scene {
                         this.boxesB[i].alpha = 1;  
                     }
                     for(let i = 0;i<this.boxesO.length;i++){
-                        this.boxesO[i].alpha = 0;  
+                        this.boxesO[i].setTexture('gray'); 
                     }
                     for(let i = 0;i<this.switchArrB.length;i++){
                         this.switchArrB[i].alpha = 1;  
@@ -594,7 +742,7 @@ class Level3 extends Phaser.Scene {
                         
                     }
                     for(let i = 0;i<this.boxesO.length;i++){
-                        this.boxesO[i].alpha = 1;  
+                        this.boxesO[i].setTexture('obox');
                     }
                     for(let i = 0;i<this.switchArrB.length;i++){
                         this.switchArrB[i].alpha = 0;  
@@ -649,8 +797,9 @@ class Level3 extends Phaser.Scene {
         if(this.player1.body.velocity.x==0&&this.player1.body.velocity.y==0){
             this.moving = false;
         }
-        console.log("X vel: "+this.player1.body.velocity.x+" Y vel: "+this.player1.body.velocity.y);
-        console.log("I AM MOVING: "+this.moving);
+        // console.log("X vel: "+this.player1.body.velocity.x+" Y vel: "+this.player1.body.velocity.y);
+        // console.log("I AM MOVING: "+this.moving);
+        console.log(this.player1.x);
 
         
    
@@ -699,5 +848,14 @@ deleteTooltip(){
     this.helpText1.destroy();
     this.helpText2.destroy();
     this.helpText3.destroy();
+}
+
+fixPos(player,box){
+    let x1 = player.x;
+    let x2 = box.x;
+    let rem = x2 - x1;
+    this.player1.x = x2;
+    this.player1.x -=rem;
+
 }
 }

@@ -176,6 +176,13 @@ class Level1 extends Phaser.Scene {
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x-32&&this.boxesB[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].y==boxTwo.y-32&&this.boxesC[i].x==boxTwo.x){
@@ -190,6 +197,13 @@ class Level1 extends Phaser.Scene {
                 for(let i  =0; i<this.boxesO.length;i++){
                 
                     if(this.boxesO[i].y==boxTwo.y+32&&this.boxesO[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x-32&&this.boxesB[i].y==boxTwo.y){
                         check = true;
                         break;
                     }
@@ -212,6 +226,13 @@ class Level1 extends Phaser.Scene {
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x-32&&this.boxesB[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].x==boxTwo.x-32&&this.boxesC[i].y==boxTwo.y){
@@ -226,6 +247,13 @@ class Level1 extends Phaser.Scene {
                 for(let i  =0; i<this.boxesO.length;i++){
                 
                     if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x-32&&this.boxesB[i].y==boxTwo.y){
                         check = true;
                         break;
                     }

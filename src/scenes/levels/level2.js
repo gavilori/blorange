@@ -243,7 +243,7 @@ class Level2 extends Phaser.Scene {
             for(let j = 0;j<=20;j++){ // row
 
                 if(!skip[i][j]){
-                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(32,32);
                 const_box.body.immovable = true;
                 this.boxC.add(const_box);
                 this.boxesC.push(const_box);

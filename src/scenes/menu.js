@@ -29,7 +29,9 @@ class Menu extends Phaser.Scene {
         this.load.audio('win', './assets/audio/victory.wav');
         this.load.audio('switch', './assets/audio/switch.wav');
         this.load.audio('press', './assets/audio/switch_press.wav');
-
+        this.load.audio('scroll', './assets/audio/move.wav');
+        this.load.audio('lock', './assets/audio/locked.wav');
+        this.load.audio('select', './assets/audio/select.wav');
     }
 
     create() {
@@ -63,35 +65,25 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
         this.createMenu();
+        this.move = this.sound.add('scroll');
+        this.select = this.sound.add('select');
 
   
     }
 
     update() {
         console.log("CURSOR POS"+this.cursorPos);
-        if(Phaser.Input.Keyboard.JustDown(keyESC)){
-            
-            switch (this.menu) {
-                case false:
-                    this.createMenu();
-                    this.menu = true
-                    break;
-                case true:
-                    this.deleteMenu();
-                    this.menu = false;
-                    break;
-                default:
-                    break;
-            }   
-        }
+        
 
 
 
         
             if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+                this.move.play();
             this.cursorPos--;
         }
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+            this.move.play();
             this.cursorPos++;
         }
         switch(this.cursorPos){
@@ -112,6 +104,7 @@ class Menu extends Phaser.Scene {
 
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.select.play();
             switch (this.cursorPos) {
                 case 1:
                     this.scene.start('moveScene');

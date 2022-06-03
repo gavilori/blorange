@@ -86,6 +86,9 @@ class Level extends Phaser.Scene {
         this.createMenu();
         this.deleteMenu();
 
+        this.move = this.sound.add('scroll');
+        this.lock = this.sound.add('lock');
+        this.select = this.sound.add('select');
   
     }
 
@@ -95,10 +98,12 @@ class Level extends Phaser.Scene {
 
 
         // state machine to track where the cursor is
-            if(Phaser.Input.Keyboard.JustDown(keyLEFT)&&this.cursorPos>1){
+        if(Phaser.Input.Keyboard.JustDown(keyLEFT)&&this.cursorPos>1){
+            this.move.play();
             this.cursorPos--;
         }
         if(Phaser.Input.Keyboard.JustDown(keyRIGHT)&&this.cursorPos<4){
+            this.move.play();
             this.cursorPos++;
         }
         switch(this.cursorPos){
@@ -125,14 +130,39 @@ class Level extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             switch (this.cursorPos) {
                 case 1:
+                    if(level1=="clear"||level1=="open"){
+                        this.select.play();
                     this.scene.start('level1Scene');
+                    }else{
+                        this.lock.play();
+                    }
                     break;
                 case 2:
-                    this.scene.start('level2Scene');
+                    if(level2=="clear"||level2=="open"){
+                        this.select.play();
+                        this.scene.start('level2Scene');
+                        }else{
+                            this.lock.play();
+                        }
                     break;
                 case 3:
-                    this.scene.start('level3Scene');
+                    if(level3=="clear"||level3=="open"){
+                        this.select.play();
+                        this.scene.start('level3Scene');
+                        }else{
+                            this.lock.play();
+                        }
                     break;
+
+                case 4:
+                    if(level4=="clear"||level4=="open"){
+                        this.select.play();
+                        this.scene.start('level4Scene');
+                        }else{
+                            console.log("PLAYING SOUND");
+                            this.lock.play();
+                        }
+                    break;    
             
                 default:
                     break;

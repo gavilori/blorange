@@ -255,7 +255,7 @@ class Level3 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                    playerTwo.x = boxTwo.x;
+                    
                 boxTwo.x-=32;
                 }
             }else if(playerTwo.body.touching.right){
@@ -281,7 +281,7 @@ class Level3 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                    this.fixPos(playerTwo,boxTwo);
+                    
                 boxTwo.x+=32;
                 
                 }
@@ -502,6 +502,8 @@ class Level3 extends Phaser.Scene {
 
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
+       this.move = this.sound.add('scroll');
+       this.select = this.sound.add('select');
        this.createTooltip();
     }
 
@@ -527,6 +529,7 @@ class Level3 extends Phaser.Scene {
 
         if(this.tooltip){
             if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+                this.select.play();
             this.menu = false;
             this.tooltip = false;
             this.deleteTooltip();
@@ -549,9 +552,11 @@ class Level3 extends Phaser.Scene {
             this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityY(0);
             if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+                this.move.play();
             this.cursorPos--;
         }
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+            this.move.play();
             this.cursorPos++;
         }
         switch(this.cursorPos){
@@ -570,6 +575,7 @@ class Level3 extends Phaser.Scene {
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.select.play();
             switch (this.cursorPos) {
                 case 1:
                     this.scene.start(this);
@@ -605,87 +611,7 @@ class Level3 extends Phaser.Scene {
             }
 
            
-            if(this.boxesO[0].x>this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
-                this.boxState = "right";
-            }else if(this.boxesO[0].x<this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
-                this.boxState = "left";
-            }else if((-1*(this.boxesO[0].x)+(this.player1.x)>=-16&&-1*(this.boxesO[0].x)+(this.player1.x)<=16)&&this.boxesO[0].y<this.player1.y){
-                this.boxState = "up";
-            }else if(this.boxesO[0].x>this.player1.x&&this.boxesO[0].y<this.player1.y){
-                this.boxState = "upright";
-            }else if(this.boxesO[0].x<this.player1.x&&this.boxesO[0].y<this.player1.y){
-                this.boxState = "upleft";
-            }else if((-1*(this.boxesO[0].x)+(this.player1.x)>=-16&&-1*(this.boxesO[0].x)+(this.player1.x)<=16)&&this.boxesO[0].y>this.player1.y){
-                this.boxState = "down";
-            }else if(this.boxesO[0].x<this.player1.x&&this.boxesO[0].y>this.player1.y){
-                this.boxState = "downleft";
-            }
-            else if(this.boxesO[0].x>this.player1.x&&this.boxesO[0].y>this.player1.y){
-                this.boxState = "downright";
-            }
-
-
-
-
-
-
-            
-            if(keySPACE.isDown&&this.screen == 1){
-            switch (this.boxState) {
-                case "right":
-                    this.boxesO[0].setVelocityX(-50);
-                    //this.boxesO.setVelocityY();
-                    break;
-                
-                case "left":
-                    this.boxesO[0].setVelocityX(+50);
-                    //this.boxesO.setVelocityY();
-                    
-                    break;
-
-                case "up":
-                    //this.boxesO.setVelocityX(+50);
-                    this.boxesO[0].setVelocityY(+50);
-                    
-                    break;
-
-                case "down":
-                    //this.boxesO.setVelocityX(+50);
-                    this.boxesO[0].setVelocityY(-50);
-                    
-                    break;
-                
-                case "upright":
-                    this.boxesO[0].setVelocityX(-50);
-                    this.boxesO[0].setVelocityY(+50);
-                    
-                    break;
-                
-                case "upleft":
-                    this.boxesO[0].setVelocityX(+50);
-                    this.boxesO[0].setVelocityY(+50);
-                    
-                    break;
-
-                case "downleft":
-                    this.boxesO[0].setVelocityX(+50);
-                    this.boxesO[0].setVelocityY(-50);
-                    
-                    break;
-
-                case "downright":
-                    this.boxesO[0].setVelocityX(-50);
-                    this.boxesO[0].setVelocityY(-50);
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }else{
-            this.boxesO[0].body.setVelocityX(0);
-        this.boxesO[0].body.setVelocityY(0);
-        }
+         
 
             if(!this.press[2][11]&&!this.press[12][4]&&!this.press[15][18]&&!this.press[18][11]&&!this.press[12][4]){
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
@@ -696,7 +622,7 @@ class Level3 extends Phaser.Scene {
                 this.time.delayedCall(2000, () => {
                     level3 = "clear";
                     if(level4!="clear"){
-                    level4 = "open";
+                    level4 = "lock";
                     }
                     this.scene.start("levelScene");
                     }, null, this);

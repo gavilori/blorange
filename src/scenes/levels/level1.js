@@ -440,6 +440,9 @@ class Level1 extends Phaser.Scene {
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
        this.soundPress = this.sound.add('press');
+       this.move = this.sound.add('scroll');
+       this.select = this.sound.add('select');
+      
 
        this.createTooltip();
     }
@@ -471,6 +474,7 @@ class Level1 extends Phaser.Scene {
         //exit out of the tooltip at the beg
         if(this.tooltip){
             if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+                this.select.play();
             this.menu = false;
             this.tooltip = false;
             this.deleteTooltip();
@@ -495,9 +499,11 @@ class Level1 extends Phaser.Scene {
 
             //move cursor in the menu
             if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+                this.move.play();
             this.cursorPos--;
         }
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+            this.move.play();
             this.cursorPos++;
         }
         switch(this.cursorPos){
@@ -517,6 +523,7 @@ class Level1 extends Phaser.Scene {
 
 // selecting your option on the menu by pressing enter
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.select.play();
             switch (this.cursorPos) {
                 case 1:
                     this.scene.start(this);

@@ -353,7 +353,10 @@ class Level2 extends Phaser.Scene {
 
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
+       this.move = this.sound.add('scroll');
+       this.select = this.sound.add('select');
        this.createTooltip();
+
     }
 
     update() {
@@ -378,6 +381,7 @@ class Level2 extends Phaser.Scene {
 
         if(this.tooltip){
             if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+                this.select.play();
             this.menu = false;
             this.tooltip = false;
             this.deleteTooltip();
@@ -400,9 +404,11 @@ class Level2 extends Phaser.Scene {
             this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityY(0);
             if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+                this.move.play();
             this.cursorPos--;
         }
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+            this.move.play();
             this.cursorPos++;
         }
         switch(this.cursorPos){
@@ -421,6 +427,7 @@ class Level2 extends Phaser.Scene {
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.select.play();
             switch (this.cursorPos) {
                 case 1:
                     this.scene.start(this);

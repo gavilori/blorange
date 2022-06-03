@@ -13,10 +13,10 @@ let keyTAB;
 let MOVE_SPEED;
 let bgm;
 let SCROLL_SPEED = 2;
-let level1 = "clear";
-let level2 = "lock";
-let level3 = "lock";
-let level4 = "lock";
+let level1 = "open";
+let level2 = "open";
+let level3 = "open";
+let level4 = "open";
 
 
 // main game object

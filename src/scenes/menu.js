@@ -8,6 +8,8 @@ class Menu extends Phaser.Scene {
         this.load.image('grid2', './assets/art/bg2.png');
         this.load.image('grid3', './assets/art/grid.png');
         this.load.image('bg3', './assets/art/bg3.png');
+        this.load.image('trans1', './assets/art/trans1.png');
+        this.load.image('trans2', './assets/art/trans2.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
         this.load.image('gray', './assets/art/gray_box.png');
@@ -23,6 +25,7 @@ class Menu extends Phaser.Scene {
         this.load.image('three', './assets/art/three.png');
         this.load.image('four', './assets/art/four.png');
         this.load.image('spike', './assets/art/spike.png');
+        
 
 
 

@@ -36,6 +36,7 @@ class Level1 extends Phaser.Scene {
         this.grid_orange = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid').setOrigin(0);
         this.grid_orange.alpha = 1
         this.grid = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid3').setOrigin(0).setAlpha(0);
+        
 
 
          // define keys
@@ -317,7 +318,7 @@ class Level1 extends Phaser.Scene {
         for(let j = 0;j<=20;j++){ // row
 
             if(!skip[i][j]){ // place a constant block based on array
-            let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
+            let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setAlpha(0);
             const_box.body.immovable = true;
             this.boxC.add(const_box);
             this.boxesC.push(const_box);
@@ -346,6 +347,7 @@ class Level1 extends Phaser.Scene {
             
         }
     }
+    this.walls = this.add.tileSprite(false, false, game.config.width, game.config.height, 'trans1').setOrigin(0);
         
 
         for(let i  =0; i<this.boxesO.length;i++){ // set colliders between all the orange boxes

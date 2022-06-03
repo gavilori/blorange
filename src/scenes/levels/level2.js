@@ -243,7 +243,7 @@ class Level2 extends Phaser.Scene {
             for(let j = 0;j<=20;j++){ // row
 
                 if(!skip[i][j]){
-                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(32,32);
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(32,32).setAlpha(0);
                 const_box.body.immovable = true;
                 this.boxC.add(const_box);
                 this.boxesC.push(const_box);
@@ -298,6 +298,8 @@ class Level2 extends Phaser.Scene {
 
             
         }
+
+        this.walls = this.add.tileSprite(4, 2, game.config.width, game.config.height, 'trans2').setOrigin(0);
 
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row

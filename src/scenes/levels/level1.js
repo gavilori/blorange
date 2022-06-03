@@ -3,32 +3,34 @@ class Level1 extends Phaser.Scene {
         super("level1Scene");
     }
 
-    preload() {
-        this.load.image('grid', './assets/art/bg.png');
-        this.load.image('bbox', './assets/art/box_2.png');
-        this.load.image('obox', './assets/art/box_1.png');
-        this.load.image('p1', './assets/art/player_1.png');
-        this.load.image('p2', './assets/art/player_2.png');
-        this.load.image('const', './assets/art/constant.png');
-        this.load.audio('switch', './assets/audio/switch.wav');
-        this.load.audio('win', './assets/audio/victory.wav');
 
-    }
 
     create() {
-        this.soundPress = this.sound.add('press');
+        //switch variables pressed or not pressed
         this.switch1 = false;
         this.switch2 = false;
         this.switch3 = false;
         this.switch4 = false;
+
+        //make the cursor variables
         this.cursorPos = 1;
-        this.cursorPosx = game.config.width/2-150;
-        this.cursorPosy = game.config.height/2-200;
+        this.cursorPosx = game.config.width-200;
+        this.cursorPosy = game.config.height/2-300;
+
+        //start with no menu
         this.menu = false;
+
+        // tooltip show up at the beginning
         this.tooltip = true;
+
+        //check for switch press
         this.press1 = false;
         this.press2 = false;
+
+        // screen starts on the orange side
         this.screen = 1;
+
+        //create the backghrounds
         this.grid_blue = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid2').setOrigin(0);
         this.grid_blue.alpha = 0;
         this.grid_orange = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid').setOrigin(0);
@@ -60,32 +62,40 @@ class Level1 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 288, game.config.height-80,'p1', 0, true).setOrigin(0).setSize(25,25);;
-        this.player2 = new Player(this, 288, game.config.height-80,'p2', 0, false).setOrigin(0).setSize(25,25);;
+
+        //create our players and set up their physics
+        this.player1 = new Player(this, 288, game.config.height-80,'p1', 0, true).setOrigin(0).setSize(25,25);
+        this.player2 = new Player(this, 288, game.config.height-80,'p2', 0, false).setOrigin(0).setSize(25,25);
+        this.player2.alpha=(0);
+        this.player1.alpha=(1);
 
 
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
+
+        //physics groups for our objects
         this.boxO = this.add.group();
         this.boxB = this.add.group();
         this.boxC = this.add.group();
-        this.player2.alpha=(0);
-        this.player1.alpha=(1);
-        this.physics.add.collider(this.players,this.boxC,);
-        this.physics.add.collider(this.boxB,this.boxC,);
-        this.physics.add.collider(this.boxO,this.boxC,);
-        this.physics.add.collider(this.player2,this.boxB,(player,box)=>{
+
+        //collider between players and objects
+        this.physics.add.collider(this.players,this.boxC,); //player and non move blocks
+        this.physics.add.collider(this.boxB,this.boxC,); //blue box and non move blocks
+        this.physics.add.collider(this.boxO,this.boxC,); // orange box and non move blocks
+
+
+        this.physics.add.collider(this.player2,this.boxB,(player,box)=>{   //collider between the blue player and blue boxes
             let check = false;
-            if(player.body.touching.up){
-                for(let i  =0; i<this.boxesB.length;i++){
+            if(player.body.touching.up){ //pushing up on box
+                for(let i  =0; i<this.boxesB.length;i++){ //check if box will clip into another box
                 
                     if(this.boxesB[i].y==box.y-32&&this.boxesB[i].x==box.x){
                         check = true;
                         break;
                     }
                 }
-                for(let i  =0; i<this.boxesC.length;i++){
+                for(let i  =0; i<this.boxesC.length;i++){ //check if box will clip into non move block
                 
                     if(this.boxesC[i].y==box.y-32&&this.boxesC[i].x==box.x){
                         check = true;
@@ -93,17 +103,17 @@ class Level1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                box.y-=32;
+                box.y-=32; //move block up screen
                 }
-            }else if(player.body.touching.down){
+            }else if(player.body.touching.down){ //player push down on box
                 for(let i  =0; i<this.boxesB.length;i++){
                 
-                    if(this.boxesB[i].y==box.y+32&&this.boxesB[i].x==box.x){
+                    if(this.boxesB[i].y==box.y+32&&this.boxesB[i].x==box.x){ //check if box will clip into another box
                         check = true;
                         break;
                     }
                 }
-                for(let i  =0; i<this.boxesC.length;i++){
+                for(let i  =0; i<this.boxesC.length;i++){ //check if box will clip into non move block
                 
                     if(this.boxesC[i].y==box.y+32&&this.boxesC[i].x==box.x){
                         check = true;
@@ -111,35 +121,35 @@ class Level1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                box.y+=32;
+                box.y+=32; //move block down screen
                 }
-            }else if(player.body.touching.left){
+            }else if(player.body.touching.left){ //player push left on box
                 for(let i  =0; i<this.boxesB.length;i++){
                 
-                    if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){
+                    if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){ //check if box will clip into another box
                         check = true;
                         break;
                     }
                 }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
-                    if(this.boxesC[i].x==box.x-32&&this.boxesC[i].y==box.y){
+                    if(this.boxesC[i].x==box.x-32&&this.boxesC[i].y==box.y){ //check if box will clip into non move block
                         check = true;
                         break;
                     }
                 }
                 if(!check){
-                box.x-=32;
+                box.x-=32; //move block left screen
                 }
-            }else if(player.body.touching.right){
+            }else if(player.body.touching.right){//player push right on box
                 for(let i  =0; i<this.boxesB.length;i++){
                 
-                    if(this.boxesB[i].x==box.x+32&&this.boxesB[i].y==box.y){
+                    if(this.boxesB[i].x==box.x+32&&this.boxesB[i].y==box.y){ //check if box will clip into another box
                         check = true;
                         break;
                     }
                 }
-                for(let i  =0; i<this.boxesC.length;i++){
+                for(let i  =0; i<this.boxesC.length;i++){ //check if box will clip into non move block
                 
                     if(this.boxesC[i].x==box.x+32&&this.boxesC[i].y==box.y){
                         check = true;
@@ -147,14 +157,15 @@ class Level1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                box.x+=32;
+                box.x+=32; //move block right
                 }
             }
-
+            
+            
 
         });
 
-
+        //same as previous collider but for orange box
         this.physics.add.collider(this.player1,this.boxO,(playerTwo,boxTwo)=>{
             let check = false;
             if(playerTwo.body.touching.up){
@@ -237,7 +248,7 @@ class Level1 extends Phaser.Scene {
 
 
         
-
+        //array that will serve as tile map for blue screen and persisting objects
         let skip = [
             [ false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true],
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true],
@@ -262,7 +273,7 @@ class Level1 extends Phaser.Scene {
             [ false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true]
         ];
 
-
+        //array for orange screen objects
         let skip2 = [
             [ false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true],
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true],
@@ -287,6 +298,8 @@ class Level1 extends Phaser.Scene {
             [ false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true]
         ];
 
+
+        //arrays to hold out objects
        this.boxesB = [];
        this.boxesO = [];
        this.boxesC = [];
@@ -296,7 +309,7 @@ class Level1 extends Phaser.Scene {
        for(let i = 0;i<=20;i++){ //column
         for(let j = 0;j<=20;j++){ // row
 
-            if(!skip[i][j]){
+            if(!skip[i][j]){ // place a constant block based on array
             let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0);
             const_box.body.immovable = true;
             this.boxC.add(const_box);
@@ -309,12 +322,12 @@ class Level1 extends Phaser.Scene {
                 this.boxesB[this.boxesB.length-1].alpha = 0;
                 this.boxesB[this.boxesB.length-1].body.immovable = true;
                 this.boxB.add(this.boxesB[this.boxesB.length-1]);  
-            }else if(skip[i][j]=="switch"){
+            }else if(skip[i][j]=="switch"){ // blue boxes based on array
                 let switchy = this.add.rectangle(i*32,j*32,32,32,0xFF0000).setOrigin(0)
                 this.switches.push(switchy);
                 this.physics.add.existing(switchy);
             }
-            if(skip2[i][j]=="orange"){
+            if(skip2[i][j]=="orange"){ //orange based on array
                 this.boxesO.push( this.physics.add.sprite(i*32, j*32,'obox').setOrigin(0)); 
                 this.boxesO[this.boxesO.length-1].allowGravity=false;
                 this.boxesO[this.boxesO.length-1].setSize(25,25);
@@ -328,7 +341,7 @@ class Level1 extends Phaser.Scene {
     }
         
 
-        for(let i  =0; i<this.boxesO.length;i++){
+        for(let i  =0; i<this.boxesO.length;i++){ // set colliders between all the orange boxes
             this.boxesO[i].setDepth(1);
             for(let j =0; j<this.boxesO.length;j++){
                 if(this.boxesO[i]==this.boxesO[j]){
@@ -337,7 +350,7 @@ class Level1 extends Phaser.Scene {
                 this.physics.add.collider(this.boxesO[i],this.boxesO[j]);
             }
         }
-        for(let i  =0; i<this.boxesB.length;i++){
+        for(let i  =0; i<this.boxesB.length;i++){ // set colliders between all the blue boxes
             this.boxesB[i].setDepth(1);
             for(let j =0; j<this.boxesB.length;j++){
                 if(this.boxesB[i]==this.boxesB[j]){
@@ -347,13 +360,14 @@ class Level1 extends Phaser.Scene {
             }
         }
 
-        // for(let i  =0; i<this.switches.length;i++){
-        //     this.physics.add.existing(this.switches[i]);
-        // }
 
 
+        //start blue screen switches as non visible
         this.switches[0].alpha = 0;
         this.switches[1].alpha = 0;
+
+
+        //collider for the switch and orange boxes
         this.collide1 = this.physics.add.collider(this.boxesO,this.switches[2],()=>{
             if(this.switch1 ==false){
                 this.soundPress.play();
@@ -362,6 +376,8 @@ class Level1 extends Phaser.Scene {
             this.switches[2].fillColor = 0x7CFC00;
         });
         this.collide1.overlapOnly = true;
+
+        //collider for the switch and orange boxes
         this.collide2 = this.physics.add.collider(this.boxesO,this.switches[3],()=>{
             if(this.switch2 ==false){
                 this.soundPress.play();
@@ -370,6 +386,8 @@ class Level1 extends Phaser.Scene {
             this.switches[3].fillColor = 0x7CFC00;
         });
         this.collide2.overlapOnly = true;
+
+        //collider for the switch and blue boxes
         this.collide3 = this.physics.add.collider(this.boxesB,this.switches[0],()=>{
             if(this.switch3 ==false){
                 this.soundPress.play();
@@ -378,6 +396,8 @@ class Level1 extends Phaser.Scene {
             this.switches[0].fillColor = 0x7CFC00;
         });
        this.collide3.overlapOnly = true;
+
+       //collider for the switch and blue boxes
         this.collide4 = this.physics.add.collider(this.boxesB,this.switches[1],()=>{
             if(this.switch4 ==false){
                     this.soundPress.play();
@@ -388,17 +408,22 @@ class Level1 extends Phaser.Scene {
         this.collide4.overlapOnly = true;
 
        
-
+        //add our sounds
        this.switch = this.sound.add('switch');
        this.end = this.sound.add('win');
+       this.soundPress = this.sound.add('press');
 
        this.createTooltip();
     }
 
     update() {
+        //scroll the bg
         this.grid_orange.tilePositionX+=5;
         this.grid_blue.tilePositionX+=5;
  
+
+
+        //toggle the menu
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             
             switch (this.menu) {
@@ -415,6 +440,7 @@ class Level1 extends Phaser.Scene {
             }   
         }
 
+        //exit out of the tooltip at the beg
         if(this.tooltip){
             if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             this.menu = false;
@@ -424,7 +450,7 @@ class Level1 extends Phaser.Scene {
         }
 
        
-
+        //stop movement on screen when menu shows up
         if(this.menu){
             for(let i = 0;i<this.boxesB.length;i++){
                 this.boxesB[i].body.setVelocityX(0);
@@ -438,6 +464,8 @@ class Level1 extends Phaser.Scene {
             this.player1.body.setVelocityY(0);
             this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityY(0);
+
+            //move cursor in the menu
             if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
             this.cursorPos--;
         }
@@ -459,6 +487,7 @@ class Level1 extends Phaser.Scene {
                 break;
         }
 
+// selecting your option on the menu by pressing enter
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             switch (this.cursorPos) {
                 case 1:
@@ -478,7 +507,12 @@ class Level1 extends Phaser.Scene {
 
     }
         
+
+    //everything that happens without the menu
         if(!this.menu&&!this.tooltip){
+
+
+            //end the level
             if(this.switch1&&this.switch2&&this.switch2&&this.switch3&&this.switch4){
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "LEVEL CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
@@ -495,7 +529,11 @@ class Level1 extends Phaser.Scene {
 
             }
            
+
+            // if the game is not over
         if(!this.press1||!this.press2){
+
+            // toggle the grid
             if(Phaser.Input.Keyboard.JustDown(keyTAB)){
                 switch (this.grid.alpha) {
                     case 1:
@@ -510,6 +548,9 @@ class Level1 extends Phaser.Scene {
                         break;
                 }
             }
+
+
+            
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){
@@ -607,7 +648,7 @@ createMenu(){
     this.level.setDepth(1);
     this.menuText = this.add.text(game.config.width/2, game.config.height/2, "Menu", this.textConfig).setOrigin(0.5);
     this.menuText.setDepth(1);
-    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0.5);
+    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
     this.cursor.setDepth(1);
 }
 

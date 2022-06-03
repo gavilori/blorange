@@ -3,28 +3,18 @@ class Level extends Phaser.Scene {
         super("levelScene");
     }
 
-    preload() {
-        this.load.image('grid', './assets/art/bg.png');
-        this.load.image('bbox', './assets/art/box_2.png');
-        this.load.image('obox', './assets/art/box_1.png');
-        this.load.image('p1', './assets/art/player_1.png');
-        this.load.image('p2', './assets/art/player_2.png');
-        this.load.audio('switch', './assets/audio/switch.wav');
-        this.load.audio('win', './assets/audio/victory.wav');
-        this.load.image('cursor', './assets/art/Cursor.png');
-        this.load.image('clear', './assets/art/level_clear.png');
-        this.load.image('open', './assets/art/level_unclear.png');
-        this.load.image('lock', './assets/art/level_locked.png');
 
-    }
 
     create() {
+        //define cursor variables
         this.cursorPos = 1;
-        this.cursorPosx = game.config.width/2-150;
+        this.cursorPosx = game.config.width/2;
         this.cursorPosy = 200;
         
+        //start with no menu
         this.menu = false;
        
+        //create bg
         this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'grid').setOrigin(0);
 
          // define keys
@@ -49,16 +39,20 @@ class Level extends Phaser.Scene {
             fixedWidth: 0
         }
        
-       
+       //fill an array that has the state of the level (open,clear,lock)
         let levels = [];
         levels[1] = level1;
         levels[2] = level2;
         levels[3] = level3;
         levels[4] = level4;
+
+
+
+        // create the level select
         let count  = 1;
         this.selects = [];
         for(let i=96;i<608;i+=128){
-            this.add.text(i, 150, "level "+count, this.textConfig).setOrigin(0.5);
+            
             if(levels[count]=="clear"){
                 this.selects[count]=this.add.sprite(i,160,'clear').setOrigin(0);
             }else if(levels[count]=="open"){
@@ -66,10 +60,29 @@ class Level extends Phaser.Scene {
             }else if(levels[count]=="lock"){
                 this.selects[count]=this.add.sprite(i,160,'lock').setOrigin(0);
             }
-            this.add.text(i, 220, levels[count], this.textConfig).setOrigin(0);
+            
             count++;
         }
 
+
+        // place the numbers on the level select
+        for(let i=96;i<608;i+=128){
+            if(i==96){
+                this.add.sprite(i,160,'one').setOrigin(0);
+            }
+            if(i==96+128&&levels[2]!="lock"){
+                this.add.sprite(i,160,'two').setOrigin(0);
+            }
+            if(i==96+128*2&&levels[3]!="lock"){
+                this.add.sprite(i,160,'three').setOrigin(0);
+            }
+            if(i==96+128*3&&levels[4]!="lock"){
+                this.add.sprite(i,160,'four').setOrigin(0);
+            }
+        }
+
+
+        // create the pointer 
         this.createMenu();
         this.deleteMenu();
 
@@ -81,7 +94,7 @@ class Level extends Phaser.Scene {
 
 
 
-        
+        // state machine to track where the cursor is
             if(Phaser.Input.Keyboard.JustDown(keyLEFT)&&this.cursorPos>1){
             this.cursorPos--;
         }
@@ -90,25 +103,25 @@ class Level extends Phaser.Scene {
         }
         switch(this.cursorPos){
             case 1:
-                this.cursorPosx = this.selects[1].x;
+                this.cursorPosx = this.selects[1].x+32;
                 this.cursor.x = this.cursorPosx;
                 break;
             case 2:
-                this.cursorPosx = this.selects[2].x;
+                this.cursorPosx = this.selects[2].x+32;
                 this.cursor.x = this.cursorPosx;
                 break;
             case 3:
-                this.cursorPosx = this.selects[3].x;
+                this.cursorPosx = this.selects[3].x+32;
                 this.cursor.x = this.cursorPosx;
                 break;
             case 4:
-                this.cursorPosx = this.selects[4].x;
+                this.cursorPosx = this.selects[4].x+32;
                 this.cursor.x = this.cursorPosx;
                 break;
 
         }
 
-
+// based on where the cursor is which level to enter
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             switch (this.cursorPos) {
                 case 1:
@@ -118,7 +131,7 @@ class Level extends Phaser.Scene {
                     this.scene.start('level2Scene');
                     break;
                 case 3:
-                    this.scene.start('moveScene');
+                    this.scene.start('level3Scene');
                     break;
             
                 default:
@@ -132,7 +145,6 @@ class Level extends Phaser.Scene {
 
 
 
-        // everything that should happen when menu is not active
        
     }
 createMenu(){
@@ -140,7 +152,7 @@ createMenu(){
     this.test = this.add.rectangle(32, 32, 576, 576, 0x088F8F).setOrigin(0);
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Tutorial", this.textConfig).setOrigin(0.5);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Level select", this.textConfig).setOrigin(0.5);
-    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0.5);
+    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
 }
 
 deleteMenu(){

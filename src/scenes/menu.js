@@ -9,20 +9,33 @@ class Menu extends Phaser.Scene {
         this.load.image('grid3', './assets/art/grid.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
+        this.load.image('gray', './assets/art/gray_box.png');
+        this.load.image('const', './assets/art/constant.png');
         this.load.image('p1', './assets/art/player_1.png');
         this.load.image('p2', './assets/art/player_2.png');
+        this.load.image('cursor', './assets/art/Cursor.png');
+        this.load.image('clear', './assets/art/level_clear.png');
+        this.load.image('open', './assets/art/level_unclear.png');
+        this.load.image('lock', './assets/art/level_locked.png');
+        this.load.image('one', './assets/art/one.png');
+        this.load.image('two', './assets/art/two.png');
+        this.load.image('three', './assets/art/three.png');
+        this.load.image('four', './assets/art/four.png');
+        this.load.image('spike', './assets/art/spike.png');
+
+
+
         this.load.audio('switch', './assets/audio/switch.wav');
         this.load.audio('win', './assets/audio/victory.wav');
-        this.load.audio('switch', './assets/audio/switch_press.wav');
-        this.load.image('cursor', './assets/art/Cursor.png');
+        this.load.audio('switch', './assets/audio/switch.wav');
         this.load.audio('press', './assets/audio/switch_press.wav');
 
     }
 
     create() {
         this.cursorPos = 1;
-        this.cursorPosx = game.config.width/2-150;
-        this.cursorPosy = game.config.height/2-200;
+        this.cursorPosx = game.config.width-200;
+        this.cursorPosy = game.config.height/2-300;
         
         this.menu = false;
        
@@ -130,7 +143,7 @@ createMenu(){
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Tutorial", this.textConfig).setOrigin(0.5);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Level select", this.textConfig).setOrigin(0.5);
     this.credits = this.add.text(game.config.width/2, game.config.height/2, "Credits", this.textConfig).setOrigin(0.5);
-    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0.5);
+    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
 }
 
 }

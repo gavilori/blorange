@@ -27,6 +27,7 @@ class Menu extends Phaser.Scene {
         this.load.image('three', './assets/art/three.png');
         this.load.image('four', './assets/art/four.png');
         this.load.image('spike', './assets/art/spike.png');
+        this.load.image('skull', './assets/art/skull.png');
         this.load.image('pause', './assets/art/pause-bg.png');
         
 
@@ -151,6 +152,7 @@ class Menu extends Phaser.Scene {
                     if(level4!="clear"){
                     level4 = "open";
                     }
+                    Boss = "open";
                     break;
 
             

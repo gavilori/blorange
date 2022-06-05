@@ -90,6 +90,11 @@ class Level extends Phaser.Scene {
         this.lock = this.sound.add('lock');
         this.select = this.sound.add('select');
 
+        if(Boss=="open"){
+        this.add.sprite(256,352,'open').setOrigin(0).setDisplaySize(128,128);
+        this.add.sprite(256,352,'skull').setOrigin(0).setDisplaySize(128,128);
+        }
+
         if(!menu_bgm.isPlaying){
         
             menu_bgm.setLoop(true);

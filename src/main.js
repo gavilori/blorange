@@ -19,7 +19,7 @@ let level1 = "open";
 let level2 = "lock";
 let level3 = "lock";
 let level4 = "lock";
-let Boss = "Lock"
+let Boss = "lock"
 
 
 // main game object

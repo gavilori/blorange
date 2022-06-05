@@ -82,6 +82,11 @@ class Level extends Phaser.Scene {
         }
 
 
+        if(Boss=="open"){
+            this.bossTile = this.add.sprite(256,352,'open').setOrigin(0).setDisplaySize(128,128);
+            this.add.sprite(256,352,'skull').setOrigin(0).setDisplaySize(128,128);
+            }
+
         // create the pointer 
         this.createMenu();
         this.deleteMenu();
@@ -90,10 +95,7 @@ class Level extends Phaser.Scene {
         this.lock = this.sound.add('lock');
         this.select = this.sound.add('select');
 
-        if(Boss=="open"){
-        this.add.sprite(256,352,'open').setOrigin(0).setDisplaySize(128,128);
-        this.add.sprite(256,352,'skull').setOrigin(0).setDisplaySize(128,128);
-        }
+   
 
         if(!menu_bgm.isPlaying){
         
@@ -104,6 +106,8 @@ class Level extends Phaser.Scene {
     }
 
     update() {
+        console.log(this.cursorPos);
+        
         this.grid.tilePositionX +=2;
 
 
@@ -157,6 +161,8 @@ class Level extends Phaser.Scene {
             this.cursor2.x = game.config.width-200;
             this.cursorPos = 1;
             break;
+        
+        
     }
 
     if(Phaser.Input.Keyboard.JustDown(keyENTER)){
@@ -180,13 +186,33 @@ class Level extends Phaser.Scene {
 
         // state machine to track where the cursor is
         if(!this.menu){
-        if(Phaser.Input.Keyboard.JustDown(keyLEFT)&&this.cursorPos>1){
+        if(Phaser.Input.Keyboard.JustDown(keyLEFT)){
             this.move.play();
+            
+            if(this.cursorPos==1){
+                this.cursorPos = 4;
+                if(Boss=="open"||Boss=="clear"){
+                    this.cursorPos = 5;
+                }
+                
+            }else{
             this.cursorPos--;
+            }
+           
         }
-        if(Phaser.Input.Keyboard.JustDown(keyRIGHT)&&this.cursorPos<4){
+        if(Phaser.Input.Keyboard.JustDown(keyRIGHT)){
             this.move.play();
+            if(this.cursorPos==5){
+                this.cursorPos =0;
+            }
+            if(this.cursorPos==4){
+                this.cursorPos = 1;
+                if(Boss=="open"||Boss=="clear"){
+                    this.cursorPos = 5;
+                }
+            }else{
             this.cursorPos++;
+            }
         }
         switch(this.cursorPos){
             case 1:
@@ -210,6 +236,13 @@ class Level extends Phaser.Scene {
                 this.cursorPosx = this.selects[4].x+32;
                 this.cursor.x = this.cursorPosx;
                 break;
+
+            case 5:
+                this.cursorPosy = this.bossTile.y+64;
+                this.cursor.y = this.cursorPosy;
+                this.cursor.x = this.bossTile.x+64;
+                
+                break;    
 
         }
 

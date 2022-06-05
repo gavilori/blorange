@@ -413,13 +413,21 @@ class Level2 extends Phaser.Scene {
             this.player1.body.setVelocityY(0);
             this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityY(0);
-            if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+            if(Phaser.Input.Keyboard.JustDown(keyUP)){
                 this.move.play();
+                if(this.cursorPos==1){
+                    this.cursorPos = 4;
+                }else{
             this.cursorPos--;
+                }
         }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<4){
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)){
             this.move.play();
-            this.cursorPos++;
+            if(this.cursorPos==4){
+                this.cursorPos = 1;
+            }else{
+        this.cursorPos++;
+            }
         }
         switch(this.cursorPos){
             case 1:

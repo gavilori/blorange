@@ -101,13 +101,21 @@ class Menu extends Phaser.Scene {
 
 
         
-            if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
+            if(Phaser.Input.Keyboard.JustDown(keyUP)){
                 this.move.play();
+                if(this.cursorPos==1){
+                    this.cursorPos = 3
+                }else{
             this.cursorPos--;
+                }
         }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)){
             this.move.play();
-            this.cursorPos++;
+            if(this.cursorPos==3){
+                this.cursorPos = 1
+            }else{
+        this.cursorPos++;
+            }
         }
         switch(this.cursorPos){
             case 1:

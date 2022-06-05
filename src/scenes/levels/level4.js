@@ -1,6 +1,6 @@
-class Level3 extends Phaser.Scene {
+class Level4 extends Phaser.Scene {
     constructor() {
-        super("level3Scene");
+        super("level4Scene");
     }
 
 
@@ -52,8 +52,8 @@ class Level3 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, 32, game.config.height-64,'p1', 0, true).setOrigin(0).setSize(30,30);
-        this.player2 = new Player(this, 32, game.config.height-64,'p2', 0, false).setOrigin(0).setSize(25,25);
+        this.player1 = new Player(this, 576, 32,'p1', 0, true).setOrigin(0).setSize(25,25);
+        this.player2 = new Player(this, 576, 32,'p2', 0, false).setOrigin(0).setSize(25,25);
         //this.player1.body.immovable = true;
         
 
@@ -61,12 +61,17 @@ class Level3 extends Phaser.Scene {
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
+
         this.boxO = this.add.group();
         this.boxB = this.add.group();
         this.boxC = this.add.group();
-        this.spikes = this.add.group();
+        
         this.switchesB = this.add.group();
         this.switchesO = this.add.group();
+
+        this.spikesO = this.add.group();
+        this.spikesB = this.add.group();
+
         this.player2.alpha=(0);
         this.player1.alpha=(1);
         this.physics.add.collider(this.players,this.boxC);
@@ -291,63 +296,67 @@ class Level3 extends Phaser.Scene {
         });
         this.physics.add.collider(this.player1,this.boxB    );
         this.physics.add.collider(this.player2,this.boxO    );
-        this.spikeCollide = this.physics.add.collider(this.players,this.spikes,()=>{
+        this.spikeCollideB = this.physics.add.collider(this.player2,this.spikesB,()=>{
             this.scene.start(this);
         });
 
-        this.spikeCollide.overlapOnly = true;
+        this.spikeCollideB.overlapOnly = true;
+        this.spikeCollideO = this.physics.add.collider(this.player1,this.spikesO,()=>{
+            this.scene.start(this);
+        });
+
+        this.spikeCollideO.overlapOnly = true;
 
    
         
 
         let skip = [
             
-            [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true],
-            [ false, false, false, "spike", false, "spike", false, "spike", false, "spike", false, true, false, false, false, true, true, true, true, true],
-            [ false, false, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true],
-            [ false, "spike", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ false, false, true, true, true, true, true, true, true, true, true, true, true, false, false, true, "blue", true, true, true],
-            [ false, "spike", true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true],
-            [ false, false, true, true, true, true, true, true, true, true, true, true, true, false, false,"spike", "spike", "spike", "spike", "spike"],
-            [ false, false, false, true, true, true, false, "spike", false, "spike", false, "spike", false, false, false, false, false, false, false, false],
-            [ false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-            [ false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-            [ true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ "spike", "spike", true, true, true, false, false, true, true, true, true, true, true, true, true, true, true, true, true, false],
-            [ "spike", "spike", true, "spike", "spike", false, false, true, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ true, true, true, "spike", true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ true, true, true, "spike", true, true, false, false, true, true, true, true, true, true, true, true, true, true, true, false],
-            [ true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ "spike", true, true, true, true, "spike", false, false, true, true, true, "switch", true, true, true, true, false, false, false, false],
-            [ "spike", "spike", "spike", "spike", "spike", "spike", false, false, true, true, true, true, true, true, true, true, false, false, false, false],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, "spike", true, true, true, "spike"],
+            [ false, false, "switch", false, false, false, false, "spike", "spike", "spike", true, true, true, true, true, "spike", true, true, true, "spike"],
+            [ true, true, true, true, true, false, false, true, true, "spike", true, "spike", true, true, true, "spike", true, "spike", true, "spike"],
+            [ true, true, true, "spike", "spike", false, false, true, "spike", "spike", true, "spike", true, "spike", true, "spike", true, "spike", true, true],
+            [ true, true, true, true, true, false, false, true, true, true, true, "spike", true, "spike", true, "spike", true, "spike", true, true],
+            [ "spike", "spike", true, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false],
+            [ true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, true, "spike", false, false],
+            [ true, true, true, true, true, false, false, true, "spike", true, "spike", "switch", "spike", true, false, false, true, true, false, false],
+            [ true, true, true, true, true, false, false, true, "spike", true, "spike", "blue", "spike", true, false, false, "spike", true, false, false],
+            [ true, true, "blue", true, true, false, false, true, "spike", true, "spike", true, "spike", true, false, false, true, true, false, false],
+            [ true, true, true, true, true, false, false, true, "spike", true, "spike", true, "spike", true, false, false, true, false, false, false],
+            [ true, true, true, true, true, true, true, true, "spike", true, "spike", true, "spike", true, true, true, true, true, true, true],
+            [ false, true, false, false, false, false, false, true, "spike", true, "spike", true, "spike", true, false, false, false, false, false, false],
+            [ false, true, false, false, false, false, false, true, "spike", true, "spike", true, "spike", true, false, false, false, false, false, false],
+            [ true, true, true, false, false, false, false, true, "spike", "blue", "spike", true, "spike", true, false, false, false, false, false, false],
+            [ true, "spike", true, false, false, false, false, true, "spike", "switch", "spike", true, "spike", true, false, false, false, false, false, false],
+            [ true, true, "spike", false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            [ true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            [ true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            [ true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            
         ];
 
 
         let skip2 = [
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, "switch", true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, "orange", true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, "orange", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, "switch", true, true, true, true, true, true, true, true],
-            [ true, true, true, true, "switch", true, true, true, true, true, true, "orange", true, true, true, true, "orange", true, "switch", true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, "orange", true, "switch", true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+            [ false, false, false, false, false, false, false, true, "spike", true, "spike", true, true, "spike", true, true, true, true, true, true],
+    [ false, false, true, false, false, false, false, true, true, true, true, true, true, "spike", "spike", "spike", "spike", "spike", "spike", "spike"],
+    [ "spike", "spike", "spike", "spike", "spike", false, false, true, "orange", "switch", "spike", "spike", "spike", "spike", true, "spike", true, true, true, true],
+    [ true, true, "orange", true, true, false, false, true, "spike", true, true, true, true, true, true, "spike", true, true, "spike", "spike"],
+    [ "spike", true, true, "spike", "spike", false, false, true, true, true, true, true, true, true, "spike", "spike", true, true, "spike", "spike"],
+    [ true, true, "orange", true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false],
+    [ "spike", "spike", "spike", "spike", "spike", false, false, false, false, false, false, false, false, false, false, false, true, true, false, false],
+    [ true, true, "orange", true, true, false, false, true, true, true, true, true, true, true, false, false, true, true, false, false],
+    [ "spike", "spike", "spike", "spike", "spike", false, false, "spike", "spike", "spike", "spike", "spike", "spike", "spike", false, false, true, true, false, false],
+    [ true, true, true, true, true, false, false, true, true, true, true, true, "orange", "switch", false, false, true, true, false, false],
+    [ true, true, true, true, true, false, false, "spike", "spike", "spike", "spike", "spike", "spike", "spike", false, false, true, false, false, false],
+    [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+    [ false, true, false, false, false, false, false, "spike", "spike", "spike", "spike", "spike", "spike", "spike", false, false, false, false, false, false],
+    [ false, true, false, false, false, false, false, "switch", "orange", true, true, true, true, true, false, false, false, false, false, false],
+    [ "spike", true, true, false, false, false, false, "spike", "spike", "spike", "spike", "spike", "spike", "spike", false, false, false, false, false, false],
+    [ true, true, true, false, false, false, false, true, true, true, true, true, true, true, false, false, false, false, false, false],
+    [ true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [ "spike", true, "spike", false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [ "spike", true, "spike", false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [ "spike", "spike", "spike", false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         ];
 
         this.press = [
@@ -377,15 +386,17 @@ class Level3 extends Phaser.Scene {
        this.boxesB = [];
        this.boxesO = [];
        this.boxesC = [];
-       this.switchArrB = []
-       this.switchArrO = []
+       this.switchArrB = [];
+       this.switchArrO = [];
+       this.spikeArrB = [];
+       this.spikeArrO = [];
        
        
 
 
-        for(let i = 0;i<=20;i++){ //column
-            for(let j = 0;j<=20;j++){ // row
-
+        for(let i = 0;i<20;i++){ //column
+            for(let j = 0;j<20;j++){ // row
+                console.log(skip[i][j]);
                 if(!skip[i][j]){
                 let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(32,32);
                 const_box.body.immovable = true;
@@ -415,8 +426,9 @@ class Level3 extends Phaser.Scene {
             
                     });
                 }else if(skip[i][j]=="spike"){
-                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0).setSize(25,25);
-                    this.spikes.add(spiky)
+                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0).setSize(25,25).setAlpha(.15);
+                    this.spikesB.add(spiky)
+                    this.spikeArrB.push(spiky);
                 }
                 if(skip2[i][j]=="orange"){
                     this.boxesO.push( this.physics.add.sprite(i*32, j*32,'obox').setOrigin(0)); 
@@ -441,13 +453,17 @@ class Level3 extends Phaser.Scene {
             
                     });
                     this.collide.overlapOnly = true;
+                }else if(skip2[i][j]=="spike"){
+                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0).setSize(25,25);
+                    this.spikesO.add(spiky);
+                    this.spikeArrO.push(spiky);
                 }
                 
             }
 
             
         }
-        this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans3').setOrigin(0);
+        //this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans3').setOrigin(0);
 
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
@@ -472,6 +488,14 @@ class Level3 extends Phaser.Scene {
                 this.boxC.add(const_box);
                 this.boxesC.push(const_box);
             }
+
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite( j*32,640,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                this.boxesC.push(const_box);
+            }
+        
         
         
 
@@ -625,7 +649,7 @@ class Level3 extends Phaser.Scene {
            
          
 
-            if(!this.press[2][11]&&!this.press[12][4]&&!this.press[15][18]&&!this.press[18][11]&&!this.press[12][4]){
+            if(!this.press[1][2]&&!this.press[7][11]&&!this.press[9][13]&&!this.press[13][7]&&!this.press[15][9]&&!this.press[2][9]){
                 bgm.setLoop(false);
             bgm.stop();
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
@@ -645,10 +669,11 @@ class Level3 extends Phaser.Scene {
            
          
         
-            if(Phaser.Input.Keyboard.JustDown(keyShift)&&!this.moving){
+            if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){
                 case 1:
+                    this.player2.y = this.player1.y;
                     this.screen = 2;
                     this.player1.alpha=(0);
                     this.player2.alpha=1;
@@ -668,9 +693,16 @@ class Level3 extends Phaser.Scene {
                     for(let i = 0;i<this.switchArrO.length;i++){
                         this.switchArrO[i].alpha = 0;  
                     }
+                    for(let i = 0;i<this.spikeArrB.length;i++){
+                        this.spikeArrB[i].alpha = 1;  
+                    }
+                    for(let i = 0;i<this.spikeArrO.length;i++){
+                        this.spikeArrO[i].alpha = .15;  
+                    }
                    // this.switchArrB[this.switchArrB.length-2].alpha = 0;
                     break;
                 case 2:
+                    this.player1.x = this.player2.x;
                     this.screen = 1;
                     this.player2.alpha=(0);
                     this.player1.alpha=(1);
@@ -690,6 +722,12 @@ class Level3 extends Phaser.Scene {
                     for(let i = 0;i<this.switchArrO.length;i++){
                         this.switchArrO[i].alpha = 1;  
                     }
+                    for(let i = 0;i<this.spikeArrB.length;i++){
+                        this.spikeArrB[i].alpha = .15;  
+                    }
+                    for(let i = 0;i<this.spikeArrO.length;i++){
+                        this.spikeArrO[i].alpha = 1;  
+                    }
                     //this.switchArrB[this.switchArrB.length-2].alpha = 1;
                     
                     break;
@@ -697,33 +735,33 @@ class Level3 extends Phaser.Scene {
             }
         
 
-        if(keyDOWN.isDown&&this.screen == 1&&!this.moving){
+        if(keyDOWN.isDown&&this.screen == 1){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
-            this.moving = true;
-        }else if(keyUP.isDown&&this.screen == 1&&!this.moving){
+            
+        }else if(keyUP.isDown&&this.screen == 1){
             this.player1.body.setVelocityY(-this.MOVE_SPEED);
-            this.moving = true;
+            
         }else{
-            //this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityY(0);
         }
 
-        if(keyLEFT.isDown&&this.screen == 1&&!this.moving){
-            this.player1.body.setVelocityX(-this.MOVE_SPEED);
-            this.moving = true;
-        }else if(keyRIGHT.isDown&&this.screen == 1&&!this.moving){
-            this.player1.body.setVelocityX(this.MOVE_SPEED);
-            this.moving = true;
-        }else{
-            //this.player1.body.setVelocityX(0);
-        }
+        // if(keyLEFT.isDown&&this.screen == 1){
+        //     this.player1.body.setVelocityX(-this.MOVE_SPEED);
+            
+        // }else if(keyRIGHT.isDown&&this.screen == 1){
+        //     this.player1.body.setVelocityX(this.MOVE_SPEED);
+            
+        // }else{
+        //     this.player1.body.setVelocityX(0);
+        // }
 
-        if(keyDOWN.isDown&&this.screen == 2){
-            this.player2.body.setVelocityY(this.MOVE_SPEED);
-        }else if(keyUP.isDown&&this.screen == 2){
-            this.player2.body.setVelocityY(-this.MOVE_SPEED);
-        }else{
-            this.player2.body.setVelocityY(0);
-        }
+        // if(keyDOWN.isDown&&this.screen == 2){
+        //     this.player2.body.setVelocityY(this.MOVE_SPEED);
+        // }else if(keyUP.isDown&&this.screen == 2){
+        //     this.player2.body.setVelocityY(-this.MOVE_SPEED);
+        // }else{
+        //     this.player2.body.setVelocityY(0);
+        // }
 
         if(keyLEFT.isDown&&this.screen == 2){
             this.player2.body.setVelocityX(-this.MOVE_SPEED);
@@ -734,13 +772,12 @@ class Level3 extends Phaser.Scene {
         }
 
 
-        if(this.player1.body.velocity.x==0&&this.player1.body.velocity.y==0){
-            this.moving = false;
-        }
+       
         // console.log("X vel: "+this.player1.body.velocity.x+" Y vel: "+this.player1.body.velocity.y);
         // console.log("I AM MOVING: "+this.moving);
         console.log(this.player1.x);
 
+        
         
    
 

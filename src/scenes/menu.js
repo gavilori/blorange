@@ -10,6 +10,7 @@ class Menu extends Phaser.Scene {
         this.load.image('bg3', './assets/art/bg3.png');
         this.load.image('trans1', './assets/art/trans1.png');
         this.load.image('trans2', './assets/art/trans2.png');
+        this.load.image('trans3', './assets/art/trans3.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
         this.load.image('gray', './assets/art/gray_box.png');

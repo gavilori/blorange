@@ -35,7 +35,7 @@ let config = {
             }
         }
     },
-    scene: [Menu,Move,Push,Switch,Level,Level1,Level2,Level3]
+    scene: [Menu,Move,Push,Switch,Level,Level1,Level2,Level3,Level4]
 };
 
 let game = new Phaser.Game(config);

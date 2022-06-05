@@ -27,6 +27,7 @@ class Menu extends Phaser.Scene {
         this.load.image('three', './assets/art/three.png');
         this.load.image('four', './assets/art/four.png');
         this.load.image('spike', './assets/art/spike.png');
+        this.load.image('pause', './assets/art/pause-bg.png');
         
 
 
@@ -158,7 +159,7 @@ class Menu extends Phaser.Scene {
     }
 createMenu(){
 
-    this.test = this.add.rectangle(32, 32, 576, 576, 0x088F8F).setOrigin(0);
+    this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0);
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Level Select", this.textConfig).setOrigin(0.5);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Credits", this.textConfig).setOrigin(0.5);
     this.dev = this.add.text(game.config.width/2, game.config.height/2, "DEV MODE UNLOCK LEVELS", this.textConfig).setOrigin(0.5);

@@ -392,7 +392,7 @@ class Level2 extends Phaser.Scene {
         if(this.tooltip){
             if(Phaser.Input.Keyboard.JustDown(keyENTER)){
                 this.select.play();
-            this.menu = false;
+            //this.menu = false;
             this.tooltip = false;
             this.deleteTooltip();
             }
@@ -417,7 +417,7 @@ class Level2 extends Phaser.Scene {
                 this.move.play();
             this.cursorPos--;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<4){
             this.move.play();
             this.cursorPos++;
         }
@@ -434,6 +434,11 @@ class Level2 extends Phaser.Scene {
                 this.cursorPosy = game.config.height/2;
                 this.cursor.y = this.cursorPosy;
                 break;
+            
+            case 4:
+                this.cursorPosy = game.config.height/2+100;
+                this.cursor.y = this.cursorPosy;
+                break;    
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
@@ -453,6 +458,11 @@ class Level2 extends Phaser.Scene {
             bgm.stop();
                     this.scene.start('menuScene');
                     break;
+
+                case 4:
+                    this.tooltip = true;
+                    this.createTooltip();
+                    break; 
             
                 default:
                     break;
@@ -666,13 +676,14 @@ class Level2 extends Phaser.Scene {
 
 createMenu(){
 
-    this.test = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0);
+    this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
     this.test.setDepth(1);
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Restart", this.textConfig).setOrigin(0.5);
     this.restart.setDepth(1);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Level Select", this.textConfig).setOrigin(0.5);
     this.level.setDepth(1);
     this.menuText = this.add.text(game.config.width/2, game.config.height/2, "Menu", this.textConfig).setOrigin(0.5);
+    this.tipText = this.add.text(game.config.width/2, game.config.height/2+100, "Controls", this.textConfig).setOrigin(0.5).setDepth(1);
     this.menuText.setDepth(1);
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
     this.cursor.setDepth(1);
@@ -684,13 +695,15 @@ deleteMenu(){
     this.level.alpha = 0;
     this.menuText.alpha = 0;
     this.cursor.alpha = 0;
+    this.tipText.alpha = 0;
 }
 
 
 createTooltip(){
-    this.help = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0).setDepth(1);
+    this.help = this.add.tileSprite(0, -15, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
     this.name = this.add.text(game.config.width/2, game.config.height/2-250, "Push & Pull", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-100, "press SPACE with ORANGE to pull the box towards you", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-100, "press SPACE with ORANGE", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText5 = this.add.text(game.config.width/2, game.config.height/2-80, "to pull the box towards you", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText2 = this.add.text(game.config.width/2, game.config.height/2, "use BLUE to push the boxes", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
@@ -705,5 +718,6 @@ deleteTooltip(){
     this.helpText2.destroy();
     this.helpText3.destroy();
     this.helpText4.destroy();
+    this.helpText5.destroy();
 }
 }

@@ -89,6 +89,12 @@ class Level extends Phaser.Scene {
         this.move = this.sound.add('scroll');
         this.lock = this.sound.add('lock');
         this.select = this.sound.add('select');
+
+        if(!menu_bgm.isPlaying){
+        
+            menu_bgm.setLoop(true);
+            menu_bgm.play();
+           }
   
     }
 
@@ -207,6 +213,8 @@ class Level extends Phaser.Scene {
             switch (this.cursorPos) {
                 case 1:
                     if(level1=="clear"||level1=="open"){
+                        menu_bgm.setLoop(false);
+                        menu_bgm.stop();
                         this.select.play();
                     this.scene.start('level1Scene');
                     }else{
@@ -216,6 +224,8 @@ class Level extends Phaser.Scene {
                 case 2:
                     if(level2=="clear"||level2=="open"){
                         this.select.play();
+                        menu_bgm.setLoop(false);
+                        menu_bgm.stop();
                         this.scene.start('level2Scene');
                         }else{
                             this.lock.play();
@@ -223,6 +233,8 @@ class Level extends Phaser.Scene {
                     break;
                 case 3:
                     if(level3=="clear"||level3=="open"){
+                        menu_bgm.setLoop(false);
+                        menu_bgm.stop();
                         this.select.play();
                         this.scene.start('level3Scene');
                         }else{
@@ -232,6 +244,8 @@ class Level extends Phaser.Scene {
 
                 case 4:
                     if(level4=="clear"||level4=="open"){
+                        menu_bgm.setLoop(false);
+                        menu_bgm.stop();
                         this.select.play();
                         this.scene.start('level4Scene');
                         }else{

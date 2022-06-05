@@ -70,6 +70,7 @@ class Level2 extends Phaser.Scene {
         this.physics.add.collider(this.players,this.boxC);
         this.physics.add.collider(this.boxB,this.boxC);
         this.physics.add.collider(this.boxO,this.boxC);
+        
         this.physics.add.collider(this.player2,this.boxB,(player,box)=>{
             let check = false;
             if(player.body.touching.up){
@@ -176,7 +177,7 @@ class Level2 extends Phaser.Scene {
             [ true, true, false, true, true, false, true, false, false, false, false, false, false, false, true, false, true, true, false, true],
             [ true, true, false, true, true, false, true, "blue", true, true, true, true, true, true, "switch", false, true, true, false, true],
             [ true, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, true, false, true],
-            [ true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true],
+            [ true, true, false, true, true, true, false, true, true, true, false, true, true, true, false, true, false, true, false, true],
             [ true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true],
             [ true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
@@ -300,6 +301,7 @@ class Level2 extends Phaser.Scene {
         }
 
         this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans2').setOrigin(0);
+        
 
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
@@ -584,7 +586,7 @@ class Level2 extends Phaser.Scene {
                 switch(this.screen){
                 case 1:
                     this.screen = 2;
-                    this.player1.alpha=(0);
+                    this.player1.alpha=(.2);
                     this.player2.alpha=1;
                     this.grid_blue.alpha = 1;
                     this.grid_orange.alpha = 0;
@@ -601,7 +603,7 @@ class Level2 extends Phaser.Scene {
                     break;
                 case 2:
                     this.screen = 1;
-                    this.player2.alpha=(0);
+                    this.player2.alpha=(.2);
                     this.player1.alpha=(1);
                     this.grid_blue.alpha = 0;
                     this.grid_orange.alpha = 1;

@@ -426,7 +426,7 @@ class Level4 extends Phaser.Scene {
             
                     });
                 }else if(skip[i][j]=="spike"){
-                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0).setSize(25,25).setAlpha(.15);
+                    let spiky = this.physics.add.sprite(i*32, j*32,'spike').setOrigin(0).setSize(25,25).setAlpha(.2);
                     this.spikesB.add(spiky)
                     this.spikeArrB.push(spiky);
                 }
@@ -463,7 +463,7 @@ class Level4 extends Phaser.Scene {
 
             
         }
-        //this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans3').setOrigin(0);
+        this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans4').setOrigin(0);
 
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
@@ -697,7 +697,7 @@ class Level4 extends Phaser.Scene {
                         this.spikeArrB[i].alpha = 1;  
                     }
                     for(let i = 0;i<this.spikeArrO.length;i++){
-                        this.spikeArrO[i].alpha = .15;  
+                        this.spikeArrO[i].alpha = .2;  
                     }
                    // this.switchArrB[this.switchArrB.length-2].alpha = 0;
                     break;
@@ -723,7 +723,7 @@ class Level4 extends Phaser.Scene {
                         this.switchArrO[i].alpha = 1;  
                     }
                     for(let i = 0;i<this.spikeArrB.length;i++){
-                        this.spikeArrB[i].alpha = .15;  
+                        this.spikeArrB[i].alpha = .2;  
                     }
                     for(let i = 0;i<this.spikeArrO.length;i++){
                         this.spikeArrO[i].alpha = 1;  

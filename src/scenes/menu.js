@@ -11,6 +11,7 @@ class Menu extends Phaser.Scene {
         this.load.image('trans1', './assets/art/trans1.png');
         this.load.image('trans2', './assets/art/trans2.png');
         this.load.image('trans3', './assets/art/trans3.png');
+        this.load.image('trans4', './assets/art/trans4.png');
         this.load.image('bbox', './assets/art/box_2.png');
         this.load.image('obox', './assets/art/box_1.png');
         this.load.image('gray', './assets/art/gray_box.png');
@@ -37,11 +38,17 @@ class Menu extends Phaser.Scene {
         this.load.audio('scroll', './assets/audio/move.wav');
         this.load.audio('lock', './assets/audio/locked.wav');
         this.load.audio('select', './assets/audio/select.wav');
-        this.load.audio('level_bgm','./assets/audio/final-game-play.mp3')
+        this.load.audio('level_bgm','./assets/audio/final-game-play.mp3');
+        this.load.audio('menu_bgm','./assets/audio/menu.mp3');
     }
 
     create() {
+        if(first){
+        menu_bgm = this.sound.add('menu_bgm');
         bgm = this.sound.add('level_bgm');
+        first = false;
+        }
+        
         this.cursorPos = 1;
         this.cursorPosx = game.config.width-200;
         this.cursorPosy = game.config.height/2-300;
@@ -74,6 +81,12 @@ class Menu extends Phaser.Scene {
         this.createMenu();
         this.move = this.sound.add('scroll');
         this.select = this.sound.add('select');
+        if(!menu_bgm.isPlaying){
+            
+            
+            menu_bgm.setLoop(true);
+            menu_bgm.play();
+           }
 
   
     }
@@ -90,7 +103,7 @@ class Menu extends Phaser.Scene {
                 this.move.play();
             this.cursorPos--;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<2){
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<3){
             this.move.play();
             this.cursorPos++;
         }
@@ -121,6 +134,13 @@ class Menu extends Phaser.Scene {
                     this.scene.start('levelScene');
                     break;
 
+                case 3:
+                    level1 = "open";
+                    level2 = "open";
+                    level3 = "open";
+                    level4 = "open";
+                    break;
+
             
                 default:
                     break;
@@ -141,6 +161,7 @@ createMenu(){
     this.test = this.add.rectangle(32, 32, 576, 576, 0x088F8F).setOrigin(0);
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Level Select", this.textConfig).setOrigin(0.5);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Credits", this.textConfig).setOrigin(0.5);
+    this.dev = this.add.text(game.config.width/2, game.config.height/2, "DEV MODE UNLOCK LEVELS", this.textConfig).setOrigin(0.5);
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
 }
 

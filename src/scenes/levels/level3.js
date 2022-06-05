@@ -650,7 +650,7 @@ class Level3 extends Phaser.Scene {
                 switch(this.screen){
                 case 1:
                     this.screen = 2;
-                    this.player1.alpha=(0);
+                    this.player1.alpha=(.2);
                     this.player2.alpha=1;
                     this.grid_blue.alpha = 1;
                     this.grid_orange.alpha = 0;
@@ -672,7 +672,7 @@ class Level3 extends Phaser.Scene {
                     break;
                 case 2:
                     this.screen = 1;
-                    this.player2.alpha=(0);
+                    this.player2.alpha=(.2);
                     this.player1.alpha=(1);
                     this.grid_blue.alpha = 0;
                     this.grid_orange.alpha = 1;

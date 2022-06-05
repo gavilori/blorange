@@ -645,7 +645,7 @@ class Level3 extends Phaser.Scene {
                 this.time.delayedCall(2000, () => {
                     level3 = "clear";
                     if(level4!="clear"){
-                    level4 = "lock";
+                    level4 = "open";
                     }
                     this.scene.start("levelScene");
                     }, null, this);
@@ -784,13 +784,13 @@ deleteMenu(){
 
 
 createTooltip(){
-    this.help = this.add.tileSprite(0, -15, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-250, "Slip & Slide", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-200, "Boxes are consistent between both scenes.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.help = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Slip & Slide", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-150, "Boxes are consistent between both scenes.", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "Characters can only push their own color boxes.", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText5 = this.add.text(game.config.width/2, game.config.height/2+10, "Orange Player", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText6 = this.add.text(game.config.width/2, game.config.height/2+40, "Slide in a direction with arrow keys", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText7 = this.add.text(game.config.width/2, game.config.height/2+60, "stops when hitting a solid object.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText7 = this.add.text(game.config.width/2, game.config.height/2+70, "stops when hitting a solid object.", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
 

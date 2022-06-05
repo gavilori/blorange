@@ -704,10 +704,10 @@ deleteMenu(){
 }
 
 createTooltip(){
-    this.help = this.add.tileSprite(0, -15, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-250, "Fill In The Blanks", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-200, "Press shift two SWITCH between characters", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "use BLUE to push the Blue boxes", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.help = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Fill In The Blanks", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-150, "Press shift to SWITCH between characters", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-80, "use BLUE to push the Blue boxes", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText3 = this.add.text(game.config.width/2, game.config.height/2, "push the boxes onto all the SWITCHES to win", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText5 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText4 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);

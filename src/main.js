@@ -21,6 +21,11 @@ let level3 = "lock";
 let level4 = "lock";
 let Boss = "lock"
 
+let sub1 = "open";
+let sub2 = "lock";
+let sub3 = "lock";
+let sub4 = "lock";
+
 
 // main game object
 let config = {

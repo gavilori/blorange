@@ -19,12 +19,12 @@ let level1 = "open";
 let level2 = "lock";
 let level3 = "lock";
 let level4 = "lock";
-let Boss = "lock"
+let Boss = "open"
 
 let sub1 = "open";
-let sub2 = "lock";
-let sub3 = "lock";
-let sub4 = "lock";
+let sub2 = "lcok";
+let sub3 = "asdasd";
+let sub4 = "asdasd";
 
 
 // main game object
@@ -43,7 +43,7 @@ let config = {
             }
         }
     },
-    scene: [Menu,Move,Push,Switch,Level,Level1,Level2,Level3,Level4]
+    scene: [Menu,Move,Push,Switch,Level,Level1,Level2,Level3,Level4,Final,Chamber1]
 };
 
 let game = new Phaser.Game(config);

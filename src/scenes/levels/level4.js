@@ -676,9 +676,9 @@ class Level4 extends Phaser.Scene {
                     }
                 this.time.delayedCall(2000, () => {
                     level4 = "clear";
-                    if(Boss!="clear"){
-                    Boss = "open";
-                    }
+                    // if(Boss!="clear"){
+                    // Boss = "open";
+                    // }
                     this.scene.start("levelScene");
                     }, null, this);
 

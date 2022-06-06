@@ -377,8 +377,8 @@ class Level3 extends Phaser.Scene {
        this.boxesB = [];
        this.boxesO = [];
        this.boxesC = [];
-       this.switchArrB = []
-       this.switchArrO = []
+       this.switchArrB = [];
+       this.switchArrO = [];
        
        
 

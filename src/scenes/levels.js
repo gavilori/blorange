@@ -186,6 +186,10 @@ class Level extends Phaser.Scene {
 
         // state machine to track where the cursor is
         if(!this.menu){
+            if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&(Boss=="open"||Boss == "clear")){
+                this.move.play();
+                this.cursorPos = 5;
+            }
         if(Phaser.Input.Keyboard.JustDown(keyLEFT)){
             this.move.play();
             
@@ -291,6 +295,15 @@ class Level extends Phaser.Scene {
                             this.lock.play();
                         }
                     break;    
+
+                 case 5:
+                    if(Boss=="clear"||Boss=="open"){
+                        menu_bgm.setLoop(false);
+                        menu_bgm.stop();
+                        this.select.play();
+                        this.scene.start('finalScene');
+                        }
+                    break;  
             
                 default:
                     break;

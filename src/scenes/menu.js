@@ -151,7 +151,7 @@ class Menu extends Phaser.Scene {
                     this.scene.start('levelScene');
                     break;
                 case 2:
-                    this.scene.start('chamber2Scene');
+                    this.scene.start('creditsScene');
                     break;
 
                 case 3:

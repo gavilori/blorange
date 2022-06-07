@@ -52,6 +52,143 @@ class Level3 extends Phaser.Scene {
             fixedWidth: 0
         }
 
+        //set up animations
+        //orange anims
+        //idle
+        let anim_framerate = 5;
+        this.anims.create({
+            key: 'orange_idle',
+            frames: this.anims.generateFrameNames('orange_atlas', {
+                prefix: 'idle_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 2,
+            repeat: -1
+        });
+        //left
+        this.anims.create({
+            key: 'orange_left',
+            frames: this.anims.generateFrameNames('orange_atlas', {
+                prefix: 'left_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+        //right
+        this.anims.create({
+            key: 'orange_right',
+            frames: this.anims.generateFrameNames('orange_atlas', {
+                prefix: 'right_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+        //up
+        this.anims.create({
+            key: 'orange_up',
+            frames: this.anims.generateFrameNames('orange_atlas', {
+                prefix: 'up_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+        //down
+        this.anims.create({
+            key: 'orange_down',
+            frames: this.anims.generateFrameNames('orange_atlas', {
+                prefix: 'down_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+
+        //blue
+        //idle
+        this.anims.create({
+            key: 'blue_idle',
+            frames: this.anims.generateFrameNames('blue_atlas', {
+                prefix: 'idle_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: 2,
+            repeat: -1
+        });
+        //left
+        this.anims.create({
+            key: 'blue_left',
+            frames: this.anims.generateFrameNames('blue_atlas', {
+                prefix: 'left_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+        //right
+        this.anims.create({
+            key: 'blue_right',
+            frames: this.anims.generateFrameNames('blue_atlas', {
+                prefix: 'right_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+        //up
+        this.anims.create({
+            key: 'blue_up',
+            frames: this.anims.generateFrameNames('blue_atlas', {
+                prefix: 'up_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+        //down
+        this.anims.create({
+            key: 'blue_down',
+            frames: this.anims.generateFrameNames('blue_atlas', {
+                prefix: 'down_',
+                start: 1,
+                end: 4,
+                suffix: '',
+                zeroPad: 4
+            }),
+            frameRate: anim_framerate,
+            repeat: -1
+        });
+
+
         this.player1 = new Player(this, 32, game.config.height-64,'p1', 0, true).setOrigin(0).setSize(30,30);
         this.player2 = new Player(this, 32, game.config.height-64,'p2', 0, false).setOrigin(0).setSize(25,25);
         //this.player1.body.immovable = true;
@@ -713,12 +850,14 @@ class Level3 extends Phaser.Scene {
                 }
             }
         
-
+        //movement handler
         if(keyDOWN.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
+            this.player1.anims.play('orange_down', true);
             this.moving = true;
         }else if(keyUP.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityY(-this.MOVE_SPEED);
+            this.player1.anims.play('orange_up', true);
             this.moving = true;
         }else{
             //this.player1.body.setVelocityY(0);
@@ -726,9 +865,11 @@ class Level3 extends Phaser.Scene {
 
         if(keyLEFT.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityX(-this.MOVE_SPEED);
+            this.player1.anims.play('orange_left', true);
             this.moving = true;
         }else if(keyRIGHT.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityX(this.MOVE_SPEED);
+            this.player1.anims.play('orange_right', true);
             this.moving = true;
         }else{
             //this.player1.body.setVelocityX(0);
@@ -736,23 +877,32 @@ class Level3 extends Phaser.Scene {
 
         if(keyDOWN.isDown&&this.screen == 2){
             this.player2.body.setVelocityY(this.MOVE_SPEED);
+            this.player2.anims.play('blue_down', true);
         }else if(keyUP.isDown&&this.screen == 2){
             this.player2.body.setVelocityY(-this.MOVE_SPEED);
+            this.player2.anims.play('blue_up', true);
         }else{
             this.player2.body.setVelocityY(0);
         }
 
         if(keyLEFT.isDown&&this.screen == 2){
             this.player2.body.setVelocityX(-this.MOVE_SPEED);
+            this.player2.anims.play('blue_left', true);
         }else if(keyRIGHT.isDown&&this.screen == 2){
             this.player2.body.setVelocityX(this.MOVE_SPEED);
+            this.player2.anims.play('blue_right', true);
         }else{
             this.player2.body.setVelocityX(0);
+        }
+
+        if (this.player2.body.velocity.x == 0 && this.player2.body.velocity.y == 0) {
+            this.player2.anims.play('blue_idle');
         }
 
 
         if(this.player1.body.velocity.x==0&&this.player1.body.velocity.y==0){
             this.moving = false;
+            this.player1.anims.play('orange_idle');
         }
         // console.log("X vel: "+this.player1.body.velocity.x+" Y vel: "+this.player1.body.velocity.y);
         // console.log("I AM MOVING: "+this.moving);

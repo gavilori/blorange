@@ -1,9 +1,9 @@
-# Blorange [Working Title]
+# Blorange
 ARTG/CMPM 120 Final Game
 
 ## Contributors
 Main Programmer, Level Designer - Jonathan Alvarez
 
-Audio Composer, Graphics Artist, Assistant Programmer - Gyle Viloria
+Composer, Sound Designer, Graphics Artist, Level Designer - Gyle Viloria
 
 Graphics Artist - Rebecca Slason

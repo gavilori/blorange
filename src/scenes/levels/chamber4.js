@@ -830,7 +830,7 @@ deleteMenu(){
 
 createTooltip(){
     this.help = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Latitude and Longitude", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Latitude and Longitude 2", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-150, "Players are consistent between both scenes.", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "Characters can only push their own color boxes.", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText5 = this.add.text(game.config.width/2, game.config.height/2-50, "ORANGE Player", this.textConfig).setOrigin(0.5).setDepth(1);

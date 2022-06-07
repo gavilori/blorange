@@ -317,7 +317,7 @@ class Chamber2 extends Phaser.Scene {
             
         }
 
-        //this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans2').setOrigin(0);
+        this.walls = this.add.tileSprite(2, -2, game.config.width, game.config.height, 'trans7').setOrigin(0);
         
 
         for(let i = -1;i<0;i++){ //column

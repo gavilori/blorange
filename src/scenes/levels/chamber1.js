@@ -463,7 +463,7 @@ class Chamber1 extends Phaser.Scene {
             
         }
     }
-    //this.walls = this.add.tileSprite(false, false, game.config.width, game.config.height, 'trans1').setOrigin(0);
+    this.walls = this.add.tileSprite(false, false, game.config.width, game.config.height, 'trans6').setOrigin(0).setDepth(1);
     for(let i = -1;i<0;i++){ //column
         for(let j = 0;j<=20;j++){ // row
             let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);

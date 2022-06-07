@@ -137,9 +137,7 @@ class Move extends Phaser.Scene {
         
         
         if(!this.menu){
-            if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-                this.scene.start('pushScene');    
-            }
+            
         if(!this.press1||!this.press2){
         if(Phaser.Input.Keyboard.JustDown(keyShift)){
             this.switch.play();

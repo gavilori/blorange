@@ -50,7 +50,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('select', './assets/audio/select.wav');
         this.load.audio('level_bgm','./assets/audio/final-game-play.mp3');
         this.load.audio('menu_bgm','./assets/audio/menu.mp3');
-        this.load.audio('final','./assets/audio/Boss.mp3');
+        this.load.audio('final','./assets/audio/boss.mp3');
     }
 
     create() {

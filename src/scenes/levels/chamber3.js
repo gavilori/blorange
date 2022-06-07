@@ -304,13 +304,13 @@ class Chamber3 extends Phaser.Scene {
             
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             [ false, true, true, true, true, true, true, true, true, false, false, true, "blue", true, true, true, true, "blue", "blue", false],
-            [ false, true, "blue", true, true, true, true, true, true, false, false, true, true, false, false, true, true, true, true, false],
+            [ false, true, "blue", true, true, true, true, true, true, false, false, true, true, false, false, true, true, true, "blue", false],
             [ false, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false],
             [ false, true, true, true, false, false, true, true, true, false, true, true, false, true, true, true, true, false, true, false],
             [ false, true, true, true, false, false, true, true, true, true, true, true, false, true, true, false, true, true, true, false],
             [ false, true, true, true, true, true, true, true, true, true, false, true, false, true, true, true, true, true, true, false],
             [ false, true, true, true, true, true, true, true, true, false, false, true, false, false, false, true, true, true, true, false],
-            [ false, true, true, true, true, true, true, true, "switch", false, false, true, true, true, true, true, true, "blue", "blue", false],
+            [ false, true, true, true, true, true, true, true, "switch", false, false, true, "blue", true, true, true, true, "blue", "blue", false],
             [ false, false, false, false, true, true, false, false, false, false, false, false, false, true, true, false, false, false, false, false],
             [ false, false, false, false, false, true, true, false, false, false, false, false, false, false, true, true, false, false, false, false],
             [ false, true, true, true, true, true, true, true, true, false, false, "switch", true, true, true, true, true, true, true, false],
@@ -503,9 +503,9 @@ class Chamber3 extends Phaser.Scene {
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');
-       if(!bgm.isPlaying){
+       if(!final_bgm.isPlaying){
         
-        bgm.setLoop(true);
+        final_bgm.setLoop(true);
         bgm.play();
        }
       
@@ -600,13 +600,13 @@ class Chamber3 extends Phaser.Scene {
                     this.scene.start(this);
                     break;
                 case 2:
-                    bgm.setLoop(false);
-            bgm.stop();
+                    final_bgm.setLoop(false);
+            final_bgm.stop();
                     this.scene.start('levelScene');
                     break;
                 case 3:
-                    bgm.setLoop(false);
-            bgm.stop();
+                    final_bgm.setLoop(false);
+            final_bgm.stop();
                     this.scene.start('menuScene');
                     break;
                 case 4:
@@ -650,10 +650,10 @@ class Chamber3 extends Phaser.Scene {
                     }
                 this.time.delayedCall(2000, () => {
                     sub3 = "clear";
-                    if(level4!="clear"){
+                    
                     sub4 = "open";
-                    }
-                    this.scene.start("levelScene");
+                   
+                    this.scene.start("BossScene");
                     }, null, this);
 
             }

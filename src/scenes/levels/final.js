@@ -685,10 +685,10 @@ class Final extends Phaser.Scene {
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');
-       if(!bgm.isPlaying){
+       if(!final_bgm.isPlaying){
         
-        bgm.setLoop(true);
-        bgm.play();
+        final_bgm.setLoop(true);
+        final_bgm.play();
        }
       
        this.createTooltip();
@@ -782,13 +782,13 @@ class Final extends Phaser.Scene {
                     this.scene.start(this);
                     break;
                 case 2:
-                    bgm.setLoop(false);
-                    bgm.stop();
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
                     this.scene.start('levelScene');
                     break;
                 case 3:
-                    bgm.setLoop(false);
-                    bgm.stop();
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
                     this.scene.start('menuScene');
                     break;
                 case 4:
@@ -823,8 +823,7 @@ class Final extends Phaser.Scene {
          
 
             if(!this.press[2][10]||!this.press[3][10]||!this.press[2][9]||!this.press[3][9]||!this.press[15][9]||!this.press[2][9]){
-                bgm.setLoop(false);
-            bgm.stop();
+               
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "CHAMBER 1", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){
@@ -838,8 +837,7 @@ class Final extends Phaser.Scene {
             }
 
             if(!this.press[9][2]){
-                bgm.setLoop(false);
-            bgm.stop();
+                
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "CHAMBER 2", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){
@@ -853,8 +851,7 @@ class Final extends Phaser.Scene {
             }
 
             if(!this.press[16][9]){
-                bgm.setLoop(false);
-            bgm.stop();
+               
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "CHAMBER 3", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){
@@ -869,8 +866,7 @@ class Final extends Phaser.Scene {
 
 
             if(!this.press[9][16]){
-                bgm.setLoop(false);
-            bgm.stop();
+               
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "CHAMBER 4", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){

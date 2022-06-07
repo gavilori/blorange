@@ -13,6 +13,7 @@ let keyTAB;
 let MOVE_SPEED;
 let bgm;
 let menu_bgm;
+let final_bgm;
 let first = true;
 let SCROLL_SPEED = 2;
 let level1 = "open";
@@ -22,9 +23,9 @@ let level4 = "lock";
 let Boss = "open"
 
 let sub1 = "open";
-let sub2 = "open";
-let sub3 = "open";
-let sub4 = "open";
+let sub2 = "lcok";
+let sub3 = "awd";
+let sub4 = "asd";
 
 
 // main game object

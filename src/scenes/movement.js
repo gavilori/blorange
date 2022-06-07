@@ -73,9 +73,10 @@ class Move extends Phaser.Scene {
                 if(!this.end.isPlaying){
                     this.end.play();
                     }
-                this.time.delayedCall(4000, () => {
+                this.time.delayedCall(2500, () => {
                     
-                    
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
                     this.scene.start("menuScene");
                     }, null, this);
         });

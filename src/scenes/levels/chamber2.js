@@ -376,10 +376,10 @@ class Chamber2 extends Phaser.Scene {
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');
-       if(!bgm.isPlaying){
+       if(!final_bgm.isPlaying){
         
-        bgm.setLoop(true);
-        bgm.play();
+        final_bgm.setLoop(true);
+        final_bgm.play();
        }
       
        this.createTooltip();
@@ -474,13 +474,13 @@ class Chamber2 extends Phaser.Scene {
                     this.scene.start(this);
                     break;
                 case 2:
-                    bgm.setLoop(false);
-            bgm.stop();
+                    final_bgm.setLoop(false);
+            final_bgm.stop();
                     this.scene.start('levelScene');
                     break;
                 case 3:
-                    bgm.setLoop(false);
-            bgm.stop();
+                    final_bgm.setLoop(false);
+            final_bgm.stop();
                     this.scene.start('menuScene');
                     break;
 

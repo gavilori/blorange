@@ -88,17 +88,24 @@ class Chamber1 extends Phaser.Scene {
         this.physics.add.collider(this.player2,this.boxO,);
         this.physics.add.collider(this.player1,this.boxB,);
 
-        this.physics.add.collider(this.player2,this.boxB,(player,box)=>{   //collider between the blue player and blue boxes
+        this.physics.add.collider(this.player2,this.boxB,(player,box)=>{
             let check = false;
-            if(player.body.touching.up){ //pushing up on box
-                for(let i  =0; i<this.boxesB.length;i++){ //check if box will clip into another box
+            if(player.body.touching.up){
+                for(let i  =0; i<this.boxesB.length;i++){
                 
                     if(this.boxesB[i].y==box.y-32&&this.boxesB[i].x==box.x){
                         check = true;
                         break;
                     }
                 }
-                for(let i  =0; i<this.boxesC.length;i++){ //check if box will clip into non move block
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==box.y-32&&this.boxesO[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].y==box.y-32&&this.boxesC[i].x==box.x){
                         check = true;
@@ -106,17 +113,24 @@ class Chamber1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                box.y-=32; //move block up screen
+                box.y-=32;
                 }
-            }else if(player.body.touching.down){ //player push down on box
+            }else if(player.body.touching.down){
                 for(let i  =0; i<this.boxesB.length;i++){
                 
-                    if(this.boxesB[i].y==box.y+32&&this.boxesB[i].x==box.x){ //check if box will clip into another box
+                    if(this.boxesB[i].y==box.y+32&&this.boxesB[i].x==box.x){
                         check = true;
                         break;
                     }
                 }
-                for(let i  =0; i<this.boxesC.length;i++){ //check if box will clip into non move block
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].y==box.y+32&&this.boxesO[i].x==box.x){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].y==box.y+32&&this.boxesC[i].x==box.x){
                         check = true;
@@ -124,35 +138,49 @@ class Chamber1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                box.y+=32; //move block down screen
+                box.y+=32;
                 }
-            }else if(player.body.touching.left){ //player push left on box
+            }else if(player.body.touching.left){
                 for(let i  =0; i<this.boxesB.length;i++){
                 
-                    if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){ //check if box will clip into another box
+                    if(this.boxesB[i].x==box.x-32&&this.boxesB[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==box.x-32&&this.boxesO[i].y==box.y){
                         check = true;
                         break;
                     }
                 }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
-                    if(this.boxesC[i].x==box.x-32&&this.boxesC[i].y==box.y){ //check if box will clip into non move block
+                    if(this.boxesC[i].x==box.x-32&&this.boxesC[i].y==box.y){
                         check = true;
                         break;
                     }
                 }
                 if(!check){
-                box.x-=32; //move block left screen
+                box.x-=32;
                 }
-            }else if(player.body.touching.right){//player push right on box
+            }else if(player.body.touching.right){
                 for(let i  =0; i<this.boxesB.length;i++){
                 
-                    if(this.boxesB[i].x==box.x+32&&this.boxesB[i].y==box.y){ //check if box will clip into another box
+                    if(this.boxesB[i].x==box.x+32&&this.boxesB[i].y==box.y){
                         check = true;
                         break;
                     }
                 }
-                for(let i  =0; i<this.boxesC.length;i++){ //check if box will clip into non move block
+                for(let i  =0; i<this.boxesO.length;i++){
+                
+                    if(this.boxesO[i].x==box.x+32&&this.boxesO[i].y==box.y){
+                        check = true;
+                        break;
+                    }
+                }
+                for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].x==box.x+32&&this.boxesC[i].y==box.y){
                         check = true;
@@ -160,17 +188,18 @@ class Chamber1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
-                box.x+=32; //move block right
+                box.x+=32;
                 }
             }
-            
-            
+
 
         });
 
         //same as previous collider but for orange box
         this.physics.add.collider(this.player1,this.boxO,(playerTwo,boxTwo)=>{
             let check = false;
+            playerTwo.body.setVelocityX(0);
+            playerTwo.body.setVelocityY(0);
             if(playerTwo.body.touching.up){
                 for(let i  =0; i<this.boxesO.length;i++){
                 
@@ -179,7 +208,13 @@ class Chamber1 extends Phaser.Scene {
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesB.length;i++){
                 
+                    if(this.boxesB[i].y==boxTwo.y-32&&this.boxesB[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].y==boxTwo.y-32&&this.boxesC[i].x==boxTwo.x){
@@ -198,7 +233,13 @@ class Chamber1 extends Phaser.Scene {
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesB.length;i++){
                 
+                    if(this.boxesB[i].y==boxTwo.y+32&&this.boxesB[i].x==boxTwo.x){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].y==boxTwo.y+32&&this.boxesC[i].x==boxTwo.x){
@@ -217,7 +258,13 @@ class Chamber1 extends Phaser.Scene {
                         break;
                     }
                 }
-              
+                for(let i  =0; i<this.boxesB.length;i++){
+                
+                    if(this.boxesB[i].x==boxTwo.x-32&&this.boxesB[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].x==boxTwo.x-32&&this.boxesC[i].y==boxTwo.y){
@@ -226,19 +273,24 @@ class Chamber1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
+                    
                 boxTwo.x-=32;
                 }
             }else if(playerTwo.body.touching.right){
-                console.log("AWIHUDGAIWUDGAOWUDH");
                 for(let i  =0; i<this.boxesO.length;i++){
                 
                     if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
                         check = true;
-                        
                         break;
                     }
                 }
+                for(let i  =0; i<this.boxesB.length;i++){
                 
+                    if(this.boxesB[i].x==boxTwo.x+32&&this.boxesB[i].y==boxTwo.y){
+                        check = true;
+                        break;
+                    }
+                }
                 for(let i  =0; i<this.boxesC.length;i++){
                 
                     if(this.boxesC[i].x==boxTwo.x+32&&this.boxesC[i].y==boxTwo.y){
@@ -247,7 +299,9 @@ class Chamber1 extends Phaser.Scene {
                     }
                 }
                 if(!check){
+                    
                 boxTwo.x+=32;
+                
                 }
             }
         
@@ -476,12 +530,12 @@ class Chamber1 extends Phaser.Scene {
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');
       
-       console.log(bgm.isPlaying);
-       if(!bgm.isPlaying){
+    //    console.log(bgm.isPlaying);
+    //    if(!bgm.isPlaying){
         
-        bgm.setLoop(true);
-        bgm.play();
-       }
+    //     bgm.setLoop(true);
+    //     bgm.play();
+    //    }
       
 
        this.createTooltip();
@@ -584,13 +638,13 @@ class Chamber1 extends Phaser.Scene {
                     this.scene.start(this);
                     break;
                 case 2:
-                    bgm.setLoop(false);
-                    bgm.stop();
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
                     this.scene.start('levelScene');
                     break;
                 case 3:
-                    bgm.setLoop(false);
-                    bgm.stop();
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
                     this.scene.start('menuScene');
                     break;
 

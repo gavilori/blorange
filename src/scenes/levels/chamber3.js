@@ -542,7 +542,7 @@ class Chamber3 extends Phaser.Scene {
                     switchy.alpha = 0;
                     this.physics.add.collider(this.boxB,switchy,(box,switch1)=>{
                         switch1.fillColor = 0x00FF00;
-                        console.log("i"+i+": j:"+j);
+                        // console.log("i"+i+": j:"+j);
                         if(this.press[i][j] ==true){
                         this.soundPress.play();
                         }
@@ -568,7 +568,7 @@ class Chamber3 extends Phaser.Scene {
                     this.switchesO.add(switchy);
                     this.collide = this.physics.add.collider(this.boxO,switchy,(box,switch1)=>{
                         switch1.fillColor = 0x00FF00;
-                        console.log(i+":"+j);
+                        // console.log(i+":"+j);
                         if(this.press[i][j] ==true){
                         this.soundPress.play();
                         }
@@ -893,7 +893,7 @@ class Chamber3 extends Phaser.Scene {
         }
         // console.log("X vel: "+this.player1.body.velocity.x+" Y vel: "+this.player1.body.velocity.y);
         // console.log("I AM MOVING: "+this.moving);
-        console.log(this.player1.x);
+        // console.log(this.player1.x);
 
         
    

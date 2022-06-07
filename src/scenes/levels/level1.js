@@ -364,7 +364,7 @@ class Level1 extends Phaser.Scene {
                 boxTwo.x-=32;
                 }
             }else if(playerTwo.body.touching.right){
-                console.log("AWIHUDGAIWUDGAOWUDH");
+                // console.log("AWIHUDGAIWUDGAOWUDH");
                 for(let i  =0; i<this.boxesO.length;i++){
                 
                     if(this.boxesO[i].x==boxTwo.x+32&&this.boxesO[i].y==boxTwo.y){
@@ -561,7 +561,7 @@ class Level1 extends Phaser.Scene {
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');
       
-       console.log(bgm.isPlaying);
+    //    console.log(bgm.isPlaying);
        if(!bgm.isPlaying){
         
         bgm.setLoop(true);

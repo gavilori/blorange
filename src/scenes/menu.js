@@ -93,6 +93,7 @@ class Menu extends Phaser.Scene {
         this.createMenu();
         this.move = this.sound.add('scroll');
         this.select = this.sound.add('select');
+        this.dev_select = this.sound.add('switch');
         if(!menu_bgm.isPlaying){
             
             
@@ -105,7 +106,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         this.grid.tilePositionX +=2;
-        console.log("CURSOR POS"+this.cursorPos);
+        // console.log("CURSOR POS"+this.cursorPos);
         
 
 
@@ -145,16 +146,19 @@ class Menu extends Phaser.Scene {
 
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
-            this.select.play();
+            // this.select.play();
             switch (this.cursorPos) {
                 case 1:
+                    this.select.play();
                     this.scene.start('levelScene');
                     break;
                 case 2:
+                    this.select.play();
                     this.scene.start('creditsScene');
                     break;
 
                 case 3:
+                    this.dev_select.play();
                     Dev = true;
                     if(level1!="clear"){
                     level1 = "open";

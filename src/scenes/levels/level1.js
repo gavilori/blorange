@@ -524,6 +524,7 @@ class Level1 extends Phaser.Scene {
         }
 
 // selecting your option on the menu by pressing enter
+// CHANGE THESE LINES TO PICK WHERE THE MENU OPTION TAKES YOU
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             this.select.play();
             switch (this.cursorPos) {
@@ -687,6 +688,12 @@ class Level1 extends Phaser.Scene {
     }
 }
 
+
+
+
+
+
+//THESE ARE THE LINES WHERE YOU CHANGE THE ORDER OF THE TEXT
 createMenu(){
 
     this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);

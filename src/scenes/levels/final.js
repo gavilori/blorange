@@ -324,15 +324,15 @@ class Final extends Phaser.Scene {
                [ false, false, false, false, false, false, false, "blue", true, "blue", true, "blue", true, false, false, false, false, false, false, false],
                [ true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true],
                [ true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true],
-               [ true, true,  "switch",  "switch", true, true, false, true, true, true, true, true, true, false, true, true,  "switch",  "switch", true, true],
-               [ true, true,  "switch",  "switch", true, true, false, true, true, true, true, true, true, false, true, true,  "switch",  "switch", true, true],
+               [ true, true,  "switch",  true, true, true, false, true, true, true, true, true, true, false, true, true,  "switch",  true, true, true],
+               [ true, true,  true, true, true, true, false, true, true, true, true, true, true, false, true, true,  true,  true, true, true],
                [ true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true],
                [ true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true],
                [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
                [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
                [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
-               [ false, false, false, false, false, false, false, true, true,  "switch",  "switch", true, true, false, false, false, false, false, false, false],
-               [ false, false, false, false, false, false, false, true, true,  "switch",  "switch", true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true,  "switch",  true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true,  true,  true, true, true, false, false, false, false, false, false, false],
                [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
                [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false]
                
@@ -522,6 +522,64 @@ class Final extends Phaser.Scene {
                [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
                [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false]
         ];
+    }
+
+    if(Dev){
+
+        skip = [
+            
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true,  "switch", true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true,  true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, "true", true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ true, true, "switch",  true, true, true, true, true, true, true, true, true, true, "true", true, true,  "switch",  true, true, true],
+            [ true, true,  true,  true, true, true, true, true, true, true, true, true, true, true, true, true, true,  true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, "true", true, true, true, true, true, true],
+            [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, "switch", true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false]
+            
+        ];
+
+        skip2 = [
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+               [ true, true, true, true, true, true,  true, true, true, true, true, true, true, "true", true, true, true, true, true, true],
+               [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+               [ true, true, true, true, true, true,  true, true, true, true, true, true, true, "true", true, true, true, true, true, true],
+               [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+               [ true, true, true, true, true, true,  true, true, true, true, true, true, true, "true", true, true, true, true, true, true],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
+               [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false]
+        ];
+
+
+
+
+
+
     }
 
 
@@ -1025,13 +1083,14 @@ deleteMenu(){
 
 createTooltip(){
     this.help = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Latitude and Longitude", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-150, "Players are consistent between both scenes.", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "Characters can only push their own color boxes.", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText5 = this.add.text(game.config.width/2, game.config.height/2-50, "ORANGE Player", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2-20, "can only move up and down", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText7 = this.add.text(game.config.width/2, game.config.height/2+40, "BLUE", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText8 = this.add.text(game.config.width/2, game.config.height/2+70, "can only move left and right", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Run the Guantlet", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-150, "four final levels to test your skills", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "each level unlocks after beating the previous", this.textConfig).setOrigin(0.5).setDepth(1);
+    if(Dev){
+    this.helpText5 = this.add.text(game.config.width/2, game.config.height/2-50, "DEV MODE", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2-20, "beat the one on the bottom for the ending", this.textConfig).setOrigin(0.5).setDepth(1);
+    }
+
     this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
 
@@ -1045,10 +1104,11 @@ deleteTooltip(){
     this.helpText2.destroy();
     this.helpText3.destroy();
     this.helpText4.destroy();
+    if(Dev){
     this.helpText5.destroy();
     this.helpText6.destroy();
-    this.helpText7.destroy();
-    this.helpText8.destroy();
+    }
+
 
 }
 

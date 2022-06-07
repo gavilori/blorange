@@ -675,7 +675,9 @@ class Chamber4 extends Phaser.Scene {
                     this.end.play();
                     }
                 this.time.delayedCall(2000, () => {
+                    if(!Dev){
                     sub4 = "clear";
+                    }
                     
                     this.scene.start("moveScene");
                     }, null, this);

@@ -22,6 +22,8 @@ let level3 = "lock";
 let level4 = "lock";
 let Boss = "open"
 
+let Dev = false;
+
 let sub1 = "open";
 let sub2 = "lcok";
 let sub3 = "awd";

@@ -148,6 +148,7 @@ class Menu extends Phaser.Scene {
                     break;
 
                 case 3:
+                    Dev = true;
                     if(level1!="clear"){
                     level1 = "open";
                     }

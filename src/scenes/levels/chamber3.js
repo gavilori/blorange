@@ -649,9 +649,11 @@ class Chamber3 extends Phaser.Scene {
                     this.end.play();
                     }
                 this.time.delayedCall(2000, () => {
+                    if(!Dev){
                     sub3 = "clear";
                     
                     sub4 = "open";
+                    }
                    
                     this.scene.start("BossScene");
                     }, null, this);

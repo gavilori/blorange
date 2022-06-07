@@ -20,7 +20,7 @@ let level1 = "open";
 let level2 = "lock";
 let level3 = "lock";
 let level4 = "lock";
-let Boss = "open"
+let Boss = "lock"
 
 let Dev = false;
 

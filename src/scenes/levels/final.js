@@ -478,23 +478,23 @@ class Final extends Phaser.Scene {
             
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
-            [ false, false, false, false, false, false, false, true, true,  "switch",  "switch", true, true, false, false, false, false, false, false, false],
-            [ false, false, false, false, false, false, false, true, true,  "switch",  "switch", true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true,  "switch", true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true,  true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             [ true, true, true, true, true, true, false, true, true, true, true, true, true, "blue", true, true, true, true, true, true],
             [ true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true],
-            [ true, true, "switch",  "switch", true, true, false, true, true, true, true, true, true, "blue", true, true,  "switch",  "switch", true, true],
-            [ true, true,  "switch",  "switch", true, true, false, true, true, true, true, true, true, true, true, true,  "switch",  "switch", true, true],
+            [ true, true, "switch",  true, true, true, false, true, true, true, true, true, true, "blue", true, true,  "switch",  true, true, true],
+            [ true, true,  true,  true, true, true, false, true, true, true, true, true, true, true, true, true, true,  true, true, true],
             [ true, true, true, true, true, true, false, true, true, true, true, true, true, "blue", true, true, true, true, true, true],
             [ true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
-            [ false, false, false, false, false, false, false, true, true,  "switch",  "switch", true, true, false, false, false, false, false, false, false],
-            [ false, false, false, false, false, false, false, true, true,  "switch",  "switch", true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, "switch", true, true, true, false, false, false, false, false, false, false],
+            [ false, false, false, false, false, false, false, true, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false],
             [ false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false]
             
@@ -863,6 +863,22 @@ class Final extends Phaser.Scene {
                 this.time.delayedCall(1000, () => {
                     
                     this.scene.start("chamber3Scene");
+                    }, null, this);
+
+            }
+
+
+            if(!this.press[9][16]){
+                bgm.setLoop(false);
+            bgm.stop();
+                this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
+                this.add.text(game.config.width/2, game.config.height/2, "CHAMBER 4", this.textConfig).setOrigin(0.5).setDepth(1);
+                if(!this.end.isPlaying){
+                    this.end.play();
+                    }
+                this.time.delayedCall(1000, () => {
+                    
+                    this.scene.start("chamber4Scene");
                     }, null, this);
 
             }

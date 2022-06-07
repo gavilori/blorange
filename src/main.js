@@ -24,7 +24,7 @@ let Boss = "open"
 let sub1 = "open";
 let sub2 = "open";
 let sub3 = "open";
-let sub4 = "asdasd";
+let sub4 = "open";
 
 
 // main game object
@@ -36,14 +36,14 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: {
                 x: 0,
                 y: 0
             }
         }
     },
-    scene: [Menu,Move,Push,Switch,Level,Level1,Level2,Level3,Level4,Final,Chamber1,Chamber2,Chamber3]
+    scene: [Menu,Move,Push,Switch,Level,Level1,Level2,Level3,Level4,Final,Chamber1]
 };
 
 let game = new Phaser.Game(config);

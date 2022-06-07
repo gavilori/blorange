@@ -52,8 +52,8 @@ class Chamber3 extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.player1 = new Player(this, -1, game.config.height-64,'p1', 0, true).setOrigin(0).setSize(30,30);
-        this.player2 = new Player(this, -1, game.config.height-64,'p2', 0, false).setOrigin(0).setSize(25,25);
+        this.player1 = new Player(this, 352, 128,'p1', 0, true).setOrigin(0).setSize(30,30);
+        this.player2 = new Player(this, 352, 64,'p2', 0, false).setOrigin(0).setSize(25,25);
         //this.player1.body.immovable = true;
         
 
@@ -327,23 +327,23 @@ class Chamber3 extends Phaser.Scene {
 
         let skip2 = [
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-            [ false, true, true, true, true, true, true, true, true, false, false, true, "blue", true, true, true, true, "blue", "blue", false],
-            [ false, true, "blue", true, true, true, true, true, true, false, false, true, true, false, false, true, true, true, true, false],
-            [ false, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false],
+            [ false, true, true, true, true, "orange", true, true, true, false, false, true, "blue", true, true, true, true, "blue", "blue", false],
+            [ false, true, "blue", true, true, "orange", true, true, true, false, false, true, true, false, false, true, true, true, true, false],
+            [ false, true, true, true, true, "orange", true, true, true, false, false, true, true, true, true, true, true, true, true, false],
             [ false, true, true, true, false, false, true, true, true, false, true, true, false, true, true, true, true, false, true, false],
-            [ false, true, true, true, false, false, true, true, true, true, true, true, false, true, true, false, true, true, true, false],
-            [ false, true, true, true, true, true, true, true, true, true, false, true, false, true, true, true, true, true, true, false],
+            [ false, "orange", "orange", "orange", false, false, true, true, true, true, true, true, false, true, true, false, true, true, true, false],
+            [ false, true, true, true, true, true, true, true, true, true, false, true, false, true, "orange", true, true, true, true, false],
             [ false, true, true, true, true, true, true, true, true, false, false, true, false, false, false, true, true, true, true, false],
-            [ false, true, true, true, true, true, true, true, "switchB", false, false, true, true, true, true, true, true, "blue", "blue", false],
+            [ false, true, true, true, true, true, true, true, "switchB", false, false, "switch", true, true, true, true, true, "blue", "blue", false],
             [ false, false, false, false, true, true, false, false, false, false, false, false, false, true, true, false, false, false, false, false],
             [ false, false, false, false, false, true, true, false, false, false, false, false, false, false, true, true, false, false, false, false],
-            [ false, true, true, true, true, true, true, true, true, false, false, "switchB", true, true, "orange", true, true, true, "orange", false],
+            [ false, true, true, true, true, true, true, true, "switch", false, false, "switchB", true, true, "orange", true, true, true, "orange", false],
             [ false, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, "orange", false],
             [ false, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, false],
-            [ false, true, true, true, true, true, true, true, true, true, "orange", true, true, true, true, true, true, true, true, false],
+            [ false, true, true, true, true, true, true, true, true, true, "orange", "orange", true, true, true, true, true, true, true, false],
             [ false, true, true, true, "blue", true, true, true, true, true, false, true, true, true, true, true, false, true, true, false],
             [ false, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false],
-            [ false, true, true, true, true, true, true, true, true, false, false, "blue", true, true, true, true, true, true, true, false],
+            [ false, true, "orange", true, true, true, true, true, true, false, false, "blue", true, true, true, true, true, true, true, false],
             [ false, "switchB", true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, false],
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         ];
@@ -640,18 +640,18 @@ class Chamber3 extends Phaser.Scene {
            
          
 
-            if(!this.press[2][11]&&!this.press[12][4]&&!this.press[15][18]&&!this.press[18][11]&&!this.press[12][4]){
+            if(!this.press[18][1]&&!this.press[8][8]&&!this.press[8][11]&&!this.press[11][11]&&!this.press[11][8]){
                 bgm.setLoop(false);
             bgm.stop();
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
-                this.add.text(game.config.width/2, game.config.height/2, "LEVEL CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
+                this.add.text(game.config.width/2, game.config.height/2, "CHAMBER CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){
                     this.end.play();
                     }
                 this.time.delayedCall(2000, () => {
-                    level3 = "clear";
+                    sub3 = "clear";
                     if(level4!="clear"){
-                    level4 = "open";
+                    sub4 = "open";
                     }
                     this.scene.start("levelScene");
                     }, null, this);

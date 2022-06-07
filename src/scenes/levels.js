@@ -337,12 +337,14 @@ deleteMenu(){
 createMenu2(){
 
     this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0);
+    this.restartBG = this.add.sprite(game.config.width/2, game.config.height/2-200, 'menu_item').setOrigin(0.5);
     this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Menu", this.textConfig).setOrigin(0.5);
     this.cursor2 = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
 }
 
 deleteMenu2(){
     this.test.alpha = 0;
+    this.restartBG.alpha = 0;
     this.restart.alpha = 0;
     this.level.alpha = 0;
     this.cursor2.destroy();

@@ -733,23 +733,23 @@ class Chamber3 extends Phaser.Scene {
             this.select.play();
             switch (this.cursorPos) {
                 case 1:
-                    
-                    this.scene.start(this);
+                    this.tooltip = true;
+                    this.createTooltip();
                     break;
                 case 2:
-                    final_bgm.setLoop(false);
-            final_bgm.stop();
-                    this.scene.start('levelScene');
+                    this.scene.start(this);
                     break;
                 case 3:
                     final_bgm.setLoop(false);
-            final_bgm.stop();
-                    this.scene.start('menuScene');
+                    final_bgm.stop();
+                    this.scene.start('levelScene');
                     break;
+
                 case 4:
-                    this.tooltip = true;
-                    this.createTooltip();
-                    break;  
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
+                    this.scene.start('menuScene');
+                    break; 
             
                 default:
                     break;
@@ -907,37 +907,41 @@ createMenu(){
 
     this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
     this.test.setDepth(1);
-    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Restart", this.textConfig).setOrigin(0.5);
-    this.restart.setDepth(1);
-    this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Level Select", this.textConfig).setOrigin(0.5);
-    this.level.setDepth(1);
-    this.menuText = this.add.text(game.config.width/2, game.config.height/2, "Menu", this.textConfig).setOrigin(0.5);
-    this.tipText = this.add.text(game.config.width/2, game.config.height/2+100, "Controls", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.menuText.setDepth(1);
-    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
-    this.cursor.setDepth(1);
+    this.tipTextBG = this.add.sprite(game.config.width/2, game.config.height/2-200, 'menu_item').setOrigin(0.5).setDepth(1);
+    this.tipText = this.add.text(game.config.width/2, game.config.height/2-200, "Instructions", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.restartBG = this.add.sprite(game.config.width/2, game.config.height/2-100, 'menu_item').setOrigin(0.5).setDepth(1);
+    this.restart = this.add.text(game.config.width/2, game.config.height/2-100, "Restart", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.levelBG = this.add.sprite(game.config.width/2, game.config.height/2, 'menu_item').setOrigin(0.5).setDepth(1);
+    this.level = this.add.text(game.config.width/2, game.config.height/2, "Level Select", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.menuTextBG = this.add.sprite(game.config.width/2, game.config.height/2+100, 'menu_item').setOrigin(0.5).setDepth(1);
+    this.menuText = this.add.text(game.config.width/2, game.config.height/2+100, "Menu", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0).setDepth(1);
 }
 
 deleteMenu(){
     this.test.alpha = 0;
-    this.restart.alpha = 0;
-    this.level.alpha = 0;
-    this.menuText.alpha = 0;
-    this.cursor.alpha = 0;
     this.tipText.alpha = 0;
+    this.tipTextBG.alpha = 0;
+    this.restart.alpha = 0;
+    this.restartBG.alpha = 0
+    this.level.alpha = 0;
+    this.levelBG.alpha = 0;
+    this.menuText.alpha = 0;
+    this.menuTextBG.alpha = 0;
+    this.cursor.alpha = 0;
 }
 
 
 createTooltip(){
     this.help = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0).setDepth(1);
-    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "Slip & Slide", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.name = this.add.text(game.config.width/2, game.config.height/2-230, "\"Slip and Slide 2\"", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText1 = this.add.text(game.config.width/2, game.config.height/2-150, "Boxes are consistent between both scenes.", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "Characters can only push their own color boxes.", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText5 = this.add.text(game.config.width/2, game.config.height/2+10, "Orange Player", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2+40, "Slide in a direction with arrow keys", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText7 = this.add.text(game.config.width/2, game.config.height/2+70, "stops when hitting a solid object.", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "press TAB to toggle grid", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press ENTER to continue", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText5 = this.add.text(game.config.width/2, game.config.height/2+10, "ORANGE:", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2+40, "Slide in a direction with arrow keys,", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText7 = this.add.text(game.config.width/2, game.config.height/2+70, "and stops when hitting a solid object.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "Press [TAB] to Toggle Grid", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText3 = this.add.text(game.config.width/2, game.config.height-100, "press [ENTER] to Continue", this.textConfig).setOrigin(0.5).setDepth(1);
 
 }
 

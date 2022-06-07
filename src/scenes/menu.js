@@ -30,6 +30,7 @@ class Menu extends Phaser.Scene {
         this.load.image('spike', './assets/art/spike.png');
         this.load.image('skull', './assets/art/skull.png');
         this.load.image('pause', './assets/art/pause-bg.png');
+        this.load.image('menu_item', './assets/art/menu_item.png');
         
         this.load.atlas('blue_atlas', './assets/art/player-assets/blue_sheet.png', './assets/art/player-assets/blue_sheet.json');
         this.load.atlas('orange_atlas', './assets/art/player-assets/orange_sheet.png', './assets/art/player-assets/orange_sheet.json');
@@ -186,10 +187,15 @@ class Menu extends Phaser.Scene {
 createMenu(){
 
     this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0);
-    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Level Select", this.textConfig).setOrigin(0.5);
+    this.restartBG = this.add.sprite(game.config.width/2, game.config.height/2-200, 'menu_item').setOrigin(0.5);
+    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Play", this.textConfig).setOrigin(0.5);
+    this.levelBG = this.add.sprite(game.config.width/2, game.config.height/2-100, 'menu_item').setOrigin(0.5);
     this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Credits", this.textConfig).setOrigin(0.5);
-    this.dev = this.add.text(game.config.width/2, game.config.height/2, "DEV MODE UNLOCK LEVELS", this.textConfig).setOrigin(0.5);
+    this.devBG = this.add.sprite(game.config.width/2, game.config.height/2, 'menu_item').setOrigin(0.5);
+    this.dev = this.add.text(game.config.width/2, game.config.height/2, "Dev Mode (Unlock All Levels)", this.textConfig).setOrigin(0.5);
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
+
+    
 }
 
 }

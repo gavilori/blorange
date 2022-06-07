@@ -15,6 +15,7 @@ class Move extends Phaser.Scene {
     }
 
     create() {
+        this.end = this.sound.add('win');
         this.cursorPos = 1;
         this.cursorPosx = game.config.width/2-150;
         this.cursorPosy = game.config.height/2-200;
@@ -22,7 +23,10 @@ class Move extends Phaser.Scene {
         this.press1 = false;
         this.press2 = false;
         this.screen = 1;
-        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'grid').setOrigin(0);
+        
+        
+        this.grid_orange = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid4').setOrigin(0);
+        this.grid_orange.alpha = 1
 
          // define keys
          this.MOVE_SPEED = 100;
@@ -46,20 +50,75 @@ class Move extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.add.text(game.config.width/2, game.config.height/2, "Arrow keys to move", this.textConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2-50, "Shift to switch between blue and orange", this.textConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2-200, "PRESS SPACE NEXT SCENE", this.textConfig).setOrigin(0.5);
 
-        this.player1 = new Player(this, 64, game.config.height/2,'p1', 0, true).setOrigin(0);
-        this.player2 = new Player(this, 576, game.config.height/2,'p2', 0, false).setOrigin(0);
+
+        this.player1 = new Player(this, game.config.height/2-10, game.config.height/2+160,'p1', 0, true).setOrigin(0);
+        this.player2 = new Player(this, game.config.height/2+10, game.config.height/2+160,'p2', 0, false).setOrigin(0);
+
+        this.mirror = new Player(this, game.config.height/2+10, game.config.height/2-160,'mirror', 0, false).setOrigin(0);
 
 
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
 
-        this.player2.alpha=(0.5);
+        this.boxC = this.add.group();
+
+        this.physics.add.collider(this.players,this.boxC);
+        this.game_finish = this.physics.add.collider(this.players,this.mirror,()=>{
+            bgm.setLoop(false);
+            bgm.stop();
+                this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
+                this.add.text(game.config.width/2, game.config.height/2, "GAME CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
+                if(!this.end.isPlaying){
+                    this.end.play();
+                    }
+                this.time.delayedCall(4000, () => {
+                    
+                    
+                    this.scene.start("menuScene");
+                    }, null, this);
+        });
+
+        this.game_finish.overlapOnly = true;
+            
+
+            
+        
+
+        
         this.player1.alpha=(1);
+        for(let i = -1;i<0;i++){ //column
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                
+            }
+        }
+
+       
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite(640, j*32,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                
+            }
+
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite(j*32, -32,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                
+            }
+
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite( j*32,640,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                
+            }
+        
 
 
         
@@ -68,69 +127,14 @@ class Move extends Phaser.Scene {
     }
 
     update() {
+        this.grid_orange.tilePositionX+=SCROLL_SPEED;
+        
         console.log("THIS PLAYER IN CONTROL: "+this.screen);
-        if(Phaser.Input.Keyboard.JustDown(keyESC)){
-            
-            switch (this.menu) {
-                case false:
-                    this.createMenu();
-                    this.menu = true
-                    break;
-                case true:
-                    this.deleteMenu();
-                    this.menu = false;
-                    break;
-                default:
-                    break;
-            }   
-        }
+        
 
        
 
-        if(this.menu){
-            this.player2.body.setVelocityX(0);
-            this.player1.body.setVelocityY(0);
-            this.player1.body.setVelocityX(0);
-            this.player2.body.setVelocityY(0);
-            if(Phaser.Input.Keyboard.JustDown(keyUP)&&this.cursorPos>1){
-            this.cursorPos--;
-        }
-        if(Phaser.Input.Keyboard.JustDown(keyDOWN)&&this.cursorPos<2){
-            this.cursorPos++;
-        }
-        switch(this.cursorPos){
-            case 1:
-                this.cursorPosy = game.config.height/2-200;
-                this.cursor.y = this.cursorPosy;
-                break;
-            case 2:
-                this.cursorPosy = game.config.height/2-100;
-                this.cursor.y = this.cursorPosy;
-                break;
-            // case 3:
-            //     this.cursorPosy = game.config.height/2;
-            //     this.cursor.y = this.cursorPosy;
-            //     break;
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(keyENTER)){
-            switch (this.cursorPos) {
-                case 1:
-                    this.scene.start(this);
-                    break;
-                case 2:
-                    this.scene.start('menuScene');
-                    break;
-                case 3:
-                    this.scene.start('moveScene');
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-
-    }
+        
         
         if(!this.menu){
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
@@ -143,12 +147,12 @@ class Move extends Phaser.Scene {
         switch(this.screen){
             case 1:
                 this.screen = 2;
-                this.player1.alpha=(0.5);
+                
                 this.player2.alpha=1;
                 break;
             case 2:
                 this.screen = 1;
-                this.player2.alpha=(0.5);
+                
                 this.player1.alpha=(1);
                 break;
 
@@ -157,37 +161,29 @@ class Move extends Phaser.Scene {
     }
 
         console.log(keyDOWN.isDown);
-        if(keyDOWN.isDown&&this.screen == 1){
+        if(keyDOWN.isDown){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
-        }else if(keyUP.isDown&&this.screen == 1){
-            this.player1.body.setVelocityY(-this.MOVE_SPEED);
-        }else{
-            this.player1.body.setVelocityY(0);
-        }
-
-        if(keyLEFT.isDown&&this.screen == 1){
-            this.player1.body.setVelocityX(-this.MOVE_SPEED);
-        }else if(keyRIGHT.isDown&&this.screen == 1){
-            this.player1.body.setVelocityX(this.MOVE_SPEED);
-        }else{
-            this.player1.body.setVelocityX(0);
-        }
-
-        if(keyDOWN.isDown&&this.screen == 2){
             this.player2.body.setVelocityY(this.MOVE_SPEED);
-        }else if(keyUP.isDown&&this.screen == 2){
+        }else if(keyUP.isDown){
+            this.player1.body.setVelocityY(-this.MOVE_SPEED);
             this.player2.body.setVelocityY(-this.MOVE_SPEED);
         }else{
+            this.player1.body.setVelocityY(0);
             this.player2.body.setVelocityY(0);
         }
 
-        if(keyLEFT.isDown&&this.screen == 2){
+        if(keyLEFT.isDown){
+            this.player1.body.setVelocityX(-this.MOVE_SPEED);
             this.player2.body.setVelocityX(-this.MOVE_SPEED);
-        }else if(keyRIGHT.isDown&&this.screen == 2){
+        }else if(keyRIGHT.isDown){
+            this.player1.body.setVelocityX(this.MOVE_SPEED);
             this.player2.body.setVelocityX(this.MOVE_SPEED);
         }else{
+            this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityX(0);
         }
+
+        
    
 
 
@@ -195,18 +191,5 @@ class Move extends Phaser.Scene {
     }
 }
 }
-createMenu(){
 
-    this.test = this.add.rectangle(32, 32, 576, 576, 0x6666ff).setOrigin(0);
-    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Restart", this.textConfig).setOrigin(0.5);
-    this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Menu", this.textConfig).setOrigin(0.5);
-    this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0.5);
-}
-
-deleteMenu(){
-    this.test.alpha = 0;
-    this.restart.alpha = 0;
-    this.level.alpha = 0;
-    this.cursor.alpha = 0;
-}
 }

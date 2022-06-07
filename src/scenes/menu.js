@@ -7,6 +7,7 @@ class Menu extends Phaser.Scene {
         this.load.image('grid', './assets/art/bg.png');
         this.load.image('grid2', './assets/art/bg2.png');
         this.load.image('grid3', './assets/art/grid.png');
+        this.load.image('grid4', './assets/art/bg4.png');
         this.load.image('bg3', './assets/art/bg3.png');
         this.load.image('trans1', './assets/art/trans1.png');
         this.load.image('trans2', './assets/art/trans2.png');
@@ -141,7 +142,7 @@ class Menu extends Phaser.Scene {
                     this.scene.start('levelScene');
                     break;
                 case 2:
-                    this.scene.start('chamber3Scene');
+                    this.scene.start('moveScene');
                     break;
 
                 case 3:

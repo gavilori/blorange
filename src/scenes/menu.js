@@ -36,6 +36,7 @@ class Menu extends Phaser.Scene {
         this.load.image('skull', './assets/art/skull.png');
         this.load.image('pause', './assets/art/pause-bg.png');
         this.load.image('menu_item', './assets/art/menu_item.png');
+        this.load.image('logo', './assets/art/logo.png');
         
         this.load.atlas('blue_atlas', './assets/art/player-assets/blue_sheet.png', './assets/art/player-assets/blue_sheet.json');
         this.load.atlas('orange_atlas', './assets/art/player-assets/orange_sheet.png', './assets/art/player-assets/orange_sheet.json');
@@ -65,6 +66,7 @@ class Menu extends Phaser.Scene {
         this.cursorPosx = game.config.width-200;
         this.cursorPosy = game.config.height/2-300;
         
+
         this.menu = false;
        
         this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3').setOrigin(0);
@@ -130,15 +132,15 @@ class Menu extends Phaser.Scene {
         }
         switch(this.cursorPos){
             case 1:
-                this.cursorPosy = game.config.height/2-200;
+                this.cursorPosy = game.config.height/2-50;
                 this.cursor.y = this.cursorPosy;
                 break;
             case 2:
-                this.cursorPosy = game.config.height/2-100;
+                this.cursorPosy = game.config.height/2+50;
                 this.cursor.y = this.cursorPosy;
                 break;
             case 3:
-                this.cursorPosy = game.config.height/2;
+                this.cursorPosy = game.config.height/2+150;
                 this.cursor.y = this.cursorPosy;
                 break;
 
@@ -196,12 +198,14 @@ class Menu extends Phaser.Scene {
 createMenu(){
 
     this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0);
-    this.restartBG = this.add.sprite(game.config.width/2, game.config.height/2-200, 'menu_item').setOrigin(0.5);
-    this.restart = this.add.text(game.config.width/2, game.config.height/2-200, "Play", this.textConfig).setOrigin(0.5);
-    this.levelBG = this.add.sprite(game.config.width/2, game.config.height/2-100, 'menu_item').setOrigin(0.5);
-    this.level = this.add.text(game.config.width/2, game.config.height/2-100, "Credits", this.textConfig).setOrigin(0.5);
-    this.devBG = this.add.sprite(game.config.width/2, game.config.height/2, 'menu_item').setOrigin(0.5);
-    this.dev = this.add.text(game.config.width/2, game.config.height/2, "Dev Mode (Unlock All Levels)", this.textConfig).setOrigin(0.5);
+    this.restartBG = this.add.sprite(game.config.width/2, game.config.height/2-50, 'menu_item').setOrigin(0.5);
+    this.restart = this.add.text(game.config.width/2, game.config.height/2-50, "Play", this.textConfig).setOrigin(0.5);
+    this.levelBG = this.add.sprite(game.config.width/2, game.config.height/2+50, 'menu_item').setOrigin(0.5);
+    this.level = this.add.text(game.config.width/2, game.config.height/2+50, "Credits", this.textConfig).setOrigin(0.5);
+    this.devBG = this.add.sprite(game.config.width/2, game.config.height/2+150, 'menu_item').setOrigin(0.5);
+    this.dev = this.add.text(game.config.width/2, game.config.height/2+150, "Dev Mode (Unlock All Levels)", this.textConfig).setOrigin(0.5);
+    
+    this.logo = this.add.sprite(game.config.width/2, 130, 'logo').setOrigin(0.5);
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0);
 
     

@@ -87,6 +87,11 @@ class Level extends Phaser.Scene {
             this.add.sprite(256,352,'skull').setOrigin(0).setDisplaySize(128,128);
             }
 
+            if(Boss=="clear"){
+                this.bossTile = this.add.sprite(256,352,'clear').setOrigin(0).setDisplaySize(128,128);
+                this.add.sprite(256,352,'skull').setOrigin(0).setDisplaySize(128,128);
+                }
+
         // create the pointer 
         this.createMenu();
         this.deleteMenu();

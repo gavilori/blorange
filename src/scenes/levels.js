@@ -106,7 +106,7 @@ class Level extends Phaser.Scene {
     }
 
     update() {
-        console.log(this.cursorPos);
+        // console.log(this.cursorPos);
         
         this.grid.tilePositionX +=2;
 
@@ -291,7 +291,7 @@ class Level extends Phaser.Scene {
                         this.select.play();
                         this.scene.start('level4Scene');
                         }else{
-                            console.log("PLAYING SOUND");
+                            // console.log("PLAYING SOUND");
                             this.lock.play();
                         }
                     break;    

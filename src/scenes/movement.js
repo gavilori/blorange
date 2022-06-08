@@ -130,7 +130,7 @@ class Move extends Phaser.Scene {
     update() {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         
-        console.log("THIS PLAYER IN CONTROL: "+this.screen);
+        // console.log("THIS PLAYER IN CONTROL: "+this.screen);
         
 
        
@@ -142,7 +142,7 @@ class Move extends Phaser.Scene {
         if(!this.press1||!this.press2){
         if(Phaser.Input.Keyboard.JustDown(keyShift)){
             this.switch.play();
-            console.log("IN THE SWITCH");
+            // console.log("IN THE SWITCH");
         switch(this.screen){
             case 1:
                 this.screen = 2;
@@ -159,7 +159,7 @@ class Move extends Phaser.Scene {
 
     }
 
-        console.log(keyDOWN.isDown);
+        // console.log(keyDOWN.isDown);
         if(keyDOWN.isDown){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
             this.player2.body.setVelocityY(this.MOVE_SPEED);

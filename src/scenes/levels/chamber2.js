@@ -406,7 +406,7 @@ class Chamber2 extends Phaser.Scene {
                     }
                     this.physics.add.collider(this.boxB,switchy,(box,switch1)=>{
                         switch1.fillColor = 0x00FF00;
-                        console.log("i"+i+": j:"+j);
+                        // console.log("i"+i+": j:"+j);
                         if(this.press[i][j] ==true){
                         this.soundPress.play();
                         }
@@ -415,7 +415,7 @@ class Chamber2 extends Phaser.Scene {
                     });
                     this.collide = this.physics.add.collider(this.boxO,switchy,(box,switch1)=>{
                         switch1.fillColor = 0x00FF00;
-                        console.log(i+":"+j);
+                        // console.log(i+":"+j);
                         if(this.press[i][j] ==true){
                         this.soundPress.play();
                         }
@@ -439,7 +439,7 @@ class Chamber2 extends Phaser.Scene {
                     //this.switchesO.add(switchy);
                     this.collide = this.physics.add.collider(this.boxO,switchy,(box,switch1)=>{
                         switch1.fillColor = 0x00FF00;
-                        console.log(i+":"+j);
+                        // console.log(i+":"+j);
                         if(this.press[i][j] ==true){
                         this.soundPress.play();
                         }
@@ -648,8 +648,8 @@ class Chamber2 extends Phaser.Scene {
                 }
             }
 
-            console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
-            console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);
+            // console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
+            // console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);
             if(this.boxesO[0].x>this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
                 this.boxState = "right";
             }else if(this.boxesO[0].x<this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
@@ -674,7 +674,7 @@ class Chamber2 extends Phaser.Scene {
 
 
 
-            console.log(this.boxState);
+            // console.log(this.boxState);
             if(keySPACE.isDown&&this.screen == 1){
             switch (this.boxState) {
                 case "right":

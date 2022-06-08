@@ -515,7 +515,7 @@ class Chamber2 extends Phaser.Scene {
 
 
 
-       this.switch = this.sound.add('switch');
+        this.switch = this.sound.add('switch').setVolume(0.2);
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
        this.select = this.sound.add('select');

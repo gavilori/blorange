@@ -1291,7 +1291,7 @@ createTooltip(){
     this.helpText2 = this.add.text(game.config.width/2, game.config.height/2-100, "Finishing one chamber unlocks a new one.", this.textConfig).setOrigin(0.5).setDepth(1);
     if(Dev){
     this.helpText5 = this.add.text(game.config.width/2, game.config.height/2-50, "~ DEV MODE ~", this.textConfig).setOrigin(0.5).setDepth(1);
-    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2-20, "Beat the BOTTOM CHAMBER to reach the ending.", this.textConfig).setOrigin(0.5).setDepth(1);
+    this.helpText6 = this.add.text(game.config.width/2, game.config.height/2-20, "Select \"Take to end\" in the menu for the ending", this.textConfig).setOrigin(0.5).setDepth(1);
     
     }
 

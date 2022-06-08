@@ -1024,7 +1024,7 @@ class Final extends Phaser.Scene {
                 case 5:
                     final_bgm.setLoop(false);
                     final_bgm.stop();
-                    this.scene.start('moveScene');
+                    this.scene.start('epilogueScene');
                     break; 
             
                 default:

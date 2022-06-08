@@ -816,7 +816,7 @@ class Chamber4 extends Phaser.Scene {
                     sub4 = "clear";
                     }
                     
-                    this.scene.start("moveScene");
+                    this.scene.start("epilogueScene");
                     }, null, this);
 
             }

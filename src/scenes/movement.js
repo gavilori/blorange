@@ -1,6 +1,6 @@
-class Move extends Phaser.Scene {
+class Epilogue extends Phaser.Scene {
     constructor() {
-        super("moveScene");
+        super("epilogueScene");
     }
 
     preload() {

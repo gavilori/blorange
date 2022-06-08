@@ -799,7 +799,7 @@ class Chamber3 extends Phaser.Scene {
                     sub4 = "open";
                     }
                    
-                    this.scene.start("BossScene");
+                    this.scene.start("finalScene");
                     }, null, this);
 
             }
@@ -858,11 +858,14 @@ class Chamber3 extends Phaser.Scene {
             }
         
 
+        //movement handler
         if(keyDOWN.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
+            this.player1.anims.play('orange_down', true);
             this.moving = true;
         }else if(keyUP.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityY(-this.MOVE_SPEED);
+            this.player1.anims.play('orange_up', true);
             this.moving = true;
         }else{
             //this.player1.body.setVelocityY(0);
@@ -870,9 +873,11 @@ class Chamber3 extends Phaser.Scene {
 
         if(keyLEFT.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityX(-this.MOVE_SPEED);
+            this.player1.anims.play('orange_left', true);
             this.moving = true;
         }else if(keyRIGHT.isDown&&this.screen == 1&&!this.moving){
             this.player1.body.setVelocityX(this.MOVE_SPEED);
+            this.player1.anims.play('orange_right', true);
             this.moving = true;
         }else{
             //this.player1.body.setVelocityX(0);
@@ -880,23 +885,32 @@ class Chamber3 extends Phaser.Scene {
 
         if(keyDOWN.isDown&&this.screen == 2){
             this.player2.body.setVelocityY(this.MOVE_SPEED);
+            this.player2.anims.play('blue_down', true);
         }else if(keyUP.isDown&&this.screen == 2){
             this.player2.body.setVelocityY(-this.MOVE_SPEED);
+            this.player2.anims.play('blue_up', true);
         }else{
             this.player2.body.setVelocityY(0);
         }
 
         if(keyLEFT.isDown&&this.screen == 2){
             this.player2.body.setVelocityX(-this.MOVE_SPEED);
+            this.player2.anims.play('blue_left', true);
         }else if(keyRIGHT.isDown&&this.screen == 2){
             this.player2.body.setVelocityX(this.MOVE_SPEED);
+            this.player2.anims.play('blue_right', true);
         }else{
             this.player2.body.setVelocityX(0);
+        }
+
+        if (this.player2.body.velocity.x == 0 && this.player2.body.velocity.y == 0) {
+            this.player2.anims.play('blue_idle');
         }
 
 
         if(this.player1.body.velocity.x==0&&this.player1.body.velocity.y==0){
             this.moving = false;
+            this.player1.anims.play('orange_idle');
         }
         // console.log("X vel: "+this.player1.body.velocity.x+" Y vel: "+this.player1.body.velocity.y);
         // console.log("I AM MOVING: "+this.moving);

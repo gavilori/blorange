@@ -75,7 +75,7 @@ class Move extends Phaser.Scene {
                     this.end.play();
                     }
                 this.time.delayedCall(2500, () => {
-                    
+                    Boss = "clear";
                     final_bgm.setLoop(false);
                     final_bgm.stop();
                     this.scene.start("menuScene");

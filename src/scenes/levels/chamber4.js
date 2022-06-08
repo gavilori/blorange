@@ -804,8 +804,8 @@ class Chamber4 extends Phaser.Scene {
          
 
             if(!this.press[8][3]&&!this.press[2][1]&&!this.press[12][13]&&!this.press[14][16]&&!this.press[15][11]&&!this.press[17][14]&&!this.press[7][10]&&!this.press[3][11]&&!this.press[7][17]&&!this.press[1][18]){
-                bgm.setLoop(false);
-            bgm.stop();
+                final_bgm.setLoop(false);
+                final_bgm.stop();
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
                 this.add.text(game.config.width/2, game.config.height/2, "CHAMBER CLEAR", this.textConfig).setOrigin(0.5).setDepth(1);
                 if(!this.end.isPlaying){

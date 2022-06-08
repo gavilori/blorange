@@ -839,7 +839,6 @@ class Level1 extends Phaser.Scene {
             this.boxesO[i].body.setVelocityY(0);
         }
 
-
         this.player1.setSize(25, 25);
         this.player2.setSize(25, 25);
     }

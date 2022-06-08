@@ -194,7 +194,7 @@ class Level3 extends Phaser.Scene {
         //this.player1.body.immovable = true;
         
 
-
+//physics things for objects--------------------------------------------
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
@@ -433,10 +433,10 @@ class Level3 extends Phaser.Scene {
         });
 
         this.spikeCollide.overlapOnly = true;
-
+//---------------------------------------------------------------
    
         
-
+//level arrays-----------------------------------------------------------------
         let skip = [
             
             [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true],
@@ -516,10 +516,12 @@ class Level3 extends Phaser.Scene {
        this.boxesC = [];
        this.switchArrB = [];
        this.switchArrO = [];
+
+       //---------------------------------------------------
        
        
 
-
+//build level--------------------------------------------------------------------------------------------------------------------------------------------------------------
         for(let i = 0;i<=20;i++){ //column
             for(let j = 0;j<=20;j++){ // row
 
@@ -584,8 +586,13 @@ class Level3 extends Phaser.Scene {
 
             
         }
-        this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans3').setOrigin(0);
 
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans3').setOrigin(0);// create walls
+
+
+
+        //make world bounds-----------------------------------------------------------------------------------------------------------------------------------------------
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
                 let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
@@ -635,9 +642,9 @@ class Level3 extends Phaser.Scene {
                 this.physics.add.collider(this.boxesB[i],this.boxesB[j]);
             }
         }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
+//add sounds
         this.switch = this.sound.add('switch').setVolume(0.2);
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
@@ -655,6 +662,7 @@ class Level3 extends Phaser.Scene {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
+        //menu handling-----------------------------------------------------------
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
             switch (this.menu) {
@@ -776,9 +784,11 @@ class Level3 extends Phaser.Scene {
                 }
             }
 
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------
+
            
          
-
+//end the game-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if(!this.press[2][11]&&!this.press[12][4]&&!this.press[15][18]&&!this.press[18][11]&&!this.press[12][4]){
                 bgm.setLoop(false);
             bgm.stop();
@@ -796,9 +806,11 @@ class Level3 extends Phaser.Scene {
                     }, null, this);
 
             }
+
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------
            
          
-        
+        //shift handling--------------------------------------------------------------------------------------------------------------
             if(Phaser.Input.Keyboard.JustDown(keyShift)&&!this.moving){
                 this.switch.play();
                 switch(this.screen){
@@ -849,6 +861,8 @@ class Level3 extends Phaser.Scene {
                     break;
                 }
             }
+        //---------------------------------------------------------------------------------------------------
+
         
         //movement handler
         if(keyDOWN.isDown&&this.screen == 1&&!this.moving){

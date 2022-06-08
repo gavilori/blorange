@@ -679,7 +679,7 @@ class Level4 extends Phaser.Scene {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
         
- 
+ //menu things-------------------------------------------------------------------------------------------------------------------------
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
             switch (this.menu) {
@@ -800,9 +800,9 @@ class Level4 extends Phaser.Scene {
                         break;
                 }
             }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
            
-         
+         //end the level----------------------------------------------------------------------------------------
 
             if(!this.press[1][2]&&!this.press[7][11]&&!this.press[9][13]&&!this.press[13][7]&&!this.press[15][9]&&!this.press[2][9]){
                 bgm.setLoop(false);
@@ -821,9 +821,10 @@ class Level4 extends Phaser.Scene {
                     }, null, this);
 
             }
+            //-------------------------------------------------------------------------------------------------------------------------
            
          
-        
+        //switch handling-------------------------------------------------------------------------------------------------------------------------
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){
@@ -888,6 +889,7 @@ class Level4 extends Phaser.Scene {
                     break;
                 }
             }
+            //-----------------------------------------------------------------------------------------------------------------------------------------------
         
         //movement handler
         if(keyDOWN.isDown&&this.screen == 1){
@@ -903,24 +905,7 @@ class Level4 extends Phaser.Scene {
             this.player1.anims.play('orange_idle');
         }
 
-        // if(keyLEFT.isDown&&this.screen == 1){
-        //     this.player1.body.setVelocityX(-this.MOVE_SPEED);
-            
-        // }else if(keyRIGHT.isDown&&this.screen == 1){
-        //     this.player1.body.setVelocityX(this.MOVE_SPEED);
-            
-        // }else{
-        //     this.player1.body.setVelocityX(0);
-        // }
-
-        // if(keyDOWN.isDown&&this.screen == 2){
-        //     this.player2.body.setVelocityY(this.MOVE_SPEED);
-        // }else if(keyUP.isDown&&this.screen == 2){
-        //     this.player2.body.setVelocityY(-this.MOVE_SPEED);
-        // }else{
-        //     this.player2.body.setVelocityY(0);
-        // }
-
+     
         if(keyLEFT.isDown&&this.screen == 2){
             this.player2.body.setVelocityX(-this.MOVE_SPEED);
             this.player2.anims.play('blue_left', true);

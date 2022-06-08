@@ -6,6 +6,7 @@ class Level2 extends Phaser.Scene {
 
 
     create() {
+
         this.boxState;
         this.soundPress = this.sound.add('press');
         this.switch1 = false;
@@ -194,7 +195,7 @@ class Level2 extends Phaser.Scene {
         //this.player1.body.immovable = true;
         
 
-
+//physics groups and colliders
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
@@ -295,7 +296,7 @@ class Level2 extends Phaser.Scene {
 
    
         
-
+//level build arrrays
         let skip = [
             
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
@@ -345,7 +346,7 @@ class Level2 extends Phaser.Scene {
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
-
+//array to see if switch pressed
         this.press = [
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
@@ -376,7 +377,7 @@ class Level2 extends Phaser.Scene {
        this.switchArrB = []
        
 
-
+//build the level off the array
         for(let i = 0;i<=20;i++){ //column
             for(let j = 0;j<=20;j++){ // row
 
@@ -437,9 +438,10 @@ class Level2 extends Phaser.Scene {
             
         }
 
+        //add in the walls
         this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans2').setOrigin(0);
         
-
+//level bounds--------------
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
                 let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
@@ -490,8 +492,10 @@ class Level2 extends Phaser.Scene {
             }
         }
 
+//---------------------------------------------------------------------------
 
 
+//add sounds
         this.switch = this.sound.add('switch').setVolume(0.2);
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
@@ -510,6 +514,9 @@ class Level2 extends Phaser.Scene {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
+
+
+        //menu controls-------------------------------------------------------------------------
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
             switch (this.menu) {
@@ -614,9 +621,11 @@ class Level2 extends Phaser.Scene {
         }
 
     }
-        
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+
         if(!this.menu&&!this.tooltip){
-            if(Phaser.Input.Keyboard.JustDown(keyTAB)){
+            if(Phaser.Input.Keyboard.JustDown(keyTAB)){   //toggle grid on screen
                 switch (this.grid.alpha) {
                     case 1:
                         this.grid.alpha = 0;
@@ -633,6 +642,8 @@ class Level2 extends Phaser.Scene {
 
             // console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
             // console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);
+
+            //check box state
             if(this.boxesO[0].x>this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
                 this.boxState = "right";
             }else if(this.boxesO[0].x<this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
@@ -658,6 +669,8 @@ class Level2 extends Phaser.Scene {
 
 
             // console.log(this.boxState);
+
+            //states for the box
             if(keySPACE.isDown&&this.screen == 1){
             switch (this.boxState) {
                 case "right":
@@ -715,6 +728,8 @@ class Level2 extends Phaser.Scene {
         this.boxesO[0].body.setVelocityY(0);
         }
 
+
+        //end game conditions-----------------------------------------
             if(!this.press[6][14]&&!this.press[14][14]&&!this.press[11][17]){
                 bgm.setLoop(false);
             bgm.stop();
@@ -732,9 +747,12 @@ class Level2 extends Phaser.Scene {
                     }, null, this);
 
             }
+            //-----------------------------------------------------------------------
            
          
         
+
+            //switching handling--------------------------------------------------------------
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){
@@ -776,9 +794,9 @@ class Level2 extends Phaser.Scene {
                     break;
                 }
             }
-        
+        //-----------------------------------------------------------------
 
-        // movement handler
+        // movement handler --------------------------------------------------------------
         if(keyDOWN.isDown&&this.screen == 1){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
             this.player1.anims.play('orange_down', true);
@@ -828,9 +846,9 @@ class Level2 extends Phaser.Scene {
         }
 
         
-   
+   //------------------------------------------------------------------------------------------
 
-
+//force the size of the player 
         this.player1.setSize(25, 25);
         this.player2.setSize(25, 25);
     }

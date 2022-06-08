@@ -2,7 +2,7 @@ class Menu extends Phaser.Scene {
     constructor() {
         super("menuScene");
     }
-
+//load in all the images
     preload() {
         this.load.image('grid', './assets/art/bg.png');
         this.load.image('grid2', './assets/art/bg2.png');
@@ -56,6 +56,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        // load all the music only the first time through
         if(first){
         final_bgm = this.sound.add('final');
         menu_bgm = this.sound.add('menu_bgm');
@@ -63,6 +64,7 @@ class Menu extends Phaser.Scene {
         first = false;
         }
         
+        //initiate the cursor
         this.cursorPos = 1;
         this.cursorPosx = game.config.width-200;
         this.cursorPosy = game.config.height/2-300;
@@ -70,6 +72,8 @@ class Menu extends Phaser.Scene {
 
         this.menu = false;
        
+
+        //get the background
         this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3').setOrigin(0);
 
          // define keys
@@ -82,6 +86,8 @@ class Menu extends Phaser.Scene {
          keyShift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
          keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
          keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+         //text config
         this.textConfig = {
             fontFamily: "Verdana",
             fontSize: '20px',
@@ -93,10 +99,16 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+
+        //make the menu
         this.createMenu();
+
+        //add the sounds
         this.move = this.sound.add('scroll');
         this.select = this.sound.add('select');
         this.dev_select = this.sound.add('switch');
+
+        //check if the menu music 
         if(!menu_bgm.isPlaying){
             
             
@@ -108,13 +120,15 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
+
+        //scroll background
         this.grid.tilePositionX +=2;
         // console.log("CURSOR POS"+this.cursorPos);
         
 
 
 
-        
+        //control the menu
             if(Phaser.Input.Keyboard.JustDown(keyUP)){
                 this.move.play();
                 if(this.cursorPos==1){
@@ -148,6 +162,7 @@ class Menu extends Phaser.Scene {
         }
 
 
+        //what to do when you select on the menu
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             // this.select.play();
             switch (this.cursorPos) {
@@ -193,9 +208,11 @@ class Menu extends Phaser.Scene {
 
 
 
-        // everything that should happen when menu is not active
+     
        
     }
+
+    //make the menu
 createMenu(){
 
     this.test = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pause').setOrigin(0);

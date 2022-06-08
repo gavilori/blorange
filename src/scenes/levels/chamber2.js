@@ -194,7 +194,7 @@ class Chamber2 extends Phaser.Scene {
         //this.player1.body.immovable = true;
         
 
-
+//physics colliders and groups----------------------------------------------------------------------------------------------------------------------------------------------------------
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
@@ -296,7 +296,10 @@ class Chamber2 extends Phaser.Scene {
         });
 
    
-        
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//array to build level
 
         let skip = [
             
@@ -371,6 +374,7 @@ class Chamber2 extends Phaser.Scene {
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
 
+        //array for objs
        this.boxesB = [];
        this.boxesO = [];
        this.boxesC = [];
@@ -378,7 +382,7 @@ class Chamber2 extends Phaser.Scene {
        this.switchArrO = [];
        
 
-
+//build the level ----------------------------------------------------------------------------------------------------------------------------------------------------------
         for(let i = 0;i<20;i++){ //column
             for(let j = 0;j<20;j++){ // row
 
@@ -453,10 +457,12 @@ class Chamber2 extends Phaser.Scene {
 
             
         }
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        this.walls = this.add.tileSprite(2, -2, game.config.width, game.config.height, 'trans7').setOrigin(0);
+        this.walls = this.add.tileSprite(2, -2, game.config.width, game.config.height, 'trans7').setOrigin(0);//add the walls
         
 
+        //bounds maker ----------------------------------------------------------------------------------------------------------------------------------------------------------
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
                 let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
@@ -513,6 +519,8 @@ class Chamber2 extends Phaser.Scene {
             }
         }
 
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
         this.switch = this.sound.add('switch').setVolume(0.2);
@@ -533,6 +541,8 @@ class Chamber2 extends Phaser.Scene {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
+
+        //menu handling ------------------------------------------------------------------------------
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
             switch (this.menu) {
@@ -654,8 +664,12 @@ class Chamber2 extends Phaser.Scene {
                 }
             }
 
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------
+
             // console.log("BOX X: "+this.boxesO[0].x+" Y: "+this.boxesO[0].y);
             // console.log("PLAYER 1 X: "+this.player1.x+" Y: "+this.player1.y);
+
+            //box states-----------------------------------------------------------------------------------------------------------------
             if(this.boxesO[0].x>this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
                 this.boxState = "right";
             }else if(this.boxesO[0].x<this.player1.x&&(-1*(this.boxesO[0].y)+(this.player1.y)>=-16&&-1*(this.boxesO[0].y)+(this.player1.y)<=16)){
@@ -681,6 +695,7 @@ class Chamber2 extends Phaser.Scene {
 
 
             // console.log(this.boxState);
+            //box state switch statement
             if(keySPACE.isDown&&this.screen == 1){
             switch (this.boxState) {
                 case "right":
@@ -738,6 +753,8 @@ class Chamber2 extends Phaser.Scene {
         this.boxesO[0].body.setVelocityY(0);
         }
 
+
+        //end the level
             if(!this.press[11][4]&&!this.press[6][11]){
                 bgm.setLoop(false);
             bgm.stop();
@@ -758,6 +775,8 @@ class Chamber2 extends Phaser.Scene {
            
          
         
+
+            //switch handle//----------------------------------------------------------------------------------------------------------------------------------------------------------
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){

@@ -194,7 +194,7 @@ class Final extends Phaser.Scene {
         //this.player1.body.immovable = true;
         
 
-
+//object physics things-----------------------------------------------------------------------------------------------------------------------------------------------
         this.players = this.add.group();
         this.players.add(this.player1);
         this.players.add(this.player2);
@@ -444,11 +444,13 @@ class Final extends Phaser.Scene {
 
         this.spikeCollideO.overlapOnly = true;
 
-        let skip = [];
+        //-------------------------------------------------------------------------------------------------------------------------
+
+        let skip = []; //create the arrays
         let skip2 = [];
 
 
-
+//choose the array based on which level you are on
         if(sub1=="open"){
             skip = [
                
@@ -661,6 +663,8 @@ class Final extends Phaser.Scene {
         ];
     }
 
+
+    //if dev mode unlock everything
     if(Dev){
 
         skip = [
@@ -721,7 +725,7 @@ class Final extends Phaser.Scene {
 
 
          
-
+//array to see if switch has been stepped on
         this.press = [
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
@@ -746,6 +750,7 @@ class Final extends Phaser.Scene {
             [ true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
         ];
 
+        //arrays for objs
        this.boxesB = [];
        this.boxesO = [];
        this.boxesC = [];
@@ -756,7 +761,7 @@ class Final extends Phaser.Scene {
        
        
 
-
+//build the level -------------------------------------------------------------------------------------------------------------------------
         for(let i = 0;i<20;i++){ //column
             for(let j = 0;j<20;j++){ // row
                 // console.log(skip[i][j]);
@@ -812,9 +817,15 @@ class Final extends Phaser.Scene {
             }
 
             
-        }
-        this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans5').setOrigin(0);
 
+            
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------
+        this.walls = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'trans5').setOrigin(0); // create the walls
+
+
+
+        //create the boundaries
         for(let i = -1;i<0;i++){ //column
             for(let j = 0;j<=20;j++){ // row
                 let const_box = this.physics.add.sprite(i*32, j*32,'const').setOrigin(0).setSize(33,33);
@@ -876,6 +887,8 @@ class Final extends Phaser.Scene {
 
         this.player1.setDepth(1);
         this.player2.setDepth(1);
+
+        //add sounds
         this.switch = this.sound.add('switch').setVolume(0.2);
        this.end = this.sound.add('win');
        this.move = this.sound.add('scroll');
@@ -893,6 +906,8 @@ class Final extends Phaser.Scene {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
  
+
+        //menu handle-----------------------------------------------------------------------------------
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
             switch (this.menu) {
@@ -1051,8 +1066,10 @@ class Final extends Phaser.Scene {
             }
 
            
-         
+         //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+         //handle which level to go to based on switch
             if(!this.press[2][10]||!this.press[3][10]||!this.press[2][9]||!this.press[3][9]||!this.press[15][9]||!this.press[2][9]){
                
                 this.add.rectangle(game.config.width/2, game.config.height/2,640,32,0x0).setDepth(1);
@@ -1109,9 +1126,11 @@ class Final extends Phaser.Scene {
                     }, null, this);
 
             }
+
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------
            
          
-        
+        //switch handling----------------------------------------------------------------------------------
             if(Phaser.Input.Keyboard.JustDown(keyShift)){
                 this.switch.play();
                 switch(this.screen){
@@ -1176,6 +1195,7 @@ class Final extends Phaser.Scene {
                     break;
                 }
             }
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------
         
 
                 // movement handler

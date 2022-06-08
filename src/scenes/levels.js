@@ -81,7 +81,7 @@ class Level extends Phaser.Scene {
             }
         }
 
-
+//create the boss tile
         if(Boss=="open"){
             this.bossTile = this.add.sprite(256,352,'open').setOrigin(0).setDisplaySize(128,128);
             this.add.sprite(256,352,'skull').setOrigin(0).setDisplaySize(128,128);
@@ -96,12 +96,14 @@ class Level extends Phaser.Scene {
         this.createMenu();
         this.deleteMenu();
 
+
+        //add sound
         this.move = this.sound.add('scroll');
         this.lock = this.sound.add('lock');
         this.select = this.sound.add('select');
 
    
-
+//check if menu music playing
         if(!menu_bgm.isPlaying){
         
             menu_bgm.setLoop(true);
@@ -115,7 +117,7 @@ class Level extends Phaser.Scene {
         
         this.grid.tilePositionX +=2;
 
-
+//menu control---------------------------------
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
             switch (this.menu) {
@@ -182,6 +184,9 @@ class Level extends Phaser.Scene {
                 break;
         }
     }
+
+
+    //------------------------------------------------------------------------------------------------
 
         
         

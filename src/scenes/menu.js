@@ -153,7 +153,12 @@ class Menu extends Phaser.Scene {
             switch (this.cursorPos) {
                 case 1:
                     this.select.play();
-                    this.scene.start('levelScene');
+                    if (prologue == true) {
+                        prologue = false;
+                        this.scene.start('prologueScene');
+                    } else {
+                        this.scene.start('levelScene');
+                    }                  
                     break;
                 case 2:
                     this.select.play();

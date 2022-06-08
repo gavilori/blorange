@@ -1234,7 +1234,8 @@ class Final extends Phaser.Scene {
         // console.log(this.player1.x);
 
         
-        
+        this.player1.setSize(25, 25);
+        this.player2.setSize(25, 25);
    
 
 

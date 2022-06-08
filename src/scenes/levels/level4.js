@@ -678,6 +678,7 @@ class Level4 extends Phaser.Scene {
     update() {
         this.grid_orange.tilePositionX+=SCROLL_SPEED;
         this.grid_blue.tilePositionX+=SCROLL_SPEED;
+        
  
         if(Phaser.Input.Keyboard.JustDown(keyESC)&&!this.tooltip){
             this.select.play();
@@ -942,7 +943,8 @@ class Level4 extends Phaser.Scene {
    
 
 
-        
+        this.player1.setSize(25, 25);
+        this.player2.setSize(25, 25);
     }
 }
 

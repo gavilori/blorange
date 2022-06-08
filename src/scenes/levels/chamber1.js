@@ -948,6 +948,9 @@ if(Phaser.Input.Keyboard.JustDown(keyENTER)){
             this.boxesO[i].body.setVelocityX(0);
             this.boxesO[i].body.setVelocityY(0);
         }
+
+        this.player1.setSize(25, 25);
+        this.player2.setSize(25, 25);
     }
 }
 

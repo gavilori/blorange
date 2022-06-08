@@ -859,7 +859,8 @@ class Chamber2 extends Phaser.Scene {
         
    
 
-
+                this.player1.setSize(25, 25);
+                this.player2.setSize(25, 25);
         
     }
 }

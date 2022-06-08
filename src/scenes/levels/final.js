@@ -933,6 +933,8 @@ class Final extends Phaser.Scene {
             this.player1.body.setVelocityY(0);
             this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityY(0);
+
+            if(!Dev){
             if(Phaser.Input.Keyboard.JustDown(keyUP)){
                 this.move.play();
                 if(this.cursorPos==1){
@@ -949,6 +951,29 @@ class Final extends Phaser.Scene {
         this.cursorPos++;
             }
         }
+    }
+        
+
+        if(Dev){
+
+            if(Phaser.Input.Keyboard.JustDown(keyUP)){
+                this.move.play();
+                if(this.cursorPos==1){
+                    this.cursorPos = 5;
+                }else{
+            this.cursorPos--;
+                }
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyDOWN)){
+            this.move.play();
+            if(this.cursorPos==5){
+                this.cursorPos = 1;
+            }else{
+        this.cursorPos++;
+            }
+        }
+    }
+
         switch(this.cursorPos){
             case 1:
                 this.cursorPosy = game.config.height/2-200;
@@ -967,6 +992,11 @@ class Final extends Phaser.Scene {
                 this.cursorPosy = game.config.height/2+100;
                 this.cursor.y = this.cursorPosy;
                 break;    
+
+            case 5:
+                this.cursorPosy = game.config.height/2+200;
+                this.cursor.y = this.cursorPosy;
+                break;
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)){
@@ -989,6 +1019,12 @@ class Final extends Phaser.Scene {
                     final_bgm.setLoop(false);
                     final_bgm.stop();
                     this.scene.start('menuScene');
+                    break; 
+
+                case 5:
+                    final_bgm.setLoop(false);
+                    final_bgm.stop();
+                    this.scene.start('moveScene');
                     break; 
             
                 default:
@@ -1218,6 +1254,13 @@ createMenu(){
     this.level = this.add.text(game.config.width/2, game.config.height/2, "Level Select", this.textConfig).setOrigin(0.5).setDepth(1);
     this.menuTextBG = this.add.sprite(game.config.width/2, game.config.height/2+100, 'menu_item').setOrigin(0.5).setDepth(1);
     this.menuText = this.add.text(game.config.width/2, game.config.height/2+100, "Menu", this.textConfig).setOrigin(0.5).setDepth(1);
+    
+    if(Dev){
+        this.devBG = this.add.sprite(game.config.width/2, game.config.height/2+200, 'menu_item').setOrigin(0.5).setDepth(1);
+        this.DevEnd =  this.add.text(game.config.width/2, game.config.height/2+200, "Take to End", this.textConfig).setOrigin(0.5).setDepth(1);
+        
+
+    }
     this.cursor = this.add.sprite(this.cursorPosx, this.cursorPosy,'cursor').setOrigin(0).setDepth(1);
 }
 
@@ -1232,6 +1275,11 @@ deleteMenu(){
     this.menuText.alpha = 0;
     this.menuTextBG.alpha = 0;
     this.cursor.alpha = 0;
+    if(Dev){
+        this.DevEnd.setAlpha(0);
+        this.devBG.setAlpha(0);
+
+    }
 }
 
 
@@ -1243,6 +1291,7 @@ createTooltip(){
     if(Dev){
     this.helpText5 = this.add.text(game.config.width/2, game.config.height/2-50, "~ DEV MODE ~", this.textConfig).setOrigin(0.5).setDepth(1);
     this.helpText6 = this.add.text(game.config.width/2, game.config.height/2-20, "Beat the BOTTOM CHAMBER to reach the ending.", this.textConfig).setOrigin(0.5).setDepth(1);
+    
     }
 
     this.helpText4 = this.add.text(game.config.width/2, game.config.height-150, "Press [TAB] to Toggle Grid", this.textConfig).setOrigin(0.5).setDepth(1);

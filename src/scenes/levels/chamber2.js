@@ -480,7 +480,13 @@ class Chamber2 extends Phaser.Scene {
                 this.boxC.add(const_box);
                 this.boxesC.push(const_box);
             }
-        
+
+            for(let j = 0;j<=20;j++){ // row
+                let const_box = this.physics.add.sprite( j*32,640,'const').setOrigin(0).setSize(33,33);
+                const_box.body.immovable = true;
+                this.boxC.add(const_box);
+                this.boxesC.push(const_box);
+            }
         
 
         for(let i  =0; i<this.boxesO.length;i++){

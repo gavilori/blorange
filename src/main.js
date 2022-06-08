@@ -23,6 +23,7 @@ let level4 = "lock";
 let Boss = "lock";
 
 let Dev = false;
+let prologue = true;
 
 let sub1 = "open";
 let sub2 = "lock";

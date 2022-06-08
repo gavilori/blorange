@@ -15,6 +15,7 @@ class Move extends Phaser.Scene {
     }
 
     create() {
+        this.state = "up";
         this.end = this.sound.add('win');
         this.cursorPos = 1;
         this.cursorPosx = game.config.width/2-150;
@@ -55,7 +56,7 @@ class Move extends Phaser.Scene {
         this.player1 = new Player(this, game.config.height/2-10, game.config.height/2+160,'p1', 0, true).setOrigin(0);
         this.player2 = new Player(this, game.config.height/2+10, game.config.height/2+160,'p2', 0, false).setOrigin(0);
 
-        this.mirror = new Player(this, game.config.height/2+10, game.config.height/2-160,'mirror', 0, false).setOrigin(0);
+        this.mirror = new Player(this, game.config.height/2, game.config.height/2-160,'mirror', 0, false).setOrigin(0);
 
 
         this.players = this.add.group();
@@ -123,8 +124,9 @@ class Move extends Phaser.Scene {
 
 
         
-       this.switch = this.sound.add('switch');
+            this.switch = this.sound.add('switch').setVolume(0.2);
        this.end = this.sound.add('win');
+      // this.grid = this.add.tileSprite(false, false, game.config.width, game.config.height, 'grid3').setOrigin(0).setAlpha(1);
     }
 
     update() {
@@ -134,10 +136,30 @@ class Move extends Phaser.Scene {
         
 
        
-
-        
+        console.log(this.mirror.x);
+        if(this.mirror.y<game.config.height/2-180){
+            this.state = "down";
+        }else if(this.mirror.y>(game.config.height/2-160)+20){
+            this.state = "up"
+        }
         
         if(!this.menu){
+            switch (this.state) {
+                case "up":
+                    this.mirror.body.setVelocityY(-80)
+                    break;
+                
+
+                case "down":
+                    this.mirror.body.setVelocityY(40)
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+
+
             
         if(!this.press1||!this.press2){
         if(Phaser.Input.Keyboard.JustDown(keyShift)){
@@ -163,9 +185,13 @@ class Move extends Phaser.Scene {
         if(keyDOWN.isDown){
             this.player1.body.setVelocityY(this.MOVE_SPEED);
             this.player2.body.setVelocityY(this.MOVE_SPEED);
+            this.player1.anims.play('orange_down', true);
+            this.player2.anims.play('blue_down', true);
         }else if(keyUP.isDown){
             this.player1.body.setVelocityY(-this.MOVE_SPEED);
             this.player2.body.setVelocityY(-this.MOVE_SPEED);
+            this.player1.anims.play('orange_up', true);
+            this.player2.anims.play('blue_up', true);
         }else{
             this.player1.body.setVelocityY(0);
             this.player2.body.setVelocityY(0);
@@ -174,16 +200,23 @@ class Move extends Phaser.Scene {
         if(keyLEFT.isDown){
             this.player1.body.setVelocityX(-this.MOVE_SPEED);
             this.player2.body.setVelocityX(-this.MOVE_SPEED);
+            this.player1.anims.play('orange_left', true);
+            this.player2.anims.play('blue_left', true);
         }else if(keyRIGHT.isDown){
             this.player1.body.setVelocityX(this.MOVE_SPEED);
             this.player2.body.setVelocityX(this.MOVE_SPEED);
+            this.player1.anims.play('orange_right', true);
+            this.player2.anims.play('blue_right', true);
         }else{
             this.player1.body.setVelocityX(0);
             this.player2.body.setVelocityX(0);
         }
 
         
-   
+        if (this.player2.body.velocity.x == 0 && this.player2.body.velocity.y == 0 && this.player1.body.velocity.x == 0 && this.player1.body.velocity.y == 0) {
+            this.player2.anims.play('blue_idle');
+            this.player1.anims.play('orange_idle');
+        }
 
 
         

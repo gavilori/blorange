@@ -37,6 +37,7 @@ class Menu extends Phaser.Scene {
         this.load.image('pause', './assets/art/pause-bg.png');
         this.load.image('menu_item', './assets/art/menu_item.png');
         this.load.image('logo', './assets/art/logo.png');
+        this.load.image('mirror', './assets/art/mirror.png');
         
         this.load.atlas('blue_atlas', './assets/art/player-assets/blue_sheet.png', './assets/art/player-assets/blue_sheet.json');
         this.load.atlas('orange_atlas', './assets/art/player-assets/orange_sheet.png', './assets/art/player-assets/orange_sheet.json');
